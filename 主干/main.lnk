@@ -1,0 +1,22 @@
+-myuxi
+-Y
+-a 0x0100
+-A 0x20
+-v 0x0000
+-w 0x2000
+-b HOME = 0x0000
+-b ISEG = 0x0000
+-b BSEG = 0x0000
+-k /usr/bin/../share/sdcc/lib/small
+-k /mnt/sdb2/sdcc/pkg/usr/share/sdcc/lib/small
+-l mcs51
+-l libsdcc
+-l libint
+-l liblong
+-l libfloat
+main.rel
+common.rel
+keypad.rel
+lcd.rel
+
+-e
