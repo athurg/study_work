@@ -303,7 +303,7 @@ Symbol Table
     _lcd_init                                                      **** GX
     _lcd_position                                                  **** GX
     _lcd_position_PARM_2                                           **** GX
-    _lcd_print                                                     **** GX
+    _lcd_prints                                                    **** GX
   4 _lcd_str                                                       0001 GR
  17 _main                                                          0311 GR
  17 _menu_refresh                                                  016B GR

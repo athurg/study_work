@@ -59,17 +59,17 @@ CABS                               0000   0000 =      0. bytes (ABS,CON,CODE)
   0C:0057    s_OSEG
   0C:0064    s_GSINIT
   0C:0064    s_GSINIT5
-  0C:0071    l_DSEG
+  0C:0075    l_DSEG
   0C:0079    s_RSEG
   0C:0079    s_SSEG
   0C:007E    l_GSINIT
-  0C:00BB    l_CONST
+  0C:00C3    l_CONST
   0C:00E2    s_GSFINAL
   0C:00E5    s_CSEG
   0C:0100    l_IRAM
-  0C:07DF    l_CSEG
-  0C:08C4    s_CONST
-  0C:097F    s_XINIT
+  0C:0826    l_CSEG
+  0C:090B    s_CONST
+  0C:09CE    s_XINIT
 
 
 
@@ -194,19 +194,19 @@ Hexadecimal
 
 Area                               Addr   Size   Decimal Bytes (Attributes)
 --------------------------------   ----   ----   ------- ----- ------------
-DSEG                               0000   0071 =    113. bytes (REL,CON)
+DSEG                               0000   0075 =    117. bytes (REL,CON)
 
       Value  Global
    --------  --------------------------------
      0008    _lcd_write_PARM_2
      0009    _lcd_shift_PARM_2
      000A    _lcd_position_PARM_2
-     000B    _lcd_printstr_PARM_2
-     000C    _lcd_printstr_PARM_3
-     000D    _lcd_printchar_PARM_2
-     000E    _lcd_printchar_PARM_3
-     000F    _lcd_printnum_PARM_2
-     0010    _lcd_printnum_PARM_3
+     000B    _lcd_printsxy_PARM_2
+     000C    _lcd_printsxy_PARM_3
+     000D    _lcd_printcxy_PARM_2
+     000E    _lcd_printcxy_PARM_3
+     000F    _lcd_printnxy_PARM_2
+     0010    _lcd_printnxy_PARM_3
      0021    _state
      0022    _lcd_str
      0042    _keycache
@@ -294,7 +294,7 @@ Hexadecimal
 
 Area                               Addr   Size   Decimal Bytes (Attributes)
 --------------------------------   ----   ----   ------- ----- ------------
-CSEG                               00E5   07DF =   2015. bytes (REL,CON,CODE)
+CSEG                               00E5   0826 =   2086. bytes (REL,CON,CODE)
 
       Value  Global
    --------  --------------------------------
@@ -314,19 +314,20 @@ CSEG                               00E5   07DF =   2015. bytes (REL,CON,CODE)
   0C:051E    _lcd_shift
   0C:0559    _lcd_position
   0C:056E    _lcd_cls
-  0C:0577    _lcd_print
-  0C:05AF    _lcd_printstr
-  0C:05FC    _lcd_printchar
-  0C:0613    _lcd_printnum
-  0C:0686    _lcd_init
-  0C:06AD    __modulong
-  0C:0730    __divulong
-  0C:0795    __mullong
-  0C:0795    __mullong_dummy
-  0C:0803    __modslong
-  0C:0852    __divslong
-  0C:08A4    __gptrget
-  0C:08C0    __sdcc_external_startup
+  0C:0577    _lcd_prints
+  0C:05AF    _lcd_printsxy
+  0C:05FC    _lcd_printc
+  0C:0605    _lcd_printcxy
+  0C:061C    _lcd_printnxy
+  0C:069F    _lcd_init
+  0C:06F4    __modulong
+  0C:0777    __divulong
+  0C:07DC    __mullong
+  0C:07DC    __mullong_dummy
+  0C:084A    __modslong
+  0C:0899    __divslong
+  0C:08EB    __gptrget
+  0C:0907    __sdcc_external_startup
 
 
 ASxxxx Linker V01.75 + NoICE + SDCC Feb 1999,  page 1.

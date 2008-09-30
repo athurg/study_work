@@ -97,9 +97,9 @@ void refresh(void)
 *
 ****************/
     lcd_position(0,0);
-    lcd_print(lcd_str[0]);
+    lcd_prints(lcd_str[0]);
     lcd_position(0,1);
-    lcd_print(lcd_str[1]);
+    lcd_prints(lcd_str[1]);
 }
 
 

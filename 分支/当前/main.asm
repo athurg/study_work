@@ -1,7 +1,7 @@
 ;--------------------------------------------------------
 ; File Created by SDCC : free open source ANSI-C Compiler
 ; Version 2.8.0 #5117 (Jul 21 2008) (UNIX)
-; This file was generated Wed Sep 17 21:02:24 2008
+; This file was generated Tue Sep 30 08:11:53 2008
 ;--------------------------------------------------------
 	.module main
 	.optsdcc -mmcs51 --model-small
@@ -638,18 +638,18 @@ _refresh:
 	mov	_lcd_position_PARM_2,#0x00
 	mov	dpl,#0x00
 	lcall	_lcd_position
-;	main.c:100: lcd_print(lcd_str[0]);
+;	main.c:100: lcd_prints(lcd_str[0]);
 	mov	dptr,#_lcd_str
 	mov	b,#0x40
-	lcall	_lcd_print
+	lcall	_lcd_prints
 ;	main.c:101: lcd_position(0,1);
 	mov	_lcd_position_PARM_2,#0x01
 	mov	dpl,#0x00
 	lcall	_lcd_position
-;	main.c:102: lcd_print(lcd_str[1]);
+;	main.c:102: lcd_prints(lcd_str[1]);
 	mov	dptr,#(_lcd_str + 0x0010)
 	mov	b,#0x40
-	ljmp	_lcd_print
+	ljmp	_lcd_prints
 ;------------------------------------------------------------
 ;Allocation info for local variables in function 'menu_refresh'
 ;------------------------------------------------------------

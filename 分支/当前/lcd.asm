@@ -1,7 +1,7 @@
 ;--------------------------------------------------------
 ; File Created by SDCC : free open source ANSI-C Compiler
 ; Version 2.8.0 #5117 (Jul 21 2008) (UNIX)
-; This file was generated Fri Sep 19 16:01:40 2008
+; This file was generated Tue Sep 30 08:13:56 2008
 ;--------------------------------------------------------
 	.module lcd
 	.optsdcc -mmcs51 --model-small
@@ -105,12 +105,12 @@
 	.globl _P2
 	.globl _P1
 	.globl _P0
-	.globl _lcd_printnum_PARM_3
-	.globl _lcd_printnum_PARM_2
-	.globl _lcd_printchar_PARM_3
-	.globl _lcd_printchar_PARM_2
-	.globl _lcd_printstr_PARM_3
-	.globl _lcd_printstr_PARM_2
+	.globl _lcd_printnxy_PARM_3
+	.globl _lcd_printnxy_PARM_2
+	.globl _lcd_printcxy_PARM_3
+	.globl _lcd_printcxy_PARM_2
+	.globl _lcd_printsxy_PARM_3
+	.globl _lcd_printsxy_PARM_2
 	.globl _lcd_position_PARM_2
 	.globl _lcd_shift_PARM_2
 	.globl _lcd_write_PARM_2
@@ -119,10 +119,11 @@
 	.globl _lcd_shift
 	.globl _lcd_position
 	.globl _lcd_cls
-	.globl _lcd_print
-	.globl _lcd_printstr
-	.globl _lcd_printchar
-	.globl _lcd_printnum
+	.globl _lcd_prints
+	.globl _lcd_printsxy
+	.globl _lcd_printc
+	.globl _lcd_printcxy
+	.globl _lcd_printnxy
 	.globl _lcd_init
 ;--------------------------------------------------------
 ; special function registers
@@ -243,18 +244,20 @@ _lcd_shift_PARM_2:
 	.ds 1
 _lcd_position_PARM_2:
 	.ds 1
-_lcd_printstr_PARM_2:
+_lcd_printsxy_PARM_2:
 	.ds 1
-_lcd_printstr_PARM_3:
+_lcd_printsxy_PARM_3:
 	.ds 1
-_lcd_printchar_PARM_2:
+_lcd_printcxy_PARM_2:
 	.ds 1
-_lcd_printchar_PARM_3:
+_lcd_printcxy_PARM_3:
 	.ds 1
-_lcd_printnum_PARM_2:
+_lcd_printnxy_PARM_2:
 	.ds 1
-_lcd_printnum_PARM_3:
+_lcd_printnxy_PARM_3:
 	.ds 1
+_lcd_printnxy_number_1_1:
+	.ds 4
 ;--------------------------------------------------------
 ; overlayable items in internal ram 
 ;--------------------------------------------------------
@@ -474,16 +477,16 @@ _lcd_cls:
 	mov	dpl,#0x00
 	ljmp	_lcd_write
 ;------------------------------------------------------------
-;Allocation info for local variables in function 'lcd_print'
+;Allocation info for local variables in function 'lcd_prints'
 ;------------------------------------------------------------
 ;string                    Allocated to registers r2 r3 r4 
 ;i                         Allocated to registers r5 
 ;------------------------------------------------------------
-;	lcd.c:143: void lcd_print(char *string)
+;	lcd.c:143: void lcd_prints(char *string)
 ;	-----------------------------------------
-;	 function lcd_print
+;	 function lcd_prints
 ;	-----------------------------------------
-_lcd_print:
+_lcd_prints:
 	mov	r2,dpl
 	mov	r3,dph
 	mov	r4,b
@@ -521,24 +524,24 @@ _lcd_print:
 00104$:
 	ret
 ;------------------------------------------------------------
-;Allocation info for local variables in function 'lcd_printstr'
+;Allocation info for local variables in function 'lcd_printsxy'
 ;------------------------------------------------------------
-;x                         Allocated with name '_lcd_printstr_PARM_2'
-;y                         Allocated with name '_lcd_printstr_PARM_3'
+;x                         Allocated with name '_lcd_printsxy_PARM_2'
+;y                         Allocated with name '_lcd_printsxy_PARM_3'
 ;string                    Allocated to registers r2 r3 r4 
 ;i                         Allocated to registers r5 
 ;------------------------------------------------------------
-;	lcd.c:158: void lcd_printstr(char *string, char x, char y)
+;	lcd.c:158: void lcd_printsxy(char *string, char x, char y)
 ;	-----------------------------------------
-;	 function lcd_printstr
+;	 function lcd_printsxy
 ;	-----------------------------------------
-_lcd_printstr:
+_lcd_printsxy:
 	mov	r2,dpl
 	mov	r3,dph
 	mov	r4,b
 ;	lcd.c:161: lcd_position(x,y);	//先定位
-	mov	_lcd_position_PARM_2,_lcd_printstr_PARM_3
-	mov	dpl,_lcd_printstr_PARM_2
+	mov	_lcd_position_PARM_2,_lcd_printsxy_PARM_3
+	mov	dpl,_lcd_printsxy_PARM_2
 	push	ar2
 	push	ar3
 	push	ar4
@@ -580,133 +583,173 @@ _lcd_printstr:
 00104$:
 	ret
 ;------------------------------------------------------------
-;Allocation info for local variables in function 'lcd_printchar'
+;Allocation info for local variables in function 'lcd_printc'
 ;------------------------------------------------------------
-;x                         Allocated with name '_lcd_printchar_PARM_2'
-;y                         Allocated with name '_lcd_printchar_PARM_3'
+;charactor                 Allocated to registers 
+;------------------------------------------------------------
+;	lcd.c:173: void lcd_printc(char charactor)
+;	-----------------------------------------
+;	 function lcd_printc
+;	-----------------------------------------
+_lcd_printc:
+	mov	_lcd_write_PARM_2,dpl
+;	lcd.c:175: return lcd_write(1,charactor);
+	mov	dpl,#0x01
+	ljmp	_lcd_write
+;------------------------------------------------------------
+;Allocation info for local variables in function 'lcd_printcxy'
+;------------------------------------------------------------
+;x                         Allocated with name '_lcd_printcxy_PARM_2'
+;y                         Allocated with name '_lcd_printcxy_PARM_3'
 ;charactor                 Allocated to registers r2 
 ;------------------------------------------------------------
-;	lcd.c:174: void lcd_printchar(char charactor, char x, char y)
+;	lcd.c:183: void lcd_printcxy(char charactor, char x, char y)
 ;	-----------------------------------------
-;	 function lcd_printchar
+;	 function lcd_printcxy
 ;	-----------------------------------------
-_lcd_printchar:
+_lcd_printcxy:
 	mov	r2,dpl
-;	lcd.c:176: lcd_position(x,y);
-	mov	_lcd_position_PARM_2,_lcd_printchar_PARM_3
-	mov	dpl,_lcd_printchar_PARM_2
+;	lcd.c:185: lcd_position(x,y);
+	mov	_lcd_position_PARM_2,_lcd_printcxy_PARM_3
+	mov	dpl,_lcd_printcxy_PARM_2
 	push	ar2
 	lcall	_lcd_position
 	pop	ar2
-;	lcd.c:177: lcd_write(1,charactor);
+;	lcd.c:186: lcd_write(1,charactor);
 	mov	_lcd_write_PARM_2,r2
 	mov	dpl,#0x01
 	ljmp	_lcd_write
 ;------------------------------------------------------------
-;Allocation info for local variables in function 'lcd_printnum'
+;Allocation info for local variables in function 'lcd_printnxy'
 ;------------------------------------------------------------
-;x                         Allocated with name '_lcd_printnum_PARM_2'
-;y                         Allocated with name '_lcd_printnum_PARM_3'
-;number                    Allocated to registers r2 r3 r4 r5 
+;x                         Allocated with name '_lcd_printnxy_PARM_2'
+;y                         Allocated with name '_lcd_printnxy_PARM_3'
+;number                    Allocated with name '_lcd_printnxy_number_1_1'
+;x_tmp                     Allocated to registers r6 
 ;------------------------------------------------------------
-;	lcd.c:185: void lcd_printnum(long int number, char x, char y)
+;	lcd.c:194: void lcd_printnxy(long int number, char x, char y)
 ;	-----------------------------------------
-;	 function lcd_printnum
+;	 function lcd_printnxy
 ;	-----------------------------------------
-_lcd_printnum:
-	mov	r2,dpl
-	mov	r3,dph
-	mov	r4,b
-	mov	r5,a
-;	lcd.c:187: while(1){
+_lcd_printnxy:
+	mov	_lcd_printnxy_number_1_1,dpl
+	mov	(_lcd_printnxy_number_1_1 + 1),dph
+	mov	(_lcd_printnxy_number_1_1 + 2),b
+	mov	(_lcd_printnxy_number_1_1 + 3),a
+;	lcd.c:196: char x_tmp=x;
+	mov	r6,_lcd_printnxy_PARM_2
+;	lcd.c:197: while(1){
 00104$:
-;	lcd.c:188: lcd_position(x,y);	//先输出，为0也输出0
-	mov	_lcd_position_PARM_2,_lcd_printnum_PARM_3
-	mov	dpl,_lcd_printnum_PARM_2
-	push	ar2
-	push	ar3
-	push	ar4
-	push	ar5
+;	lcd.c:198: lcd_position(x_tmp,y);	//先输出，为0也输出0
+	mov	_lcd_position_PARM_2,_lcd_printnxy_PARM_3
+	mov	dpl,r6
+	push	ar6
 	lcall	_lcd_position
-	pop	ar5
-	pop	ar4
-	pop	ar3
-	pop	ar2
-;	lcd.c:189: lcd_write(1,number%10+32);
+;	lcd.c:199: lcd_write(1,number%10+48);
 	mov	__modslong_PARM_2,#0x0A
 	clr	a
 	mov	(__modslong_PARM_2 + 1),a
 	mov	(__modslong_PARM_2 + 2),a
 	mov	(__modslong_PARM_2 + 3),a
-	mov	dpl,r2
-	mov	dph,r3
-	mov	b,r4
-	mov	a,r5
-	push	ar2
-	push	ar3
-	push	ar4
-	push	ar5
+	mov	dpl,_lcd_printnxy_number_1_1
+	mov	dph,(_lcd_printnxy_number_1_1 + 1)
+	mov	b,(_lcd_printnxy_number_1_1 + 2)
+	mov	a,(_lcd_printnxy_number_1_1 + 3)
 	lcall	__modslong
-	mov	r6,dpl
-	mov	a,#0x20
-	add	a,r6
+	mov	r7,dpl
+	mov	a,#0x30
+	add	a,r7
 	mov	_lcd_write_PARM_2,a
 	mov	dpl,#0x01
 	lcall	_lcd_write
-	pop	ar5
-	pop	ar4
-	pop	ar3
-	pop	ar2
-;	lcd.c:191: number/=10;
+	pop	ar6
+;	lcd.c:200: x_tmp--;	//退一位
+	dec	r6
+;	lcd.c:201: number/=10;
 	mov	__divslong_PARM_2,#0x0A
 	clr	a
 	mov	(__divslong_PARM_2 + 1),a
 	mov	(__divslong_PARM_2 + 2),a
 	mov	(__divslong_PARM_2 + 3),a
-	mov	dpl,r2
-	mov	dph,r3
-	mov	b,r4
-	mov	a,r5
+	mov	dpl,_lcd_printnxy_number_1_1
+	mov	dph,(_lcd_printnxy_number_1_1 + 1)
+	mov	b,(_lcd_printnxy_number_1_1 + 2)
+	mov	a,(_lcd_printnxy_number_1_1 + 3)
+	push	ar6
 	lcall	__divslong
-	mov	r2,dpl
-	mov	r3,dph
-	mov	r4,b
-	mov	r5,a
-;	lcd.c:192: if(!number)	break;	//为0则停
-	mov	a,r2
-	orl	a,r3
-	orl	a,r4
-	orl	a,r5
-	jnz	00104$
-	ret
+	mov	_lcd_printnxy_number_1_1,dpl
+	mov	(_lcd_printnxy_number_1_1 + 1),dph
+	mov	(_lcd_printnxy_number_1_1 + 2),b
+	mov	(_lcd_printnxy_number_1_1 + 3),a
+	pop	ar6
+;	lcd.c:202: if(0==number)	break;	//为0则停
+	mov	a,_lcd_printnxy_number_1_1
+	jnz	00111$
+	mov	a,(_lcd_printnxy_number_1_1 + 1)
+	jnz	00111$
+	mov	a,(_lcd_printnxy_number_1_1 + 2)
+	jnz	00111$
+	mov	a,(_lcd_printnxy_number_1_1 + 3)
+	jz	00112$
+00111$:
+	sjmp	00104$
+00112$:
+;	lcd.c:204: lcd_position(++x,y);	//光标复位
+	inc	_lcd_printnxy_PARM_2
+	mov	_lcd_position_PARM_2,_lcd_printnxy_PARM_3
+	mov	dpl,_lcd_printnxy_PARM_2
+	ljmp	_lcd_position
 ;------------------------------------------------------------
 ;Allocation info for local variables in function 'lcd_init'
 ;------------------------------------------------------------
 ;------------------------------------------------------------
-;	lcd.c:201: void lcd_init(void)
+;	lcd.c:212: void lcd_init(void)
 ;	-----------------------------------------
 ;	 function lcd_init
 ;	-----------------------------------------
 _lcd_init:
-;	lcd.c:206: lcd_write(0,0x3c);		//两行5*10点阵，8位数据接口
+;	lcd.c:217: lcd_write(0,0x3c);		//两行5*10点阵，8位数据接口
 	mov	_lcd_write_PARM_2,#0x3C
 	mov	dpl,#0x00
 	lcall	_lcd_write
-;	lcd.c:211: lcd_write(0,0x06); //读写后画面固定、AC自增
+;	lcd.c:222: lcd_write(0,0x06); //读写后画面固定、AC自增
 	mov	_lcd_write_PARM_2,#0x06
 	mov	dpl,#0x00
 	lcall	_lcd_write
-;	lcd.c:216: lcd_write(0,0x0f);	//屏幕、光标和闪烁全开
+;	lcd.c:227: lcd_write(0,0x0f);	//屏幕、光标和闪烁全开
 	mov	_lcd_write_PARM_2,#0x0F
 	mov	dpl,#0x00
 	lcall	_lcd_write
-;	lcd.c:218: lcd_cls();
+;	lcd.c:229: lcd_cls();
 	lcall	_lcd_cls
-;	lcd.c:219: lcd_write(0,LCD_CMD_HOME);	//LCD归位（清DDRAM、DDROM、AC，清除所有移动）
+;	lcd.c:230: lcd_write(0,LCD_CMD_HOME);	//LCD归位（清DDRAM、DDROM、AC，清除所有移动）
 	mov	_lcd_write_PARM_2,#0x02
 	mov	dpl,#0x00
-	ljmp	_lcd_write
+	lcall	_lcd_write
+;	lcd.c:231: lcd_printcxy('A',1,1);lcd_printsxy("China U",0,0);
+	mov	_lcd_printcxy_PARM_2,#0x01
+	mov	_lcd_printcxy_PARM_3,#0x01
+	mov	dpl,#0x41
+	lcall	_lcd_printcxy
+	mov	_lcd_printsxy_PARM_2,#0x00
+	mov	_lcd_printsxy_PARM_3,#0x00
+	mov	dptr,#__str_0
+	mov	b,#0x80
+	lcall	_lcd_printsxy
+;	lcd.c:232: lcd_printnxy(1234567890,13,1);
+	mov	_lcd_printnxy_PARM_2,#0x0D
+	mov	_lcd_printnxy_PARM_3,#0x01
+	mov	dptr,#0x02D2
+	mov	b,#0x96
+	mov	a,#0x49
+	lcall	_lcd_printnxy
+;	lcd.c:233: while(1);
+00102$:
+	sjmp	00102$
 	.area CSEG    (CODE)
 	.area CONST   (CODE)
+__str_0:
+	.ascii "China U"
+	.db 0x00
 	.area XINIT   (CODE)
 	.area CABS    (ABS,CODE)

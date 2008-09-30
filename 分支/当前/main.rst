@@ -1,7 +1,7 @@
                               1 ;--------------------------------------------------------
                               2 ; File Created by SDCC : free open source ANSI-C Compiler
                               3 ; Version 2.8.0 #5117 (Jul 21 2008) (UNIX)
-                              4 ; This file was generated Wed Sep 17 21:02:24 2008
+                              4 ; This file was generated Tue Sep 30 08:11:53 2008
                               5 ;--------------------------------------------------------
                               6 	.module main
                               7 	.optsdcc -mmcs51 --model-small
@@ -530,7 +530,7 @@
    01A3 90 00 0A            530 	mov	dptr,#(0x0A&0x00ff)
    01A6 E4                  531 	clr	a
    01A7 F5 F0               532 	mov	b,a
-   01A9 12 07 95            533 	lcall	__mullong
+   01A9 12 07 DC            533 	lcall	__mullong
    01AC 85 82 4E            534 	mov	_keypad_interrupt_sloc0_1_0,dpl
    01AF 85 83 4F            535 	mov	(_keypad_interrupt_sloc0_1_0 + 1),dph
    01B2 85 F0 50            536 	mov	(_keypad_interrupt_sloc0_1_0 + 2),b
@@ -638,18 +638,18 @@
    022C 75 0A 00            638 	mov	_lcd_position_PARM_2,#0x00
    022F 75 82 00            639 	mov	dpl,#0x00
    0232 12 05 59            640 	lcall	_lcd_position
-                            641 ;	main.c:100: lcd_print(lcd_str[0]);
+                            641 ;	main.c:100: lcd_prints(lcd_str[0]);
    0235 90 00 22            642 	mov	dptr,#_lcd_str
    0238 75 F0 40            643 	mov	b,#0x40
-   023B 12 05 77            644 	lcall	_lcd_print
+   023B 12 05 77            644 	lcall	_lcd_prints
                             645 ;	main.c:101: lcd_position(0,1);
    023E 75 0A 01            646 	mov	_lcd_position_PARM_2,#0x01
    0241 75 82 00            647 	mov	dpl,#0x00
    0244 12 05 59            648 	lcall	_lcd_position
-                            649 ;	main.c:102: lcd_print(lcd_str[1]);
+                            649 ;	main.c:102: lcd_prints(lcd_str[1]);
    0247 90 00 32            650 	mov	dptr,#(_lcd_str + 0x0010)
    024A 75 F0 40            651 	mov	b,#0x40
-   024D 02 05 77            652 	ljmp	_lcd_print
+   024D 02 05 77            652 	ljmp	_lcd_prints
                             653 ;------------------------------------------------------------
                             654 ;Allocation info for local variables in function 'menu_refresh'
                             655 ;------------------------------------------------------------
@@ -674,12 +674,12 @@
    0265                     674 00113$:
                             675 ;	main.c:116: update_str("Welcome to use !",0);
    0265 75 57 00            676 	mov	_update_str_PARM_2,#0x00
-   0268 90 08 C4            677 	mov	dptr,#__str_0
+   0268 90 09 0B            677 	mov	dptr,#__str_0
    026B 75 F0 80            678 	mov	b,#0x80
    026E 12 02 C5            679 	lcall	_update_str
                             680 ;	main.c:117: update_str(">>Made in SWUN<<",1);
    0271 75 57 01            681 	mov	_update_str_PARM_2,#0x01
-   0274 90 08 D5            682 	mov	dptr,#__str_1
+   0274 90 09 1C            682 	mov	dptr,#__str_1
    0277 75 F0 80            683 	mov	b,#0x80
                             684 ;	main.c:118: break;
                             685 ;	main.c:119: case 'w'://波形
@@ -687,12 +687,12 @@
    027D                     687 00102$:
                             688 ;	main.c:120: update_str("=Wave Type  Set=",0);
    027D 75 57 00            689 	mov	_update_str_PARM_2,#0x00
-   0280 90 08 E6            690 	mov	dptr,#__str_2
+   0280 90 09 2D            690 	mov	dptr,#__str_2
    0283 75 F0 80            691 	mov	b,#0x80
    0286 12 02 C5            692 	lcall	_update_str
                             693 ;	main.c:121: update_str("1.sin 2.fan 3.tr",1);
    0289 75 57 01            694 	mov	_update_str_PARM_2,#0x01
-   028C 90 08 F7            695 	mov	dptr,#__str_3
+   028C 90 09 3E            695 	mov	dptr,#__str_3
    028F 75 F0 80            696 	mov	b,#0x80
                             697 ;	main.c:122: break;
                             698 ;	main.c:123: case 'f'://频率
@@ -700,12 +700,12 @@
    0295                     700 00103$:
                             701 ;	main.c:124: update_str("=Frequence  Set=",0);
    0295 75 57 00            702 	mov	_update_str_PARM_2,#0x00
-   0298 90 09 08            703 	mov	dptr,#__str_4
+   0298 90 09 4F            703 	mov	dptr,#__str_4
    029B 75 F0 80            704 	mov	b,#0x80
    029E 12 02 C5            705 	lcall	_update_str
                             706 ;	main.c:125: update_str("           0 KHz",1);
    02A1 75 57 01            707 	mov	_update_str_PARM_2,#0x01
-   02A4 90 09 19            708 	mov	dptr,#__str_5
+   02A4 90 09 60            708 	mov	dptr,#__str_5
    02A7 75 F0 80            709 	mov	b,#0x80
                             710 ;	main.c:126: break;
                             711 ;	main.c:127: case 'a'://振幅
@@ -713,12 +713,12 @@
    02AD                     713 00104$:
                             714 ;	main.c:128: update_str("=Amplitude  Set=",0);
    02AD 75 57 00            715 	mov	_update_str_PARM_2,#0x00
-   02B0 90 09 2A            716 	mov	dptr,#__str_6
+   02B0 90 09 71            716 	mov	dptr,#__str_6
    02B3 75 F0 80            717 	mov	b,#0x80
    02B6 12 02 C5            718 	lcall	_update_str
                             719 ;	main.c:129: update_str("           0 Vol",1);
    02B9 75 57 01            720 	mov	_update_str_PARM_2,#0x01
-   02BC 90 09 3B            721 	mov	dptr,#__str_7
+   02BC 90 09 82            721 	mov	dptr,#__str_7
    02BF 75 F0 80            722 	mov	b,#0x80
                             723 ;	main.c:131: }
    02C2 02 02 C5            724 	ljmp	_update_str
@@ -754,7 +754,7 @@
    02DC 8A 82               754 	mov	dpl,r2
    02DE 8B 83               755 	mov	dph,r3
    02E0 8C F0               756 	mov	b,r4
-   02E2 12 08 A4            757 	lcall	__gptrget
+   02E2 12 08 EB            757 	lcall	__gptrget
    02E5 FE                  758 	mov	r6,a
    02E6 A3                  759 	inc	dptr
    02E7 AA 82               760 	mov	r2,dpl
@@ -770,7 +770,7 @@
    02F5 8A 82               770 	mov	dpl,r2
    02F7 8B 83               771 	mov	dph,r3
    02F9 8C F0               772 	mov	b,r4
-   02FB 12 08 A4            773 	lcall	__gptrget
+   02FB 12 08 EB            773 	lcall	__gptrget
    02FE 70 D8               774 	jnz	00104$
    0300 22                  775 	ret
                             776 ;------------------------------------------------------------
@@ -832,21 +832,21 @@
    0351                     832 00101$:
                             833 ;	main.c:165: update_str("1.Sin           ",1);break;
    0351 75 57 01            834 	mov	_update_str_PARM_2,#0x01
-   0354 90 09 4C            835 	mov	dptr,#__str_8
+   0354 90 09 93            835 	mov	dptr,#__str_8
    0357 75 F0 80            836 	mov	b,#0x80
    035A 02 02 C5            837 	ljmp	_update_str
                             838 ;	main.c:166: case 2:
    035D                     839 00102$:
                             840 ;	main.c:167: update_str("2.Freq          ",1);break;
    035D 75 57 01            841 	mov	_update_str_PARM_2,#0x01
-   0360 90 09 5D            842 	mov	dptr,#__str_9
+   0360 90 09 A4            842 	mov	dptr,#__str_9
    0363 75 F0 80            843 	mov	b,#0x80
    0366 02 02 C5            844 	ljmp	_update_str
                             845 ;	main.c:168: case 3:
    0369                     846 00103$:
                             847 ;	main.c:169: update_str("3.Tri           ",1);break;
    0369 75 57 01            848 	mov	_update_str_PARM_2,#0x01
-   036C 90 09 6E            849 	mov	dptr,#__str_10
+   036C 90 09 B5            849 	mov	dptr,#__str_10
    036F 75 F0 80            850 	mov	b,#0x80
                             851 ;	main.c:176: for(i=0;i<11;i++)	lcd_str[1][i]=' ';
    0372 02 02 C5            852 	ljmp	_update_str
@@ -887,7 +887,7 @@
    03A9 85 55 F0            887 	mov	b,(_num_refresh_tmp_1_1 + 2)
    03AC E5 56               888 	mov	a,(_num_refresh_tmp_1_1 + 3)
    03AE C0 00               889 	push	ar0
-   03B0 12 08 03            890 	lcall	__modslong
+   03B0 12 08 4A            890 	lcall	__modslong
    03B3 AF 82               891 	mov	r7,dpl
    03B5 D0 00               892 	pop	ar0
    03B7 74 30               893 	mov	a,#0x30
@@ -903,7 +903,7 @@
    03C8 85 54 83            903 	mov	dph,(_num_refresh_tmp_1_1 + 1)
    03CB 85 55 F0            904 	mov	b,(_num_refresh_tmp_1_1 + 2)
    03CE E5 56               905 	mov	a,(_num_refresh_tmp_1_1 + 3)
-   03D0 12 08 52            906 	lcall	__divslong
+   03D0 12 08 99            906 	lcall	__divslong
    03D3 85 82 53            907 	mov	_num_refresh_tmp_1_1,dpl
    03D6 85 83 54            908 	mov	(_num_refresh_tmp_1_1 + 1),dph
    03D9 85 F0 55            909 	mov	(_num_refresh_tmp_1_1 + 2),b
@@ -949,7 +949,7 @@
                             949 ;	-----------------------------------------
    03F6                     950 _main:
                             951 ;	main.c:217: lcd_init();	//LCD初始化
-   03F6 12 06 86            952 	lcall	_lcd_init
+   03F6 12 06 9F            952 	lcall	_lcd_init
                             953 ;	main.c:218: interrupt_init();	//外部中断0初始化
    03F9 12 03 E3            954 	lcall	_interrupt_init
                             955 ;	main.c:219: P1=0xf0;	//键盘初始化
@@ -958,60 +958,60 @@
    03FF 02 02 2C            958 	ljmp	_refresh
                             959 	.area CSEG    (CODE)
                             960 	.area CONST   (CODE)
-   08C4                     961 __str_0:
-   08C4 57 65 6C 63 6F 6D   962 	.ascii "Welcome to use !"
+   090B                     961 __str_0:
+   090B 57 65 6C 63 6F 6D   962 	.ascii "Welcome to use !"
         65 20 74 6F 20 75
         73 65 20 21
-   08D4 00                  963 	.db 0x00
-   08D5                     964 __str_1:
-   08D5 3E 3E 4D 61 64 65   965 	.ascii ">>Made in SWUN<<"
+   091B 00                  963 	.db 0x00
+   091C                     964 __str_1:
+   091C 3E 3E 4D 61 64 65   965 	.ascii ">>Made in SWUN<<"
         20 69 6E 20 53 57
         55 4E 3C 3C
-   08E5 00                  966 	.db 0x00
-   08E6                     967 __str_2:
-   08E6 3D 57 61 76 65 20   968 	.ascii "=Wave Type  Set="
+   092C 00                  966 	.db 0x00
+   092D                     967 __str_2:
+   092D 3D 57 61 76 65 20   968 	.ascii "=Wave Type  Set="
         54 79 70 65 20 20
         53 65 74 3D
-   08F6 00                  969 	.db 0x00
-   08F7                     970 __str_3:
-   08F7 31 2E 73 69 6E 20   971 	.ascii "1.sin 2.fan 3.tr"
+   093D 00                  969 	.db 0x00
+   093E                     970 __str_3:
+   093E 31 2E 73 69 6E 20   971 	.ascii "1.sin 2.fan 3.tr"
         32 2E 66 61 6E 20
         33 2E 74 72
-   0907 00                  972 	.db 0x00
-   0908                     973 __str_4:
-   0908 3D 46 72 65 71 75   974 	.ascii "=Frequence  Set="
+   094E 00                  972 	.db 0x00
+   094F                     973 __str_4:
+   094F 3D 46 72 65 71 75   974 	.ascii "=Frequence  Set="
         65 6E 63 65 20 20
         53 65 74 3D
-   0918 00                  975 	.db 0x00
-   0919                     976 __str_5:
-   0919 20 20 20 20 20 20   977 	.ascii "           0 KHz"
+   095F 00                  975 	.db 0x00
+   0960                     976 __str_5:
+   0960 20 20 20 20 20 20   977 	.ascii "           0 KHz"
         20 20 20 20 20 30
         20 4B 48 7A
-   0929 00                  978 	.db 0x00
-   092A                     979 __str_6:
-   092A 3D 41 6D 70 6C 69   980 	.ascii "=Amplitude  Set="
+   0970 00                  978 	.db 0x00
+   0971                     979 __str_6:
+   0971 3D 41 6D 70 6C 69   980 	.ascii "=Amplitude  Set="
         74 75 64 65 20 20
         53 65 74 3D
-   093A 00                  981 	.db 0x00
-   093B                     982 __str_7:
-   093B 20 20 20 20 20 20   983 	.ascii "           0 Vol"
+   0981 00                  981 	.db 0x00
+   0982                     982 __str_7:
+   0982 20 20 20 20 20 20   983 	.ascii "           0 Vol"
         20 20 20 20 20 30
         20 56 6F 6C
-   094B 00                  984 	.db 0x00
-   094C                     985 __str_8:
-   094C 31 2E 53 69 6E 20   986 	.ascii "1.Sin           "
+   0992 00                  984 	.db 0x00
+   0993                     985 __str_8:
+   0993 31 2E 53 69 6E 20   986 	.ascii "1.Sin           "
         20 20 20 20 20 20
         20 20 20 20
-   095C 00                  987 	.db 0x00
-   095D                     988 __str_9:
-   095D 32 2E 46 72 65 71   989 	.ascii "2.Freq          "
+   09A3 00                  987 	.db 0x00
+   09A4                     988 __str_9:
+   09A4 32 2E 46 72 65 71   989 	.ascii "2.Freq          "
         20 20 20 20 20 20
         20 20 20 20
-   096D 00                  990 	.db 0x00
-   096E                     991 __str_10:
-   096E 33 2E 54 72 69 20   992 	.ascii "3.Tri           "
+   09B4 00                  990 	.db 0x00
+   09B5                     991 __str_10:
+   09B5 33 2E 54 72 69 20   992 	.ascii "3.Tri           "
         20 20 20 20 20 20
         20 20 20 20
-   097E 00                  993 	.db 0x00
+   09C5 00                  993 	.db 0x00
                             994 	.area XINIT   (CODE)
                             995 	.area CABS    (ABS,CODE)

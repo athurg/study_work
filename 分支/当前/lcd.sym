@@ -271,20 +271,23 @@ Symbol Table
     __gptrget                                                      **** GX
     __modslong                                                     **** GX
     __modslong_PARM_2                                              **** GX
+ 16 __str_0                                                        0000 R
  15 _lcd_cls                                                       0079 GR
- 15 _lcd_init                                                      0191 GR
+ 15 _lcd_init                                                      01AA GR
  15 _lcd_position                                                  0064 GR
   3 _lcd_position_PARM_2                                           0002 GR
- 15 _lcd_print                                                     0082 GR
- 15 _lcd_printchar                                                 0107 GR
-  3 _lcd_printchar_PARM_2                                          0005 GR
-  3 _lcd_printchar_PARM_3                                          0006 GR
- 15 _lcd_printnum                                                  011E GR
-  3 _lcd_printnum_PARM_2                                           0007 GR
-  3 _lcd_printnum_PARM_3                                           0008 GR
- 15 _lcd_printstr                                                  00BA GR
-  3 _lcd_printstr_PARM_2                                           0003 GR
-  3 _lcd_printstr_PARM_3                                           0004 GR
+ 15 _lcd_printc                                                    0107 GR
+ 15 _lcd_printcxy                                                  0110 GR
+  3 _lcd_printcxy_PARM_2                                           0005 GR
+  3 _lcd_printcxy_PARM_3                                           0006 GR
+ 15 _lcd_printnxy                                                  0127 GR
+  3 _lcd_printnxy_PARM_2                                           0007 GR
+  3 _lcd_printnxy_PARM_3                                           0008 GR
+  3 _lcd_printnxy_number_1_1                                       0009 R
+ 15 _lcd_prints                                                    0082 GR
+ 15 _lcd_printsxy                                                  00BA GR
+  3 _lcd_printsxy_PARM_2                                           0003 GR
+  3 _lcd_printsxy_PARM_3                                           0004 GR
  15 _lcd_shift                                                     0029 GR
   3 _lcd_shift_PARM_2                                              0001 GR
  15 _lcd_wait                                                      0000 GR
@@ -474,7 +477,7 @@ Area Table
    0 _CODE                                                                              size    0   flags 0
    1 RSEG                                                                               size    0   flags 0
    2 REG_BANK_0                                                                         size    8   flags 4
-   3 DSEG                                                                               size    9   flags 0
+   3 DSEG                                                                               size    D   flags 0
    4 OSEG                                                                               size    0   flags 4
    5 ISEG                                                                               size    0   flags 0
    6 IABS                                                                               size    0   flags 8
@@ -492,7 +495,7 @@ Area Table
   12 GSINIT5                                                                            size    0   flags 20
   13 GSINIT                                                                             size    0   flags 20
   14 GSFINAL                                                                            size    0   flags 20
-  15 CSEG                                                                               size  1B8   flags 20
-  16 CONST                                                                              size    0   flags 20
+  15 CSEG                                                                               size  1FF   flags 20
+  16 CONST                                                                              size    8   flags 20
   17 XINIT                                                                              size    0   flags 20
   18 CABS                                                                               size    0   flags 28

@@ -140,7 +140,7 @@ void lcd_cls(void)
 
     调用：lcd_write(1,)
 ***********************************/
-void lcd_print(char *string)
+void lcd_prints(char *string)
 {
     char i=0;
     while(string[i]!=0x00){
@@ -155,7 +155,7 @@ void lcd_print(char *string)
 
     调用：lcd_write(1,)、lcd_position()
 ******************************/
-void lcd_printstr(char *string, char x, char y)
+void lcd_printsxy(char *string, char x, char y)
 {
     char i=0;
     lcd_position(x,y);	//先定位
@@ -165,13 +165,22 @@ void lcd_printstr(char *string, char x, char y)
     }
 }
 
+/*****************************
+	    打印字符
+
+    调用：lcd_write(1,)
+******************************/
+void lcd_printc(char charactor)
+{
+  return lcd_write(1,charactor);
+}
 
 /*****************************
 	    定点打印字符
 
     调用：lcd_write(1,)、lcd_position()
 ******************************/
-void lcd_printchar(char charactor, char x, char y)
+void lcd_printcxy(char charactor, char x, char y)
 {
     lcd_position(x,y);
     lcd_write(1,charactor);
@@ -182,15 +191,17 @@ void lcd_printchar(char charactor, char x, char y)
 
     调用：lcd_write(1,)、lcd_position()
 ******************************/
-void lcd_printnum(long int number, char x, char y)
+void lcd_printnxy(long int number, char x, char y)
 {
+    char x_tmp=x;
     while(1){
-      lcd_position(x,y);	//先输出，为0也输出0
-      lcd_write(1,number%10+32);
-      x-＝2;	//退一位
+      lcd_position(x_tmp,y);	//先输出，为0也输出0
+      lcd_write(1,number%10+48);
+      x_tmp--;	//退一位
       number/=10;
-      if(!number)	break;	//为0则停
+      if(0==number)	break;	//为0则停
     }
+    lcd_position(++x,y);	//光标复位
 }
 
 /**************************************
@@ -217,4 +228,7 @@ void lcd_init(void)
 
     lcd_cls();
     lcd_write(0,LCD_CMD_HOME);	//LCD归位（清DDRAM、DDROM、AC，清除所有移动）
+    lcd_printcxy('A',1,1);lcd_printsxy("China U",0,0);
+    lcd_printnxy(1234567890,13,1);
+    while(1);
 }

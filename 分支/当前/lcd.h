@@ -25,9 +25,10 @@ void lcd_cls(void);			//清屏
 void lcd_shift(char object, char num);	//移动光标(object='c')或者屏幕(object='f')，num为位数，+右-左
 
 //打印
-void lcd_print(char *string);
-void lcd_printstr(char *string, char x, char y);	//定起点打印字串
-void lcd_printchar(char charactor, char x, char y);	//定点打印字符
-void lcd_printnum(long int number, char x, char y);	//定终点打印数值
+void lcd_prints(char *string);
+void lcd_printsxy(char *string, char x, char y);	//定起点打印字串
+void lcd_printc(char charactor);	//打印字符
+void lcd_printcxy(char charactor, char x, char y);	//定点打印字符
+void lcd_printnxy(long int number, char x, char y);	//定终点打印数值
 
 #endif
