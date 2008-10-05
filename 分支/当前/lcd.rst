@@ -1,7 +1,7 @@
                               1 ;--------------------------------------------------------
                               2 ; File Created by SDCC : free open source ANSI-C Compiler
                               3 ; Version 2.8.0 #5117 (Jul 21 2008) (UNIX)
-                              4 ; This file was generated Tue Sep 30 08:13:56 2008
+                              4 ; This file was generated Wed Oct  1 10:36:47 2008
                               5 ;--------------------------------------------------------
                               6 	.module lcd
                               7 	.optsdcc -mmcs51 --model-small
@@ -325,7 +325,7 @@
                             325 ;	-----------------------------------------
                             326 ;	 function lcd_wait
                             327 ;	-----------------------------------------
-   04F5                     328 _lcd_wait:
+   051C                     328 _lcd_wait:
                     0002    329 	ar2 = 0x02
                     0003    330 	ar3 = 0x03
                     0004    331 	ar4 = 0x04
@@ -335,23 +335,23 @@
                     0000    335 	ar0 = 0x00
                     0001    336 	ar1 = 0x01
                             337 ;	lcd.c:36: while(1){
-   04F5                     338 00104$:
+   051C                     338 00104$:
                             339 ;	lcd.c:37: LCD_EN=0;
-   04F5 C2 A2               340 	clr	_P2_2
+   051C C2 A2               340 	clr	_P2_2
                             341 ;	lcd.c:38: LCD_RS=0;
-   04F7 C2 A0               342 	clr	_P2_0
+   051E C2 A0               342 	clr	_P2_0
                             343 ;	lcd.c:39: LCD_RW=1;
-   04F9 D2 A1               344 	setb	_P2_1
+   0520 D2 A1               344 	setb	_P2_1
                             345 ;	lcd.c:40: LCD_DATA=0xFF;
-   04FB 75 80 FF            346 	mov	_P0,#0xFF
+   0522 75 80 FF            346 	mov	_P0,#0xFF
                             347 ;	lcd.c:41: LCD_EN=1;
-   04FE D2 A2               348 	setb	_P2_2
+   0525 D2 A2               348 	setb	_P2_2
                             349 ;	lcd.c:42: if(!LCD_BUSY)		break;		//忙完了，不玩了：）
-   0500 20 87 F2            350 	jb	_P0_7,00104$
+   0527 20 87 F2            350 	jb	_P0_7,00104$
                             351 ;	lcd.c:44: LCD_EN=0;
-   0503 C2 A2               352 	clr	_P2_2
+   052A C2 A2               352 	clr	_P2_2
                             353 ;	lcd.c:45: return;
-   0505 22                  354 	ret
+   052C 22                  354 	ret
                             355 ;------------------------------------------------------------
                             356 ;Allocation info for local variables in function 'lcd_write'
                             357 ;------------------------------------------------------------
@@ -362,25 +362,25 @@
                             362 ;	-----------------------------------------
                             363 ;	 function lcd_write
                             364 ;	-----------------------------------------
-   0506                     365 _lcd_write:
-   0506 AA 82               366 	mov	r2,dpl
+   052D                     365 _lcd_write:
+   052D AA 82               366 	mov	r2,dpl
                             367 ;	lcd.c:62: lcd_wait();	//等候LCD闲，置于最前面，以防止lcd_wait()对RS和RW造成影响
-   0508 C0 02               368 	push	ar2
-   050A 12 04 F5            369 	lcall	_lcd_wait
-   050D D0 02               370 	pop	ar2
+   052F C0 02               368 	push	ar2
+   0531 12 05 1C            369 	lcall	_lcd_wait
+   0534 D0 02               370 	pop	ar2
                             371 ;	lcd.c:64: LCD_RS=type;
-   050F EA                  372 	mov	a,r2
-   0510 24 FF               373 	add	a,#0xff
-   0512 92 A0               374 	mov	_P2_0,c
+   0536 EA                  372 	mov	a,r2
+   0537 24 FF               373 	add	a,#0xff
+   0539 92 A0               374 	mov	_P2_0,c
                             375 ;	lcd.c:65: LCD_RW=0;
-   0514 C2 A1               376 	clr	_P2_1
+   053B C2 A1               376 	clr	_P2_1
                             377 ;	lcd.c:67: LCD_DATA=datas;
-   0516 85 08 80            378 	mov	_P0,_lcd_write_PARM_2
+   053D 85 08 80            378 	mov	_P0,_lcd_write_PARM_2
                             379 ;	lcd.c:70: LCD_EN=1;
-   0519 D2 A2               380 	setb	_P2_2
+   0540 D2 A2               380 	setb	_P2_2
                             381 ;	lcd.c:71: LCD_EN=0;
-   051B C2 A2               382 	clr	_P2_2
-   051D 22                  383 	ret
+   0542 C2 A2               382 	clr	_P2_2
+   0544 22                  383 	ret
                             384 ;------------------------------------------------------------
                             385 ;Allocation info for local variables in function 'lcd_shift'
                             386 ;------------------------------------------------------------
@@ -392,52 +392,52 @@
                             392 ;	-----------------------------------------
                             393 ;	 function lcd_shift
                             394 ;	-----------------------------------------
-   051E                     395 _lcd_shift:
-   051E AA 82               396 	mov	r2,dpl
+   0545                     395 _lcd_shift:
+   0545 AA 82               396 	mov	r2,dpl
                             397 ;	lcd.c:88: char datas=0x10;
-   0520 7B 10               398 	mov	r3,#0x10
+   0547 7B 10               398 	mov	r3,#0x10
                             399 ;	lcd.c:89: if(object == 'f')	//对象=画面
-   0522 BA 66 02            400 	cjne	r2,#0x66,00102$
+   0549 BA 66 02            400 	cjne	r2,#0x66,00102$
                             401 ;	lcd.c:90: datas+=0x08;
-   0525 7B 18               402 	mov	r3,#0x18
-   0527                     403 00102$:
+   054C 7B 18               402 	mov	r3,#0x18
+   054E                     403 00102$:
                             404 ;	lcd.c:91: if(num > 0)	//正号右移
-   0527 C3                  405 	clr	c
-   0528 74 80               406 	mov	a,#(0x00 ^ 0x80)
-   052A 85 09 F0            407 	mov	b,_lcd_shift_PARM_2
-   052D 63 F0 80            408 	xrl	b,#0x80
-   0530 95 F0               409 	subb	a,b
-   0532 50 06               410 	jnc	00104$
+   054E C3                  405 	clr	c
+   054F 74 80               406 	mov	a,#(0x00 ^ 0x80)
+   0551 85 09 F0            407 	mov	b,_lcd_shift_PARM_2
+   0554 63 F0 80            408 	xrl	b,#0x80
+   0557 95 F0               409 	subb	a,b
+   0559 50 06               410 	jnc	00104$
                             411 ;	lcd.c:92: datas+=0x04;
-   0534 EB                  412 	mov	a,r3
-   0535 24 04               413 	add	a,#0x04
-   0537 FB                  414 	mov	r3,a
-   0538 80 06               415 	sjmp	00114$
-   053A                     416 00104$:
+   055B EB                  412 	mov	a,r3
+   055C 24 04               413 	add	a,#0x04
+   055E FB                  414 	mov	r3,a
+   055F 80 06               415 	sjmp	00114$
+   0561                     416 00104$:
                             417 ;	lcd.c:94: num=-num;	//负号取相反数，以统一循环变量
-   053A C3                  418 	clr	c
-   053B E4                  419 	clr	a
-   053C 95 09               420 	subb	a,_lcd_shift_PARM_2
-   053E F5 09               421 	mov	_lcd_shift_PARM_2,a
+   0561 C3                  418 	clr	c
+   0562 E4                  419 	clr	a
+   0563 95 09               420 	subb	a,_lcd_shift_PARM_2
+   0565 F5 09               421 	mov	_lcd_shift_PARM_2,a
                             422 ;	lcd.c:96: while(num){
-   0540                     423 00114$:
-   0540 AA 09               424 	mov	r2,_lcd_shift_PARM_2
-   0542                     425 00106$:
-   0542 EA                  426 	mov	a,r2
-   0543 60 13               427 	jz	00109$
+   0567                     423 00114$:
+   0567 AA 09               424 	mov	r2,_lcd_shift_PARM_2
+   0569                     425 00106$:
+   0569 EA                  426 	mov	a,r2
+   056A 60 13               427 	jz	00109$
                             428 ;	lcd.c:97: lcd_write(0,datas);	//一次移动
-   0545 8B 08               429 	mov	_lcd_write_PARM_2,r3
-   0547 75 82 00            430 	mov	dpl,#0x00
-   054A C0 02               431 	push	ar2
-   054C C0 03               432 	push	ar3
-   054E 12 05 06            433 	lcall	_lcd_write
-   0551 D0 03               434 	pop	ar3
-   0553 D0 02               435 	pop	ar2
+   056C 8B 08               429 	mov	_lcd_write_PARM_2,r3
+   056E 75 82 00            430 	mov	dpl,#0x00
+   0571 C0 02               431 	push	ar2
+   0573 C0 03               432 	push	ar3
+   0575 12 05 2D            433 	lcall	_lcd_write
+   0578 D0 03               434 	pop	ar3
+   057A D0 02               435 	pop	ar2
                             436 ;	lcd.c:98: num--;
-   0555 1A                  437 	dec	r2
-   0556 80 EA               438 	sjmp	00106$
-   0558                     439 00109$:
-   0558 22                  440 	ret
+   057C 1A                  437 	dec	r2
+   057D 80 EA               438 	sjmp	00106$
+   057F                     439 00109$:
+   057F 22                  440 	ret
                             441 ;------------------------------------------------------------
                             442 ;Allocation info for local variables in function 'lcd_position'
                             443 ;------------------------------------------------------------
@@ -448,21 +448,21 @@
                             448 ;	-----------------------------------------
                             449 ;	 function lcd_position
                             450 ;	-----------------------------------------
-   0559                     451 _lcd_position:
-   0559 AA 82               452 	mov	r2,dpl
+   0580                     451 _lcd_position:
+   0580 AA 82               452 	mov	r2,dpl
                             453 ;	lcd.c:120: if(y)	x+=0x40;	//0x40：第二行起始位置偏移量
-   055B E5 0A               454 	mov	a,_lcd_position_PARM_2
-   055D 60 04               455 	jz	00102$
-   055F 74 40               456 	mov	a,#0x40
-   0561 2A                  457 	add	a,r2
-   0562 FA                  458 	mov	r2,a
-   0563                     459 00102$:
+   0582 E5 0A               454 	mov	a,_lcd_position_PARM_2
+   0584 60 04               455 	jz	00102$
+   0586 74 40               456 	mov	a,#0x40
+   0588 2A                  457 	add	a,r2
+   0589 FA                  458 	mov	r2,a
+   058A                     459 00102$:
                             460 ;	lcd.c:121: lcd_write(0,0x80+x);
-   0563 74 80               461 	mov	a,#0x80
-   0565 2A                  462 	add	a,r2
-   0566 F5 08               463 	mov	_lcd_write_PARM_2,a
-   0568 75 82 00            464 	mov	dpl,#0x00
-   056B 02 05 06            465 	ljmp	_lcd_write
+   058A 74 80               461 	mov	a,#0x80
+   058C 2A                  462 	add	a,r2
+   058D F5 08               463 	mov	_lcd_write_PARM_2,a
+   058F 75 82 00            464 	mov	dpl,#0x00
+   0592 02 05 2D            465 	ljmp	_lcd_write
                             466 ;------------------------------------------------------------
                             467 ;Allocation info for local variables in function 'lcd_cls'
                             468 ;------------------------------------------------------------
@@ -471,11 +471,11 @@
                             471 ;	-----------------------------------------
                             472 ;	 function lcd_cls
                             473 ;	-----------------------------------------
-   056E                     474 _lcd_cls:
+   0595                     474 _lcd_cls:
                             475 ;	lcd.c:134: lcd_write(0,LCD_CMD_CLS);
-   056E 75 08 01            476 	mov	_lcd_write_PARM_2,#0x01
-   0571 75 82 00            477 	mov	dpl,#0x00
-   0574 02 05 06            478 	ljmp	_lcd_write
+   0595 75 08 01            476 	mov	_lcd_write_PARM_2,#0x01
+   0598 75 82 00            477 	mov	dpl,#0x00
+   059B 02 05 2D            478 	ljmp	_lcd_write
                             479 ;------------------------------------------------------------
                             480 ;Allocation info for local variables in function 'lcd_prints'
                             481 ;------------------------------------------------------------
@@ -486,43 +486,43 @@
                             486 ;	-----------------------------------------
                             487 ;	 function lcd_prints
                             488 ;	-----------------------------------------
-   0577                     489 _lcd_prints:
-   0577 AA 82               490 	mov	r2,dpl
-   0579 AB 83               491 	mov	r3,dph
-   057B AC F0               492 	mov	r4,b
+   059E                     489 _lcd_prints:
+   059E AA 82               490 	mov	r2,dpl
+   05A0 AB 83               491 	mov	r3,dph
+   05A2 AC F0               492 	mov	r4,b
                             493 ;	lcd.c:146: while(string[i]!=0x00){
-   057D 7D 00               494 	mov	r5,#0x00
-   057F                     495 00101$:
-   057F ED                  496 	mov	a,r5
-   0580 2A                  497 	add	a,r2
-   0581 FE                  498 	mov	r6,a
-   0582 E4                  499 	clr	a
-   0583 3B                  500 	addc	a,r3
-   0584 FF                  501 	mov	r7,a
-   0585 8C 00               502 	mov	ar0,r4
-   0587 8E 82               503 	mov	dpl,r6
-   0589 8F 83               504 	mov	dph,r7
-   058B 88 F0               505 	mov	b,r0
-   058D 12 08 EB            506 	lcall	__gptrget
-   0590 FE                  507 	mov	r6,a
-   0591 60 1B               508 	jz	00104$
+   05A4 7D 00               494 	mov	r5,#0x00
+   05A6                     495 00101$:
+   05A6 ED                  496 	mov	a,r5
+   05A7 2A                  497 	add	a,r2
+   05A8 FE                  498 	mov	r6,a
+   05A9 E4                  499 	clr	a
+   05AA 3B                  500 	addc	a,r3
+   05AB FF                  501 	mov	r7,a
+   05AC 8C 00               502 	mov	ar0,r4
+   05AE 8E 82               503 	mov	dpl,r6
+   05B0 8F 83               504 	mov	dph,r7
+   05B2 88 F0               505 	mov	b,r0
+   05B4 12 08 E4            506 	lcall	__gptrget
+   05B7 FE                  507 	mov	r6,a
+   05B8 60 1B               508 	jz	00104$
                             509 ;	lcd.c:147: lcd_write(1,string[i]);
-   0593 8E 08               510 	mov	_lcd_write_PARM_2,r6
-   0595 75 82 01            511 	mov	dpl,#0x01
-   0598 C0 02               512 	push	ar2
-   059A C0 03               513 	push	ar3
-   059C C0 04               514 	push	ar4
-   059E C0 05               515 	push	ar5
-   05A0 12 05 06            516 	lcall	_lcd_write
-   05A3 D0 05               517 	pop	ar5
-   05A5 D0 04               518 	pop	ar4
-   05A7 D0 03               519 	pop	ar3
-   05A9 D0 02               520 	pop	ar2
+   05BA 8E 08               510 	mov	_lcd_write_PARM_2,r6
+   05BC 75 82 01            511 	mov	dpl,#0x01
+   05BF C0 02               512 	push	ar2
+   05C1 C0 03               513 	push	ar3
+   05C3 C0 04               514 	push	ar4
+   05C5 C0 05               515 	push	ar5
+   05C7 12 05 2D            516 	lcall	_lcd_write
+   05CA D0 05               517 	pop	ar5
+   05CC D0 04               518 	pop	ar4
+   05CE D0 03               519 	pop	ar3
+   05D0 D0 02               520 	pop	ar2
                             521 ;	lcd.c:148: i++;
-   05AB 0D                  522 	inc	r5
-   05AC 80 D1               523 	sjmp	00101$
-   05AE                     524 00104$:
-   05AE 22                  525 	ret
+   05D2 0D                  522 	inc	r5
+   05D3 80 D1               523 	sjmp	00101$
+   05D5                     524 00104$:
+   05D5 22                  525 	ret
                             526 ;------------------------------------------------------------
                             527 ;Allocation info for local variables in function 'lcd_printsxy'
                             528 ;------------------------------------------------------------
@@ -535,53 +535,53 @@
                             535 ;	-----------------------------------------
                             536 ;	 function lcd_printsxy
                             537 ;	-----------------------------------------
-   05AF                     538 _lcd_printsxy:
-   05AF AA 82               539 	mov	r2,dpl
-   05B1 AB 83               540 	mov	r3,dph
-   05B3 AC F0               541 	mov	r4,b
+   05D6                     538 _lcd_printsxy:
+   05D6 AA 82               539 	mov	r2,dpl
+   05D8 AB 83               540 	mov	r3,dph
+   05DA AC F0               541 	mov	r4,b
                             542 ;	lcd.c:161: lcd_position(x,y);	//先定位
-   05B5 85 0C 0A            543 	mov	_lcd_position_PARM_2,_lcd_printsxy_PARM_3
-   05B8 85 0B 82            544 	mov	dpl,_lcd_printsxy_PARM_2
-   05BB C0 02               545 	push	ar2
-   05BD C0 03               546 	push	ar3
-   05BF C0 04               547 	push	ar4
-   05C1 12 05 59            548 	lcall	_lcd_position
-   05C4 D0 04               549 	pop	ar4
-   05C6 D0 03               550 	pop	ar3
-   05C8 D0 02               551 	pop	ar2
+   05DC 85 0C 0A            543 	mov	_lcd_position_PARM_2,_lcd_printsxy_PARM_3
+   05DF 85 0B 82            544 	mov	dpl,_lcd_printsxy_PARM_2
+   05E2 C0 02               545 	push	ar2
+   05E4 C0 03               546 	push	ar3
+   05E6 C0 04               547 	push	ar4
+   05E8 12 05 80            548 	lcall	_lcd_position
+   05EB D0 04               549 	pop	ar4
+   05ED D0 03               550 	pop	ar3
+   05EF D0 02               551 	pop	ar2
                             552 ;	lcd.c:162: while(string[i]!=0x00){
-   05CA 7D 00               553 	mov	r5,#0x00
-   05CC                     554 00101$:
-   05CC ED                  555 	mov	a,r5
-   05CD 2A                  556 	add	a,r2
-   05CE FE                  557 	mov	r6,a
-   05CF E4                  558 	clr	a
-   05D0 3B                  559 	addc	a,r3
-   05D1 FF                  560 	mov	r7,a
-   05D2 8C 00               561 	mov	ar0,r4
-   05D4 8E 82               562 	mov	dpl,r6
-   05D6 8F 83               563 	mov	dph,r7
-   05D8 88 F0               564 	mov	b,r0
-   05DA 12 08 EB            565 	lcall	__gptrget
-   05DD FE                  566 	mov	r6,a
-   05DE 60 1B               567 	jz	00104$
+   05F1 7D 00               553 	mov	r5,#0x00
+   05F3                     554 00101$:
+   05F3 ED                  555 	mov	a,r5
+   05F4 2A                  556 	add	a,r2
+   05F5 FE                  557 	mov	r6,a
+   05F6 E4                  558 	clr	a
+   05F7 3B                  559 	addc	a,r3
+   05F8 FF                  560 	mov	r7,a
+   05F9 8C 00               561 	mov	ar0,r4
+   05FB 8E 82               562 	mov	dpl,r6
+   05FD 8F 83               563 	mov	dph,r7
+   05FF 88 F0               564 	mov	b,r0
+   0601 12 08 E4            565 	lcall	__gptrget
+   0604 FE                  566 	mov	r6,a
+   0605 60 1B               567 	jz	00104$
                             568 ;	lcd.c:163: lcd_write(1,string[i]);
-   05E0 8E 08               569 	mov	_lcd_write_PARM_2,r6
-   05E2 75 82 01            570 	mov	dpl,#0x01
-   05E5 C0 02               571 	push	ar2
-   05E7 C0 03               572 	push	ar3
-   05E9 C0 04               573 	push	ar4
-   05EB C0 05               574 	push	ar5
-   05ED 12 05 06            575 	lcall	_lcd_write
-   05F0 D0 05               576 	pop	ar5
-   05F2 D0 04               577 	pop	ar4
-   05F4 D0 03               578 	pop	ar3
-   05F6 D0 02               579 	pop	ar2
+   0607 8E 08               569 	mov	_lcd_write_PARM_2,r6
+   0609 75 82 01            570 	mov	dpl,#0x01
+   060C C0 02               571 	push	ar2
+   060E C0 03               572 	push	ar3
+   0610 C0 04               573 	push	ar4
+   0612 C0 05               574 	push	ar5
+   0614 12 05 2D            575 	lcall	_lcd_write
+   0617 D0 05               576 	pop	ar5
+   0619 D0 04               577 	pop	ar4
+   061B D0 03               578 	pop	ar3
+   061D D0 02               579 	pop	ar2
                             580 ;	lcd.c:164: i++;
-   05F8 0D                  581 	inc	r5
-   05F9 80 D1               582 	sjmp	00101$
-   05FB                     583 00104$:
-   05FB 22                  584 	ret
+   061F 0D                  581 	inc	r5
+   0620 80 D1               582 	sjmp	00101$
+   0622                     583 00104$:
+   0622 22                  584 	ret
                             585 ;------------------------------------------------------------
                             586 ;Allocation info for local variables in function 'lcd_printc'
                             587 ;------------------------------------------------------------
@@ -591,11 +591,11 @@
                             591 ;	-----------------------------------------
                             592 ;	 function lcd_printc
                             593 ;	-----------------------------------------
-   05FC                     594 _lcd_printc:
-   05FC 85 82 08            595 	mov	_lcd_write_PARM_2,dpl
+   0623                     594 _lcd_printc:
+   0623 85 82 08            595 	mov	_lcd_write_PARM_2,dpl
                             596 ;	lcd.c:175: return lcd_write(1,charactor);
-   05FF 75 82 01            597 	mov	dpl,#0x01
-   0602 02 05 06            598 	ljmp	_lcd_write
+   0626 75 82 01            597 	mov	dpl,#0x01
+   0629 02 05 2D            598 	ljmp	_lcd_write
                             599 ;------------------------------------------------------------
                             600 ;Allocation info for local variables in function 'lcd_printcxy'
                             601 ;------------------------------------------------------------
@@ -607,18 +607,18 @@
                             607 ;	-----------------------------------------
                             608 ;	 function lcd_printcxy
                             609 ;	-----------------------------------------
-   0605                     610 _lcd_printcxy:
-   0605 AA 82               611 	mov	r2,dpl
+   062C                     610 _lcd_printcxy:
+   062C AA 82               611 	mov	r2,dpl
                             612 ;	lcd.c:185: lcd_position(x,y);
-   0607 85 0E 0A            613 	mov	_lcd_position_PARM_2,_lcd_printcxy_PARM_3
-   060A 85 0D 82            614 	mov	dpl,_lcd_printcxy_PARM_2
-   060D C0 02               615 	push	ar2
-   060F 12 05 59            616 	lcall	_lcd_position
-   0612 D0 02               617 	pop	ar2
+   062E 85 0E 0A            613 	mov	_lcd_position_PARM_2,_lcd_printcxy_PARM_3
+   0631 85 0D 82            614 	mov	dpl,_lcd_printcxy_PARM_2
+   0634 C0 02               615 	push	ar2
+   0636 12 05 80            616 	lcall	_lcd_position
+   0639 D0 02               617 	pop	ar2
                             618 ;	lcd.c:186: lcd_write(1,charactor);
-   0614 8A 08               619 	mov	_lcd_write_PARM_2,r2
-   0616 75 82 01            620 	mov	dpl,#0x01
-   0619 02 05 06            621 	ljmp	_lcd_write
+   063B 8A 08               619 	mov	_lcd_write_PARM_2,r2
+   063D 75 82 01            620 	mov	dpl,#0x01
+   0640 02 05 2D            621 	ljmp	_lcd_write
                             622 ;------------------------------------------------------------
                             623 ;Allocation info for local variables in function 'lcd_printnxy'
                             624 ;------------------------------------------------------------
@@ -631,74 +631,74 @@
                             631 ;	-----------------------------------------
                             632 ;	 function lcd_printnxy
                             633 ;	-----------------------------------------
-   061C                     634 _lcd_printnxy:
-   061C 85 82 11            635 	mov	_lcd_printnxy_number_1_1,dpl
-   061F 85 83 12            636 	mov	(_lcd_printnxy_number_1_1 + 1),dph
-   0622 85 F0 13            637 	mov	(_lcd_printnxy_number_1_1 + 2),b
-   0625 F5 14               638 	mov	(_lcd_printnxy_number_1_1 + 3),a
+   0643                     634 _lcd_printnxy:
+   0643 85 82 11            635 	mov	_lcd_printnxy_number_1_1,dpl
+   0646 85 83 12            636 	mov	(_lcd_printnxy_number_1_1 + 1),dph
+   0649 85 F0 13            637 	mov	(_lcd_printnxy_number_1_1 + 2),b
+   064C F5 14               638 	mov	(_lcd_printnxy_number_1_1 + 3),a
                             639 ;	lcd.c:196: char x_tmp=x;
-   0627 AE 0F               640 	mov	r6,_lcd_printnxy_PARM_2
+   064E AE 0F               640 	mov	r6,_lcd_printnxy_PARM_2
                             641 ;	lcd.c:197: while(1){
-   0629                     642 00104$:
+   0650                     642 00104$:
                             643 ;	lcd.c:198: lcd_position(x_tmp,y);	//先输出，为0也输出0
-   0629 85 10 0A            644 	mov	_lcd_position_PARM_2,_lcd_printnxy_PARM_3
-   062C 8E 82               645 	mov	dpl,r6
-   062E C0 06               646 	push	ar6
-   0630 12 05 59            647 	lcall	_lcd_position
+   0650 85 10 0A            644 	mov	_lcd_position_PARM_2,_lcd_printnxy_PARM_3
+   0653 8E 82               645 	mov	dpl,r6
+   0655 C0 06               646 	push	ar6
+   0657 12 05 80            647 	lcall	_lcd_position
                             648 ;	lcd.c:199: lcd_write(1,number%10+48);
-   0633 75 57 0A            649 	mov	__modslong_PARM_2,#0x0A
-   0636 E4                  650 	clr	a
-   0637 F5 58               651 	mov	(__modslong_PARM_2 + 1),a
-   0639 F5 59               652 	mov	(__modslong_PARM_2 + 2),a
-   063B F5 5A               653 	mov	(__modslong_PARM_2 + 3),a
-   063D 85 11 82            654 	mov	dpl,_lcd_printnxy_number_1_1
-   0640 85 12 83            655 	mov	dph,(_lcd_printnxy_number_1_1 + 1)
-   0643 85 13 F0            656 	mov	b,(_lcd_printnxy_number_1_1 + 2)
-   0646 E5 14               657 	mov	a,(_lcd_printnxy_number_1_1 + 3)
-   0648 12 08 4A            658 	lcall	__modslong
-   064B AF 82               659 	mov	r7,dpl
-   064D 74 30               660 	mov	a,#0x30
-   064F 2F                  661 	add	a,r7
-   0650 F5 08               662 	mov	_lcd_write_PARM_2,a
-   0652 75 82 01            663 	mov	dpl,#0x01
-   0655 12 05 06            664 	lcall	_lcd_write
-   0658 D0 06               665 	pop	ar6
+   065A 75 59 0A            649 	mov	__modslong_PARM_2,#0x0A
+   065D E4                  650 	clr	a
+   065E F5 5A               651 	mov	(__modslong_PARM_2 + 1),a
+   0660 F5 5B               652 	mov	(__modslong_PARM_2 + 2),a
+   0662 F5 5C               653 	mov	(__modslong_PARM_2 + 3),a
+   0664 85 11 82            654 	mov	dpl,_lcd_printnxy_number_1_1
+   0667 85 12 83            655 	mov	dph,(_lcd_printnxy_number_1_1 + 1)
+   066A 85 13 F0            656 	mov	b,(_lcd_printnxy_number_1_1 + 2)
+   066D E5 14               657 	mov	a,(_lcd_printnxy_number_1_1 + 3)
+   066F 12 08 43            658 	lcall	__modslong
+   0672 AF 82               659 	mov	r7,dpl
+   0674 74 30               660 	mov	a,#0x30
+   0676 2F                  661 	add	a,r7
+   0677 F5 08               662 	mov	_lcd_write_PARM_2,a
+   0679 75 82 01            663 	mov	dpl,#0x01
+   067C 12 05 2D            664 	lcall	_lcd_write
+   067F D0 06               665 	pop	ar6
                             666 ;	lcd.c:200: x_tmp--;	//退一位
-   065A 1E                  667 	dec	r6
+   0681 1E                  667 	dec	r6
                             668 ;	lcd.c:201: number/=10;
-   065B 75 57 0A            669 	mov	__divslong_PARM_2,#0x0A
-   065E E4                  670 	clr	a
-   065F F5 58               671 	mov	(__divslong_PARM_2 + 1),a
-   0661 F5 59               672 	mov	(__divslong_PARM_2 + 2),a
-   0663 F5 5A               673 	mov	(__divslong_PARM_2 + 3),a
-   0665 85 11 82            674 	mov	dpl,_lcd_printnxy_number_1_1
-   0668 85 12 83            675 	mov	dph,(_lcd_printnxy_number_1_1 + 1)
-   066B 85 13 F0            676 	mov	b,(_lcd_printnxy_number_1_1 + 2)
-   066E E5 14               677 	mov	a,(_lcd_printnxy_number_1_1 + 3)
-   0670 C0 06               678 	push	ar6
-   0672 12 08 99            679 	lcall	__divslong
-   0675 85 82 11            680 	mov	_lcd_printnxy_number_1_1,dpl
-   0678 85 83 12            681 	mov	(_lcd_printnxy_number_1_1 + 1),dph
-   067B 85 F0 13            682 	mov	(_lcd_printnxy_number_1_1 + 2),b
-   067E F5 14               683 	mov	(_lcd_printnxy_number_1_1 + 3),a
-   0680 D0 06               684 	pop	ar6
+   0682 75 59 0A            669 	mov	__divslong_PARM_2,#0x0A
+   0685 E4                  670 	clr	a
+   0686 F5 5A               671 	mov	(__divslong_PARM_2 + 1),a
+   0688 F5 5B               672 	mov	(__divslong_PARM_2 + 2),a
+   068A F5 5C               673 	mov	(__divslong_PARM_2 + 3),a
+   068C 85 11 82            674 	mov	dpl,_lcd_printnxy_number_1_1
+   068F 85 12 83            675 	mov	dph,(_lcd_printnxy_number_1_1 + 1)
+   0692 85 13 F0            676 	mov	b,(_lcd_printnxy_number_1_1 + 2)
+   0695 E5 14               677 	mov	a,(_lcd_printnxy_number_1_1 + 3)
+   0697 C0 06               678 	push	ar6
+   0699 12 08 92            679 	lcall	__divslong
+   069C 85 82 11            680 	mov	_lcd_printnxy_number_1_1,dpl
+   069F 85 83 12            681 	mov	(_lcd_printnxy_number_1_1 + 1),dph
+   06A2 85 F0 13            682 	mov	(_lcd_printnxy_number_1_1 + 2),b
+   06A5 F5 14               683 	mov	(_lcd_printnxy_number_1_1 + 3),a
+   06A7 D0 06               684 	pop	ar6
                             685 ;	lcd.c:202: if(0==number)	break;	//为0则停
-   0682 E5 11               686 	mov	a,_lcd_printnxy_number_1_1
-   0684 70 0C               687 	jnz	00111$
-   0686 E5 12               688 	mov	a,(_lcd_printnxy_number_1_1 + 1)
-   0688 70 08               689 	jnz	00111$
-   068A E5 13               690 	mov	a,(_lcd_printnxy_number_1_1 + 2)
-   068C 70 04               691 	jnz	00111$
-   068E E5 14               692 	mov	a,(_lcd_printnxy_number_1_1 + 3)
-   0690 60 02               693 	jz	00112$
-   0692                     694 00111$:
-   0692 80 95               695 	sjmp	00104$
-   0694                     696 00112$:
+   06A9 E5 11               686 	mov	a,_lcd_printnxy_number_1_1
+   06AB 70 0C               687 	jnz	00111$
+   06AD E5 12               688 	mov	a,(_lcd_printnxy_number_1_1 + 1)
+   06AF 70 08               689 	jnz	00111$
+   06B1 E5 13               690 	mov	a,(_lcd_printnxy_number_1_1 + 2)
+   06B3 70 04               691 	jnz	00111$
+   06B5 E5 14               692 	mov	a,(_lcd_printnxy_number_1_1 + 3)
+   06B7 60 02               693 	jz	00112$
+   06B9                     694 00111$:
+   06B9 80 95               695 	sjmp	00104$
+   06BB                     696 00112$:
                             697 ;	lcd.c:204: lcd_position(++x,y);	//光标复位
-   0694 05 0F               698 	inc	_lcd_printnxy_PARM_2
-   0696 85 10 0A            699 	mov	_lcd_position_PARM_2,_lcd_printnxy_PARM_3
-   0699 85 0F 82            700 	mov	dpl,_lcd_printnxy_PARM_2
-   069C 02 05 59            701 	ljmp	_lcd_position
+   06BB 05 0F               698 	inc	_lcd_printnxy_PARM_2
+   06BD 85 10 0A            699 	mov	_lcd_position_PARM_2,_lcd_printnxy_PARM_3
+   06C0 85 0F 82            700 	mov	dpl,_lcd_printnxy_PARM_2
+   06C3 02 05 80            701 	ljmp	_lcd_position
                             702 ;------------------------------------------------------------
                             703 ;Allocation info for local variables in function 'lcd_init'
                             704 ;------------------------------------------------------------
@@ -707,50 +707,26 @@
                             707 ;	-----------------------------------------
                             708 ;	 function lcd_init
                             709 ;	-----------------------------------------
-   069F                     710 _lcd_init:
+   06C6                     710 _lcd_init:
                             711 ;	lcd.c:217: lcd_write(0,0x3c);		//两行5*10点阵，8位数据接口
-   069F 75 08 3C            712 	mov	_lcd_write_PARM_2,#0x3C
-   06A2 75 82 00            713 	mov	dpl,#0x00
-   06A5 12 05 06            714 	lcall	_lcd_write
+   06C6 75 08 3C            712 	mov	_lcd_write_PARM_2,#0x3C
+   06C9 75 82 00            713 	mov	dpl,#0x00
+   06CC 12 05 2D            714 	lcall	_lcd_write
                             715 ;	lcd.c:222: lcd_write(0,0x06); //读写后画面固定、AC自增
-   06A8 75 08 06            716 	mov	_lcd_write_PARM_2,#0x06
-   06AB 75 82 00            717 	mov	dpl,#0x00
-   06AE 12 05 06            718 	lcall	_lcd_write
+   06CF 75 08 06            716 	mov	_lcd_write_PARM_2,#0x06
+   06D2 75 82 00            717 	mov	dpl,#0x00
+   06D5 12 05 2D            718 	lcall	_lcd_write
                             719 ;	lcd.c:227: lcd_write(0,0x0f);	//屏幕、光标和闪烁全开
-   06B1 75 08 0F            720 	mov	_lcd_write_PARM_2,#0x0F
-   06B4 75 82 00            721 	mov	dpl,#0x00
-   06B7 12 05 06            722 	lcall	_lcd_write
+   06D8 75 08 0F            720 	mov	_lcd_write_PARM_2,#0x0F
+   06DB 75 82 00            721 	mov	dpl,#0x00
+   06DE 12 05 2D            722 	lcall	_lcd_write
                             723 ;	lcd.c:229: lcd_cls();
-   06BA 12 05 6E            724 	lcall	_lcd_cls
+   06E1 12 05 95            724 	lcall	_lcd_cls
                             725 ;	lcd.c:230: lcd_write(0,LCD_CMD_HOME);	//LCD归位（清DDRAM、DDROM、AC，清除所有移动）
-   06BD 75 08 02            726 	mov	_lcd_write_PARM_2,#0x02
-   06C0 75 82 00            727 	mov	dpl,#0x00
-   06C3 12 05 06            728 	lcall	_lcd_write
-                            729 ;	lcd.c:231: lcd_printcxy('A',1,1);lcd_printsxy("China U",0,0);
-   06C6 75 0D 01            730 	mov	_lcd_printcxy_PARM_2,#0x01
-   06C9 75 0E 01            731 	mov	_lcd_printcxy_PARM_3,#0x01
-   06CC 75 82 41            732 	mov	dpl,#0x41
-   06CF 12 06 05            733 	lcall	_lcd_printcxy
-   06D2 75 0B 00            734 	mov	_lcd_printsxy_PARM_2,#0x00
-   06D5 75 0C 00            735 	mov	_lcd_printsxy_PARM_3,#0x00
-   06D8 90 09 C6            736 	mov	dptr,#__str_0
-   06DB 75 F0 80            737 	mov	b,#0x80
-   06DE 12 05 AF            738 	lcall	_lcd_printsxy
-                            739 ;	lcd.c:232: lcd_printnxy(1234567890,13,1);
-   06E1 75 0F 0D            740 	mov	_lcd_printnxy_PARM_2,#0x0D
-   06E4 75 10 01            741 	mov	_lcd_printnxy_PARM_3,#0x01
-   06E7 90 02 D2            742 	mov	dptr,#0x02D2
-   06EA 75 F0 96            743 	mov	b,#0x96
-   06ED 74 49               744 	mov	a,#0x49
-   06EF 12 06 1C            745 	lcall	_lcd_printnxy
-                            746 ;	lcd.c:233: while(1);
-   06F2                     747 00102$:
-   06F2 80 FE               748 	sjmp	00102$
-                            749 	.area CSEG    (CODE)
-                            750 	.area CONST   (CODE)
-   09C6                     751 __str_0:
-   09C6 43 68 69 6E 61 20   752 	.ascii "China U"
-        55
-   09CD 00                  753 	.db 0x00
-                            754 	.area XINIT   (CODE)
-                            755 	.area CABS    (ABS,CODE)
+   06E4 75 08 02            726 	mov	_lcd_write_PARM_2,#0x02
+   06E7 75 82 00            727 	mov	dpl,#0x00
+   06EA 02 05 2D            728 	ljmp	_lcd_write
+                            729 	.area CSEG    (CODE)
+                            730 	.area CONST   (CODE)
+                            731 	.area XINIT   (CODE)
+                            732 	.area CABS    (ABS,CODE)

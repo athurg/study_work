@@ -1,7 +1,7 @@
                               1 ;--------------------------------------------------------
                               2 ; File Created by SDCC : free open source ANSI-C Compiler
                               3 ; Version 2.8.0 #5117 (Jul 21 2008) (UNIX)
-                              4 ; This file was generated Mon Sep 29 09:23:29 2008
+                              4 ; This file was generated Wed Oct  1 08:42:36 2008
                               5 ;--------------------------------------------------------
                               6 	.module keypad
                               7 	.optsdcc -mmcs51 --model-small
@@ -311,7 +311,7 @@
    000E 75*04 BE            311 	mov	(_key_make_keytable_1_1 + 0x0004),#0xBE
    0011 75*05 03            312 	mov	(_key_make_keytable_1_1 + 0x0005),#0x03
    0014 75*06 7E            313 	mov	(_key_make_keytable_1_1 + 0x0006),#0x7E
-   0017 75*07 77            314 	mov	(_key_make_keytable_1_1 + 0x0007),#0x77
+   0017 75*07 15            314 	mov	(_key_make_keytable_1_1 + 0x0007),#0x15
    001A 75*08 ED            315 	mov	(_key_make_keytable_1_1 + 0x0008),#0xED
    001D 75*09 06            316 	mov	(_key_make_keytable_1_1 + 0x0009),#0x06
    0020 75*0A DD            317 	mov	(_key_make_keytable_1_1 + 0x000a),#0xDD
@@ -319,7 +319,7 @@
    0026 75*0C BD            319 	mov	(_key_make_keytable_1_1 + 0x000c),#0xBD
    0029 75*0D 04            320 	mov	(_key_make_keytable_1_1 + 0x000d),#0x04
    002C 75*0E 7D            321 	mov	(_key_make_keytable_1_1 + 0x000e),#0x7D
-   002F 75*0F 66            322 	mov	(_key_make_keytable_1_1 + 0x000f),#0x66
+   002F 75*0F 16            322 	mov	(_key_make_keytable_1_1 + 0x000f),#0x16
    0032 75*10 EB            323 	mov	(_key_make_keytable_1_1 + 0x0010),#0xEB
    0035 75*11 07            324 	mov	(_key_make_keytable_1_1 + 0x0011),#0x07
    0038 75*12 DB            325 	mov	(_key_make_keytable_1_1 + 0x0012),#0xDB
@@ -327,23 +327,23 @@
    003E 75*14 BB            327 	mov	(_key_make_keytable_1_1 + 0x0014),#0xBB
    0041 75*15 09            328 	mov	(_key_make_keytable_1_1 + 0x0015),#0x09
    0044 75*16 7B            329 	mov	(_key_make_keytable_1_1 + 0x0016),#0x7B
-   0047 75*17 61            330 	mov	(_key_make_keytable_1_1 + 0x0017),#0x61
+   0047 75*17 17            330 	mov	(_key_make_keytable_1_1 + 0x0017),#0x17
    004A 75*18 E7            331 	mov	(_key_make_keytable_1_1 + 0x0018),#0xE7
    004D 75*19 0A            332 	mov	(_key_make_keytable_1_1 + 0x0019),#0x0A
    0050 75*1A D7            333 	mov	(_key_make_keytable_1_1 + 0x001a),#0xD7
    0053 75*1B 00            334 	mov	(_key_make_keytable_1_1 + 0x001b),#0x00
    0056 75*1C B7            335 	mov	(_key_make_keytable_1_1 + 0x001c),#0xB7
-   0059 75*1D 63            336 	mov	(_key_make_keytable_1_1 + 0x001d),#0x63
+   0059 75*1D 14            336 	mov	(_key_make_keytable_1_1 + 0x001d),#0x14
    005C 75*1E 77            337 	mov	(_key_make_keytable_1_1 + 0x001e),#0x77
-   005F 75*1F 73            338 	mov	(_key_make_keytable_1_1 + 0x001f),#0x73
+   005F 75*1F 18            338 	mov	(_key_make_keytable_1_1 + 0x001f),#0x18
    0062 75*20 00            339 	mov	(_key_make_keytable_1_1 + 0x0020),#0x00
    0065 75*21 42            340 	mov	(_key_make_keytable_1_1 + 0x0021),#0x42
-                            341 ;	keypad.c:22: for(i=16;i>=0;i--)
+                            341 ;	keypad.c:27: for(i=16;i>=0;i--)
    0068 7B 10               342 	mov	r3,#0x10
    006A                     343 00103$:
    006A EB                  344 	mov	a,r3
    006B 20 E7 16            345 	jb	acc.7,00106$
-                            346 ;	keypad.c:24: if(keytable[i].index==key)	return keytable[i].value;
+                            346 ;	keypad.c:29: if(keytable[i].index==key)	return keytable[i].value;
    006E EB                  347 	mov	a,r3
    006F 2B                  348 	add	a,r3
    0070 FC                  349 	mov	r4,a
@@ -359,11 +359,11 @@
    007E 86 82               359 	mov	dpl,@r0
    0080 22                  360 	ret
    0081                     361 00105$:
-                            362 ;	keypad.c:22: for(i=16;i>=0;i--)
+                            362 ;	keypad.c:27: for(i=16;i>=0;i--)
    0081 1B                  363 	dec	r3
    0082 80 E6               364 	sjmp	00103$
    0084                     365 00106$:
-                            366 ;	keypad.c:26: return 0x00;
+                            366 ;	keypad.c:31: return 0x00;
    0084 75 82 00            367 	mov	dpl,#0x00
    0087 22                  368 	ret
                             369 ;------------------------------------------------------------
@@ -371,28 +371,28 @@
                             371 ;------------------------------------------------------------
                             372 ;line                      Allocated to registers r2 
                             373 ;------------------------------------------------------------
-                            374 ;	keypad.c:29: char key_scan(void)
+                            374 ;	keypad.c:34: char key_scan(void)
                             375 ;	-----------------------------------------
                             376 ;	 function key_scan
                             377 ;	-----------------------------------------
    0088                     378 _key_scan:
-                            379 ;	keypad.c:43: char line=0x08;			//行扫描起始码(00001000B)
+                            379 ;	keypad.c:48: char line=0x08;			//行扫描起始码(00001000B)
    0088 7A 08               380 	mov	r2,#0x08
-                            381 ;	keypad.c:44: while(line)
+                            381 ;	keypad.c:49: while(line)
    008A                     382 00103$:
    008A EA                  383 	mov	a,r2
    008B 60 23               384 	jz	00105$
-                            385 ;	keypad.c:46: P1=~line;
+                            385 ;	keypad.c:51: P1=~line;
    008D EA                  386 	mov	a,r2
    008E F4                  387 	cpl	a
    008F F5 90               388 	mov	_P1,a
-                            389 ;	keypad.c:47: if((P1>>4)!=0x0f) break;
+                            389 ;	keypad.c:52: if((P1>>4)!=0x0f) break;
    0091 E5 90               390 	mov	a,_P1
    0093 C4                  391 	swap	a
    0094 54 0F               392 	anl	a,#0x0f
    0096 FB                  393 	mov	r3,a
    0097 BB 0F 16            394 	cjne	r3,#0x0F,00105$
-                            395 ;	keypad.c:48: line/=2;
+                            395 ;	keypad.c:53: line/=2;
    009A C2 D5               396 	clr	F0
    009C 75 F0 02            397 	mov	b,#0x02
    009F EA                  398 	mov	a,r2
@@ -409,11 +409,11 @@
    00AD FA                  409 	mov	r2,a
    00AE 80 DA               410 	sjmp	00103$
    00B0                     411 00105$:
-                            412 ;	keypad.c:50: line=P1;
+                            412 ;	keypad.c:55: line=P1;
    00B0 AA 90               413 	mov	r2,_P1
-                            414 ;	keypad.c:51: P1=0xf0; //重新初始化P1口，自己的事情自己搞完
+                            414 ;	keypad.c:56: P1=0xf0; //重新初始化P1口，自己的事情自己搞完
    00B2 75 90 F0            415 	mov	_P1,#0xF0
-                            416 ;	keypad.c:53: return line;
+                            416 ;	keypad.c:58: return line;
    00B5 8A 82               417 	mov	dpl,r2
    00B7 22                  418 	ret
                             419 	.area CSEG    (CODE)

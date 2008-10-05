@@ -1,7 +1,7 @@
 ;--------------------------------------------------------
 ; File Created by SDCC : free open source ANSI-C Compiler
 ; Version 2.8.0 #5117 (Jul 21 2008) (UNIX)
-; This file was generated Mon Sep 29 09:23:29 2008
+; This file was generated Wed Oct  1 08:42:36 2008
 ;--------------------------------------------------------
 	.module keypad
 	.optsdcc -mmcs51 --model-small
@@ -311,7 +311,7 @@ _key_make:
 	mov	(_key_make_keytable_1_1 + 0x0004),#0xBE
 	mov	(_key_make_keytable_1_1 + 0x0005),#0x03
 	mov	(_key_make_keytable_1_1 + 0x0006),#0x7E
-	mov	(_key_make_keytable_1_1 + 0x0007),#0x77
+	mov	(_key_make_keytable_1_1 + 0x0007),#0x15
 	mov	(_key_make_keytable_1_1 + 0x0008),#0xED
 	mov	(_key_make_keytable_1_1 + 0x0009),#0x06
 	mov	(_key_make_keytable_1_1 + 0x000a),#0xDD
@@ -319,7 +319,7 @@ _key_make:
 	mov	(_key_make_keytable_1_1 + 0x000c),#0xBD
 	mov	(_key_make_keytable_1_1 + 0x000d),#0x04
 	mov	(_key_make_keytable_1_1 + 0x000e),#0x7D
-	mov	(_key_make_keytable_1_1 + 0x000f),#0x66
+	mov	(_key_make_keytable_1_1 + 0x000f),#0x16
 	mov	(_key_make_keytable_1_1 + 0x0010),#0xEB
 	mov	(_key_make_keytable_1_1 + 0x0011),#0x07
 	mov	(_key_make_keytable_1_1 + 0x0012),#0xDB
@@ -327,23 +327,23 @@ _key_make:
 	mov	(_key_make_keytable_1_1 + 0x0014),#0xBB
 	mov	(_key_make_keytable_1_1 + 0x0015),#0x09
 	mov	(_key_make_keytable_1_1 + 0x0016),#0x7B
-	mov	(_key_make_keytable_1_1 + 0x0017),#0x61
+	mov	(_key_make_keytable_1_1 + 0x0017),#0x17
 	mov	(_key_make_keytable_1_1 + 0x0018),#0xE7
 	mov	(_key_make_keytable_1_1 + 0x0019),#0x0A
 	mov	(_key_make_keytable_1_1 + 0x001a),#0xD7
 	mov	(_key_make_keytable_1_1 + 0x001b),#0x00
 	mov	(_key_make_keytable_1_1 + 0x001c),#0xB7
-	mov	(_key_make_keytable_1_1 + 0x001d),#0x63
+	mov	(_key_make_keytable_1_1 + 0x001d),#0x14
 	mov	(_key_make_keytable_1_1 + 0x001e),#0x77
-	mov	(_key_make_keytable_1_1 + 0x001f),#0x73
+	mov	(_key_make_keytable_1_1 + 0x001f),#0x18
 	mov	(_key_make_keytable_1_1 + 0x0020),#0x00
 	mov	(_key_make_keytable_1_1 + 0x0021),#0x42
-;	keypad.c:22: for(i=16;i>=0;i--)
+;	keypad.c:27: for(i=16;i>=0;i--)
 	mov	r3,#0x10
 00103$:
 	mov	a,r3
 	jb	acc.7,00106$
-;	keypad.c:24: if(keytable[i].index==key)	return keytable[i].value;
+;	keypad.c:29: if(keytable[i].index==key)	return keytable[i].value;
 	mov	a,r3
 	add	a,r3
 	mov	r4,a
@@ -359,11 +359,11 @@ _key_make:
 	mov	dpl,@r0
 	ret
 00105$:
-;	keypad.c:22: for(i=16;i>=0;i--)
+;	keypad.c:27: for(i=16;i>=0;i--)
 	dec	r3
 	sjmp	00103$
 00106$:
-;	keypad.c:26: return 0x00;
+;	keypad.c:31: return 0x00;
 	mov	dpl,#0x00
 	ret
 ;------------------------------------------------------------
@@ -371,28 +371,28 @@ _key_make:
 ;------------------------------------------------------------
 ;line                      Allocated to registers r2 
 ;------------------------------------------------------------
-;	keypad.c:29: char key_scan(void)
+;	keypad.c:34: char key_scan(void)
 ;	-----------------------------------------
 ;	 function key_scan
 ;	-----------------------------------------
 _key_scan:
-;	keypad.c:43: char line=0x08;			//行扫描起始码(00001000B)
+;	keypad.c:48: char line=0x08;			//行扫描起始码(00001000B)
 	mov	r2,#0x08
-;	keypad.c:44: while(line)
+;	keypad.c:49: while(line)
 00103$:
 	mov	a,r2
 	jz	00105$
-;	keypad.c:46: P1=~line;
+;	keypad.c:51: P1=~line;
 	mov	a,r2
 	cpl	a
 	mov	_P1,a
-;	keypad.c:47: if((P1>>4)!=0x0f) break;
+;	keypad.c:52: if((P1>>4)!=0x0f) break;
 	mov	a,_P1
 	swap	a
 	anl	a,#0x0f
 	mov	r3,a
 	cjne	r3,#0x0F,00105$
-;	keypad.c:48: line/=2;
+;	keypad.c:53: line/=2;
 	clr	F0
 	mov	b,#0x02
 	mov	a,r2
@@ -409,11 +409,11 @@ _key_scan:
 	mov	r2,a
 	sjmp	00103$
 00105$:
-;	keypad.c:50: line=P1;
+;	keypad.c:55: line=P1;
 	mov	r2,_P1
-;	keypad.c:51: P1=0xf0; //重新初始化P1口，自己的事情自己搞完
+;	keypad.c:56: P1=0xf0; //重新初始化P1口，自己的事情自己搞完
 	mov	_P1,#0xF0
-;	keypad.c:53: return line;
+;	keypad.c:58: return line;
 	mov	dpl,r2
 	ret
 	.area CSEG    (CODE)

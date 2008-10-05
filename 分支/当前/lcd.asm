@@ -1,7 +1,7 @@
 ;--------------------------------------------------------
 ; File Created by SDCC : free open source ANSI-C Compiler
 ; Version 2.8.0 #5117 (Jul 21 2008) (UNIX)
-; This file was generated Tue Sep 30 08:13:56 2008
+; This file was generated Wed Oct  1 10:36:47 2008
 ;--------------------------------------------------------
 	.module lcd
 	.optsdcc -mmcs51 --model-small
@@ -725,31 +725,8 @@ _lcd_init:
 ;	lcd.c:230: lcd_write(0,LCD_CMD_HOME);	//LCD归位（清DDRAM、DDROM、AC，清除所有移动）
 	mov	_lcd_write_PARM_2,#0x02
 	mov	dpl,#0x00
-	lcall	_lcd_write
-;	lcd.c:231: lcd_printcxy('A',1,1);lcd_printsxy("China U",0,0);
-	mov	_lcd_printcxy_PARM_2,#0x01
-	mov	_lcd_printcxy_PARM_3,#0x01
-	mov	dpl,#0x41
-	lcall	_lcd_printcxy
-	mov	_lcd_printsxy_PARM_2,#0x00
-	mov	_lcd_printsxy_PARM_3,#0x00
-	mov	dptr,#__str_0
-	mov	b,#0x80
-	lcall	_lcd_printsxy
-;	lcd.c:232: lcd_printnxy(1234567890,13,1);
-	mov	_lcd_printnxy_PARM_2,#0x0D
-	mov	_lcd_printnxy_PARM_3,#0x01
-	mov	dptr,#0x02D2
-	mov	b,#0x96
-	mov	a,#0x49
-	lcall	_lcd_printnxy
-;	lcd.c:233: while(1);
-00102$:
-	sjmp	00102$
+	ljmp	_lcd_write
 	.area CSEG    (CODE)
 	.area CONST   (CODE)
-__str_0:
-	.ascii "China U"
-	.db 0x00
 	.area XINIT   (CODE)
 	.area CABS    (ABS,CODE)

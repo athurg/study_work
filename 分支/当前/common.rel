@@ -1,5 +1,5 @@
 XH
-H 19 areas 1 global symbols
+H 19 areas 2 global symbols
 M common
 O -mmcs51 --model-small
 A _CODE size 0 flags 0 addr 0
@@ -23,7 +23,8 @@ A GSINIT4 size 0 flags 20 addr 0
 A GSINIT5 size 0 flags 20 addr 0
 A GSINIT size 0 flags 20 addr 0
 A GSFINAL size 0 flags 20 addr 0
-A CSEG size 3B flags 20 addr 0
+A CSEG size 5C flags 20 addr 0
+S _delay_ms Def003B
 S _delay Def0000
 A CONST size 0 flags 20 addr 0
 A XINIT size 0 flags 20 addr 0
@@ -61,4 +62,26 @@ R 00 00 00 15
 T 00 3A
 R 00 00 00 15
 T 00 3A 22
+R 00 00 00 15
+T 00 3B
+R 00 00 00 15
+T 00 3B AA 82 AB 83
+R 00 00 00 15
+T 00 3F
+R 00 00 00 15
+T 00 3F EA 4B 60 18 7C 28
+R 00 00 00 15
+T 00 45
+R 00 00 00 15
+T 00 45 C3 74 80 8C F0 63 F0 80 95 F0 50 03 1C 80
+R 00 00 00 15
+T 00 53 F1
+R 00 00 00 15
+T 00 54
+R 00 00 00 15
+T 00 54 1A BA FF E7 1B 80 E4
+R 00 00 00 15
+T 00 5B
+R 00 00 00 15
+T 00 5B 22
 R 00 00 00 15

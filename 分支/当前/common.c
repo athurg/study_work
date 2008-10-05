@@ -24,3 +24,20 @@ void delay(char num)
 	}
 	return;
 }
+
+void delay_ms(int num)
+{
+	/***********************
+	*   延时函数
+	*
+	*   参数：延时时间
+	*    返回：空
+	*
+	************************/
+	char j;
+	while(num){
+		for(j=40; j>0; j--);
+		num--;
+	}
+	return;
+}

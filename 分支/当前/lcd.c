@@ -94,8 +94,8 @@ void lcd_shift(char object, char num)
 	num=-num;	//负号取相反数，以统一循环变量
     
     while(num){
-	lcd_write(0,datas);	//一次移动
-	num--;
+		lcd_write(0,datas);	//一次移动
+		num--;
     }
 }
 
@@ -144,8 +144,8 @@ void lcd_prints(char *string)
 {
     char i=0;
     while(string[i]!=0x00){
-	lcd_write(1,string[i]);
-	i++;
+		lcd_write(1,string[i]);
+		i++;
     }
 }
 
@@ -160,8 +160,8 @@ void lcd_printsxy(char *string, char x, char y)
     char i=0;
     lcd_position(x,y);	//先定位
     while(string[i]!=0x00){
-	lcd_write(1,string[i]);
-	i++;
+		lcd_write(1,string[i]);
+		i++;
     }
 }
 
@@ -228,7 +228,4 @@ void lcd_init(void)
 
     lcd_cls();
     lcd_write(0,LCD_CMD_HOME);	//LCD归位（清DDRAM、DDROM、AC，清除所有移动）
-    lcd_printcxy('A',1,1);lcd_printsxy("China U",0,0);
-    lcd_printnxy(1234567890,13,1);
-    while(1);
 }

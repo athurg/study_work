@@ -1,7 +1,7 @@
 ;--------------------------------------------------------
 ; File Created by SDCC : free open source ANSI-C Compiler
 ; Version 2.8.0 #5117 (Jul 21 2008) (UNIX)
-; This file was generated Tue Sep 30 08:11:53 2008
+; This file was generated Thu Oct  2 08:42:43 2008
 ;--------------------------------------------------------
 	.module main
 	.optsdcc -mmcs51 --model-small
@@ -9,7 +9,6 @@
 ;--------------------------------------------------------
 ; Public variables in this module
 ;--------------------------------------------------------
-	.globl _update_str_PARM_2
 	.globl _main
 	.globl _CY
 	.globl _AC
@@ -109,14 +108,12 @@
 	.globl _P0
 	.globl _sign
 	.globl _keycache
-	.globl _lcd_str
+	.globl _stand_pos
+	.globl _stand_str
 	.globl _state
 	.globl _keypad_interrupt
 	.globl _flush
 	.globl _refresh
-	.globl _menu_refresh
-	.globl _update_str
-	.globl _num_refresh
 	.globl _interrupt_init
 ;--------------------------------------------------------
 ; special function registers
@@ -247,8 +244,10 @@ bits:
 	.area DSEG    (DATA)
 _state::
 	.ds 1
-_lcd_str::
-	.ds 32
+_stand_str::
+	.ds 38
+_stand_pos::
+	.ds 1
 _keycache::
 	.ds 4
 _sign::
@@ -257,18 +256,10 @@ _keypad_interrupt_key_1_1:
 	.ds 2
 _keypad_interrupt_sloc0_1_0:
 	.ds 4
-_num_refresh_i_1_1:
-	.ds 1
-_num_refresh_tmp_1_1:
-	.ds 4
 ;--------------------------------------------------------
 ; overlayable items in internal ram 
 ;--------------------------------------------------------
-	.area	OSEG    (OVR,DATA)
-_update_str_PARM_2::
-	.ds 1
-_update_str_i_1_1::
-	.ds 2
+	.area OSEG    (OVR,DATA)
 ;--------------------------------------------------------
 ; Stack segment in internal ram 
 ;--------------------------------------------------------
@@ -337,46 +328,49 @@ __interrupt_vect:
 	.globl __mcs51_genRAMCLEAR
 ;	main.c:17: char state=0;	//状态变量,0为待机,W波形,F频率,A幅度
 	mov	_state,#0x00
-;	main.c:18: char lcd_str[2][16]={"Welcome to use !",">>Made in SWUN<<"};	//保存LCD显示数据
-	mov	_lcd_str,#0x57
-	mov	(_lcd_str + 0x0001),#0x65
-	mov	(_lcd_str + 0x0002),#0x6C
-	mov	(_lcd_str + 0x0003),#0x63
-	mov	(_lcd_str + 0x0004),#0x6F
-	mov	(_lcd_str + 0x0005),#0x6D
-	mov	(_lcd_str + 0x0006),#0x65
-	mov	(_lcd_str + 0x0007),#0x20
-	mov	(_lcd_str + 0x0008),#0x74
-	mov	(_lcd_str + 0x0009),#0x6F
-	mov	(_lcd_str + 0x000a),#0x20
-	mov	(_lcd_str + 0x000b),#0x75
-	mov	(_lcd_str + 0x000c),#0x73
-	mov	(_lcd_str + 0x000d),#0x65
-	mov	(_lcd_str + 0x000e),#0x20
-	mov	(_lcd_str + 0x000f),#0x21
-	mov	(_lcd_str + 0x0010),#0x3E
-	mov	(_lcd_str + 0x0011),#0x3E
-	mov	(_lcd_str + 0x0012),#0x4D
-	mov	(_lcd_str + 0x0013),#0x61
-	mov	(_lcd_str + 0x0014),#0x64
-	mov	(_lcd_str + 0x0015),#0x65
-	mov	(_lcd_str + 0x0016),#0x20
-	mov	(_lcd_str + 0x0017),#0x69
-	mov	(_lcd_str + 0x0018),#0x6E
-	mov	(_lcd_str + 0x0019),#0x20
-	mov	(_lcd_str + 0x001a),#0x53
-	mov	(_lcd_str + 0x001b),#0x57
-	mov	(_lcd_str + 0x001c),#0x55
-	mov	(_lcd_str + 0x001d),#0x4E
-	mov	(_lcd_str + 0x001e),#0x3C
-	mov	(_lcd_str + 0x001f),#0x3C
-;	main.c:19: long int keycache=0;		//键盘输入缓存
+;	main.c:18: char stand_str[38]="     Wave;F=     KHz;A=   Vol   ";
+	mov	_stand_str,#0x20
+	mov	(_stand_str + 0x0001),#0x20
+	mov	(_stand_str + 0x0002),#0x20
+	mov	(_stand_str + 0x0003),#0x20
+	mov	(_stand_str + 0x0004),#0x20
+	mov	(_stand_str + 0x0005),#0x57
+	mov	(_stand_str + 0x0006),#0x61
+	mov	(_stand_str + 0x0007),#0x76
+	mov	(_stand_str + 0x0008),#0x65
+	mov	(_stand_str + 0x0009),#0x3B
+	mov	(_stand_str + 0x000a),#0x46
+	mov	(_stand_str + 0x000b),#0x3D
+	mov	(_stand_str + 0x000c),#0x20
+	mov	(_stand_str + 0x000d),#0x20
+	mov	(_stand_str + 0x000e),#0x20
+	mov	(_stand_str + 0x000f),#0x20
+	mov	(_stand_str + 0x0010),#0x20
+	mov	(_stand_str + 0x0011),#0x4B
+	mov	(_stand_str + 0x0012),#0x48
+	mov	(_stand_str + 0x0013),#0x7A
+	mov	(_stand_str + 0x0014),#0x3B
+	mov	(_stand_str + 0x0015),#0x41
+	mov	(_stand_str + 0x0016),#0x3D
+	mov	(_stand_str + 0x0017),#0x20
+	mov	(_stand_str + 0x0018),#0x20
+	mov	(_stand_str + 0x0019),#0x20
+	mov	(_stand_str + 0x001a),#0x56
+	mov	(_stand_str + 0x001b),#0x6F
+	mov	(_stand_str + 0x001c),#0x6C
+	mov	(_stand_str + 0x001d),#0x20
+	mov	(_stand_str + 0x001e),#0x20
+	mov	(_stand_str + 0x001f),#0x20
+	mov	(_stand_str + 0x0020),#0x00
+;	main.c:19: char stand_pos=0;	//控制待机时屏幕流动显示的位置；
+	mov	_stand_pos,#0x00
+;	main.c:21: long int keycache=0;		//键盘输入缓存
 	clr	a
 	mov	_keycache,a
 	mov	(_keycache + 1),a
 	mov	(_keycache + 2),a
 	mov	(_keycache + 3),a
-;	main.c:24: }sign={1,1000,5};
+;	main.c:26: }sign={1,1000,5};
 	mov	_sign,#0x01
 	mov	(_sign + 0x0001),#0xE8
 	mov	((_sign + 0x0001) + 1),#0x03
@@ -404,7 +398,7 @@ __sdcc_program_startup:
 ;key                       Allocated with name '_keypad_interrupt_key_1_1'
 ;sloc0                     Allocated with name '_keypad_interrupt_sloc0_1_0'
 ;------------------------------------------------------------
-;	main.c:39: void keypad_interrupt(void) interrupt 0
+;	main.c:40: void keypad_interrupt(void) interrupt 0
 ;	-----------------------------------------
 ;	 function keypad_interrupt
 ;	-----------------------------------------
@@ -432,7 +426,7 @@ _keypad_interrupt:
 	push	(0+1)
 	push	psw
 	mov	psw,#0x00
-;	main.c:49: key=key_make(key_scan());
+;	main.c:50: key=key_make(key_scan());
 	lcall	_key_scan
 	lcall	_key_make
 	mov	a,dpl
@@ -441,7 +435,7 @@ _keypad_interrupt:
 	rlc	a
 	subb	a,acc
 	mov	(_keypad_interrupt_key_1_1 + 1),a
-;	main.c:51: if(key>10){	//功能区
+;	main.c:52: if(key>10){	//功能区
 	clr	c
 	mov	a,#0x0A
 	subb	a,_keypad_interrupt_key_1_1
@@ -449,52 +443,45 @@ _keypad_interrupt:
 	mov	b,(_keypad_interrupt_key_1_1 + 1)
 	xrl	b,#0x80
 	subb	a,b
-	jnc	00111$
-;	main.c:52: if(key!=state){	//按键非当前状态才处理
-	mov	a,_state
-	mov	r4,a
-	rlc	a
-	subb	a,acc
-	mov	r5,a
-	mov	a,r4
-	cjne	a,_keypad_interrupt_key_1_1,00124$
-	mov	a,r5
-	cjne	a,(_keypad_interrupt_key_1_1 + 1),00124$
-	sjmp	00104$
-00124$:
-;	main.c:53: state=key;
-	mov	_state,_keypad_interrupt_key_1_1
-;	main.c:54: if(key=='c')	flush();	//提交功能键按下
-	mov	a,#0x63
-	cjne	a,_keypad_interrupt_key_1_1,00125$
+	jnc	00110$
+;	main.c:53: key-=20;
+	mov	a,_keypad_interrupt_key_1_1
+	add	a,#0xec
+	mov	_keypad_interrupt_key_1_1,a
+	mov	a,(_keypad_interrupt_key_1_1 + 1)
+	addc	a,#0xff
+	mov	(_keypad_interrupt_key_1_1 + 1),a
+;	main.c:54: if(key==4)		flush();	//功能处理
+	mov	a,#0x04
+	cjne	a,_keypad_interrupt_key_1_1,00122$
 	clr	a
-	cjne	a,(_keypad_interrupt_key_1_1 + 1),00125$
-	sjmp	00126$
-00125$:
+	cjne	a,(_keypad_interrupt_key_1_1 + 1),00122$
+	sjmp	00123$
+00122$:
 	sjmp	00102$
-00126$:
+00123$:
 	lcall	_flush
+	sjmp	00103$
 00102$:
-;	main.c:55: keycache=0;	//清空输入缓存
+;	main.c:55: else			state=key;
+	mov	_state,_keypad_interrupt_key_1_1
+00103$:
+;	main.c:56: keycache=0;	//清空输入缓存
 	clr	a
 	mov	_keycache,a
 	mov	(_keycache + 1),a
 	mov	(_keycache + 2),a
 	mov	(_keycache + 3),a
-00104$:
-;	main.c:57: menu_refresh();
-	lcall	_menu_refresh
-	ljmp	00112$
-00111$:
-;	main.c:60: if(state)
+	ljmp	00111$
+00110$:
+;	main.c:57: }else if(state){	//非设置状态的数字按键丢弃
 	mov	a,_state
-	jnz	00127$
-	ljmp	00112$
-00127$:
-;	main.c:62: if(state=='w')	//波形选择只收集一次按键
-	mov	a,#0x77
-	cjne	a,_state,00106$
-;	main.c:63: keycache=key;
+	jnz	00124$
+	ljmp	00111$
+00124$:
+;	main.c:58: if(state==1)	keycache=key;//波形选择只收集一次按键
+	mov	a,#0x01
+	cjne	a,_state,00105$
 	mov	_keycache,_keypad_interrupt_key_1_1
 	mov	a,(_keypad_interrupt_key_1_1 + 1)
 	mov	(_keycache + 1),a
@@ -502,9 +489,9 @@ _keypad_interrupt:
 	subb	a,acc
 	mov	(_keycache + 2),a
 	mov	(_keycache + 3),a
-	sjmp	00107$
-00106$:
-;	main.c:65: keycache=keycache>999999999?0:(key+keycache*10);
+	sjmp	00111$
+00105$:
+;	main.c:59: else		keycache=keycache>999999999 ? 0 : (key+keycache*10);	//频率幅度需要叠加
 	clr	c
 	mov	a,#0xFF
 	subb	a,_keycache
@@ -516,13 +503,13 @@ _keypad_interrupt:
 	mov	b,(_keycache + 3)
 	xrl	b,#0x80
 	subb	a,b
-	jnc	00115$
+	jnc	00114$
 	mov	r4,#0x00
 	mov	r5,#0x00
 	mov	r6,#0x00
 	mov	r7,#0x00
-	sjmp	00116$
-00115$:
+	sjmp	00115$
+00114$:
 	mov	__mullong_PARM_2,_keycache
 	mov	(__mullong_PARM_2 + 1),(_keycache + 1)
 	mov	(__mullong_PARM_2 + 2),(_keycache + 2)
@@ -554,18 +541,15 @@ _keypad_interrupt:
 	mov	a,(_keypad_interrupt_sloc0_1_0 + 3)
 	addc	a,r1
 	mov	r7,a
-00116$:
+00115$:
 	mov	_keycache,r4
 	mov	(_keycache + 1),r5
 	mov	(_keycache + 2),r6
 	mov	(_keycache + 3),r7
-00107$:
-;	main.c:66: num_refresh();
-	lcall	_num_refresh
-00112$:
-;	main.c:70: refresh();
+00111$:
+;	main.c:61: refresh();
 	lcall	_refresh
-;	main.c:71: delay(1);	//歇会儿，你娃要一直按，我就不甩你
+;	main.c:62: delay(1);
 	mov	dpl,#0x01
 	lcall	_delay
 	pop	psw
@@ -587,237 +571,162 @@ _keypad_interrupt:
 ;Allocation info for local variables in function 'flush'
 ;------------------------------------------------------------
 ;------------------------------------------------------------
-;	main.c:75: void flush(void)
+;	main.c:65: void flush(void)
 ;	-----------------------------------------
 ;	 function flush
 ;	-----------------------------------------
 _flush:
-;	main.c:77: switch(state){
-	mov	a,#0x61
+;	main.c:67: switch(state){
+	mov	a,#0x01
 	cjne	a,_state,00110$
-	sjmp	00103$
+	sjmp	00101$
 00110$:
-	mov	a,#0x66
+	mov	a,#0x02
 	cjne	a,_state,00111$
 	sjmp	00102$
 00111$:
-	mov	a,#0x77
-	cjne	a,_state,00105$
-;	main.c:79: sign.w=keycache;
+	mov	a,#0x03
+;	main.c:68: case 1:
+	cjne	a,_state,00104$
+	sjmp	00103$
+00101$:
+;	main.c:69: sign.w=keycache;
 	mov	r2,_keycache
 	mov	_sign,r2
-;	main.c:80: break;
-;	main.c:81: case 'f':
-	ret
+;	main.c:70: break;
+;	main.c:71: case 2:
+	sjmp	00104$
 00102$:
-;	main.c:82: sign.f=keycache;
+;	main.c:72: sign.f=keycache;
 	mov	(_sign + 0x0001),_keycache
 	mov	((_sign + 0x0001) + 1),(_keycache + 1)
 	mov	((_sign + 0x0001) + 2),(_keycache + 2)
 	mov	((_sign + 0x0001) + 3),(_keycache + 3)
-;	main.c:83: break;
-;	main.c:84: case 'a':
-	ret
+;	main.c:73: break;
+;	main.c:74: case 3:
+	sjmp	00104$
 00103$:
-;	main.c:85: sign.a=keycache;
+;	main.c:75: sign.a=keycache;
 	mov	r2,_keycache
 	mov	(_sign + 0x0005),r2
-;	main.c:87: }
-00105$:
+;	main.c:77: }
+00104$:
+;	main.c:81: state=0;		//处理完成恢复待机状态
+	mov	_state,#0x00
 	ret
 ;------------------------------------------------------------
 ;Allocation info for local variables in function 'refresh'
 ;------------------------------------------------------------
 ;------------------------------------------------------------
-;	main.c:93: void refresh(void)
+;	main.c:84: void refresh(void)
 ;	-----------------------------------------
 ;	 function refresh
 ;	-----------------------------------------
 _refresh:
-;	main.c:99: lcd_position(0,0);
-	mov	_lcd_position_PARM_2,#0x00
-	mov	dpl,#0x00
-	lcall	_lcd_position
-;	main.c:100: lcd_prints(lcd_str[0]);
-	mov	dptr,#_lcd_str
-	mov	b,#0x40
-	lcall	_lcd_prints
-;	main.c:101: lcd_position(0,1);
-	mov	_lcd_position_PARM_2,#0x01
-	mov	dpl,#0x00
-	lcall	_lcd_position
-;	main.c:102: lcd_prints(lcd_str[1]);
-	mov	dptr,#(_lcd_str + 0x0010)
-	mov	b,#0x40
-	ljmp	_lcd_prints
-;------------------------------------------------------------
-;Allocation info for local variables in function 'menu_refresh'
-;------------------------------------------------------------
-;------------------------------------------------------------
-;	main.c:106: void menu_refresh(void)
-;	-----------------------------------------
-;	 function menu_refresh
-;	-----------------------------------------
-_menu_refresh:
-;	main.c:113: switch(state)
-	mov	a,#0x61
-	cjne	a,_state,00111$
-	sjmp	00104$
-00111$:
-	mov	a,#0x66
-	cjne	a,_state,00112$
-	sjmp	00103$
-00112$:
-	mov	a,#0x77
-	cjne	a,_state,00113$
-	sjmp	00102$
-00113$:
-;	main.c:116: update_str("Welcome to use !",0);
-	mov	_update_str_PARM_2,#0x00
+;	main.c:86: lcd_printsxy("                ",0,0);
+	mov	_lcd_printsxy_PARM_2,#0x00
+	mov	_lcd_printsxy_PARM_3,#0x00
 	mov	dptr,#__str_0
 	mov	b,#0x80
-	lcall	_update_str
-;	main.c:117: update_str(">>Made in SWUN<<",1);
-	mov	_update_str_PARM_2,#0x01
+	lcall	_lcd_printsxy
+;	main.c:87: lcd_printsxy("                ",0,1);
+	mov	_lcd_printsxy_PARM_2,#0x00
+	mov	_lcd_printsxy_PARM_3,#0x01
+	mov	dptr,#__str_0
+	mov	b,#0x80
+	lcall	_lcd_printsxy
+;	main.c:88: switch(state){
+	clr	a
+	cjne	a,_state,00126$
+	sjmp	00101$
+00126$:
+	mov	a,#0x01
+	cjne	a,_state,00127$
+	ljmp	00106$
+00127$:
+	mov	a,#0x02
+	cjne	a,_state,00128$
+	ljmp	00112$
+00128$:
+	mov	a,#0x03
+	cjne	a,_state,00129$
+	ljmp	00113$
+00129$:
+	ljmp	00114$
+;	main.c:89: case 0:
+00101$:
+;	main.c:90: switch(sign.w){
+	mov	r2,_sign
+	cjne	r2,#0x02,00130$
+	sjmp	00102$
+00130$:
+;	main.c:91: case 2:lcd_printsxy("Rect    A=   Vol",0,0);	break;
+	cjne	r2,#0x03,00104$
+	sjmp	00103$
+00102$:
+	mov	_lcd_printsxy_PARM_2,#0x00
+	mov	_lcd_printsxy_PARM_3,#0x00
 	mov	dptr,#__str_1
 	mov	b,#0x80
-;	main.c:118: break;
-;	main.c:119: case 'w'://波形
-	ljmp	_update_str
-00102$:
-;	main.c:120: update_str("=Wave Type  Set=",0);
-	mov	_update_str_PARM_2,#0x00
+	lcall	_lcd_printsxy
+;	main.c:92: case 3:lcd_printsxy("Tria    A=   Vol",0,0);	break;
+	sjmp	00105$
+00103$:
+	mov	_lcd_printsxy_PARM_2,#0x00
+	mov	_lcd_printsxy_PARM_3,#0x00
 	mov	dptr,#__str_2
 	mov	b,#0x80
-	lcall	_update_str
-;	main.c:121: update_str("1.sin 2.fan 3.tr",1);
-	mov	_update_str_PARM_2,#0x01
+	lcall	_lcd_printsxy
+;	main.c:93: default:lcd_printsxy("sine    A=   Vol",0,0);	break;
+	sjmp	00105$
+00104$:
+	mov	_lcd_printsxy_PARM_2,#0x00
+	mov	_lcd_printsxy_PARM_3,#0x00
 	mov	dptr,#__str_3
 	mov	b,#0x80
-;	main.c:122: break;
-;	main.c:123: case 'f'://频率
-	ljmp	_update_str
-00103$:
-;	main.c:124: update_str("=Frequence  Set=",0);
-	mov	_update_str_PARM_2,#0x00
+	lcall	_lcd_printsxy
+;	main.c:94: }
+00105$:
+;	main.c:95: lcd_printsxy("F=       KHz",0,1);
+	mov	_lcd_printsxy_PARM_2,#0x00
+	mov	_lcd_printsxy_PARM_3,#0x01
 	mov	dptr,#__str_4
 	mov	b,#0x80
-	lcall	_update_str
-;	main.c:125: update_str("           0 KHz",1);
-	mov	_update_str_PARM_2,#0x01
+	lcall	_lcd_printsxy
+;	main.c:96: lcd_printnxy(sign.a,12,0);lcd_printnxy(sign.f,8,1);
+	mov	r2,(_sign + 0x0005)
+	mov	a,(_sign + 0x0005)
+	rlc	a
+	subb	a,acc
+	mov	r3,a
+	mov	r4,a
+	mov	r5,a
+	mov	_lcd_printnxy_PARM_2,#0x0C
+	mov	_lcd_printnxy_PARM_3,#0x00
+	mov	dpl,r2
+	mov	dph,r3
+	mov	b,r4
+	mov	a,r5
+	lcall	_lcd_printnxy
+	mov	_lcd_printnxy_PARM_2,#0x08
+	mov	_lcd_printnxy_PARM_3,#0x01
+	mov	dpl,(_sign + 0x0001)
+	mov	dph,((_sign + 0x0001) + 1)
+	mov	b,((_sign + 0x0001) + 2)
+	mov	a,((_sign + 0x0001) + 3)
+	lcall	_lcd_printnxy
+;	main.c:97: break;
+	ljmp	00114$
+;	main.c:98: case 1:
+00106$:
+;	main.c:99: lcd_printsxy("Wave Select",0,0);
+	mov	_lcd_printsxy_PARM_2,#0x00
+	mov	_lcd_printsxy_PARM_3,#0x00
 	mov	dptr,#__str_5
 	mov	b,#0x80
-;	main.c:126: break;
-;	main.c:127: case 'a'://振幅
-	ljmp	_update_str
-00104$:
-;	main.c:128: update_str("=Amplitude  Set=",0);
-	mov	_update_str_PARM_2,#0x00
-	mov	dptr,#__str_6
-	mov	b,#0x80
-	lcall	_update_str
-;	main.c:129: update_str("           0 Vol",1);
-	mov	_update_str_PARM_2,#0x01
-	mov	dptr,#__str_7
-	mov	b,#0x80
-;	main.c:131: }
-	ljmp	_update_str
-;------------------------------------------------------------
-;Allocation info for local variables in function 'update_str'
-;------------------------------------------------------------
-;line                      Allocated with name '_update_str_PARM_2'
-;p                         Allocated to registers r2 r3 r4 
-;i                         Allocated with name '_update_str_i_1_1'
-;------------------------------------------------------------
-;	main.c:139: void update_str(char * p,char line)
-;	-----------------------------------------
-;	 function update_str
-;	-----------------------------------------
-_update_str:
-	mov	r2,dpl
-	mov	r3,dph
-	mov	r4,b
-;	main.c:142: while(1)
-	mov	a,_update_str_PARM_2
-	swap	a
-	anl	a,#0xf0
-	add	a,#_lcd_str
-	mov	r5,a
-	clr	a
-	mov	_update_str_i_1_1,a
-	mov	(_update_str_i_1_1 + 1),a
-00104$:
-;	main.c:144: lcd_str[line][i]=*p;
-	mov	a,_update_str_i_1_1
-	add	a,r5
-	mov	r0,a
-	mov	dpl,r2
-	mov	dph,r3
-	mov	b,r4
-	lcall	__gptrget
-	mov	r6,a
-	inc	dptr
-	mov	r2,dpl
-	mov	r3,dph
-	mov	@r0,ar6
-;	main.c:145: p++;i++;
-	inc	_update_str_i_1_1
-	clr	a
-	cjne	a,_update_str_i_1_1,00110$
-	inc	(_update_str_i_1_1 + 1)
-00110$:
-;	main.c:146: if(*p=='\0')	break;
-	mov	dpl,r2
-	mov	dph,r3
-	mov	b,r4
-	lcall	__gptrget
-	jnz	00104$
-	ret
-;------------------------------------------------------------
-;Allocation info for local variables in function 'num_refresh'
-;------------------------------------------------------------
-;i                         Allocated with name '_num_refresh_i_1_1'
-;tmp                       Allocated with name '_num_refresh_tmp_1_1'
-;------------------------------------------------------------
-;	main.c:151: void num_refresh(void)
-;	-----------------------------------------
-;	 function num_refresh
-;	-----------------------------------------
-_num_refresh:
-;	main.c:158: long int tmp=keycache;
-	mov	_num_refresh_tmp_1_1,_keycache
-	mov	(_num_refresh_tmp_1_1 + 1),(_keycache + 1)
-	mov	(_num_refresh_tmp_1_1 + 2),(_keycache + 2)
-	mov	(_num_refresh_tmp_1_1 + 3),(_keycache + 3)
-;	main.c:160: if(state=='w')
-	mov	a,#0x77
-	cjne	a,_state,00128$
-	sjmp	00129$
-00128$:
-	ljmp	00123$
-00129$:
-;	main.c:162: switch(keycache)
+	lcall	_lcd_printsxy
+;	main.c:100: switch(keycache){
 	mov	a,#0x01
-	cjne	a,_keycache,00130$
-	clr	a
-	cjne	a,(_keycache + 1),00130$
-	clr	a
-	cjne	a,(_keycache + 2),00130$
-	clr	a
-	cjne	a,(_keycache + 3),00130$
-	sjmp	00101$
-00130$:
-	mov	a,#0x02
-	cjne	a,_keycache,00131$
-	clr	a
-	cjne	a,(_keycache + 1),00131$
-	clr	a
-	cjne	a,(_keycache + 2),00131$
-	clr	a
-	cjne	a,(_keycache + 3),00131$
-	sjmp	00102$
-00131$:
-	mov	a,#0x03
 	cjne	a,_keycache,00132$
 	clr	a
 	cjne	a,(_keycache + 1),00132$
@@ -825,171 +734,202 @@ _num_refresh:
 	cjne	a,(_keycache + 2),00132$
 	clr	a
 	cjne	a,(_keycache + 3),00132$
-	sjmp	00103$
+	sjmp	00107$
 00132$:
-	ret
-;	main.c:164: case 1:
-00101$:
-;	main.c:165: update_str("1.Sin           ",1);break;
-	mov	_update_str_PARM_2,#0x01
+	mov	a,#0x02
+	cjne	a,_keycache,00133$
+	clr	a
+	cjne	a,(_keycache + 1),00133$
+	clr	a
+	cjne	a,(_keycache + 2),00133$
+	clr	a
+	cjne	a,(_keycache + 3),00133$
+	sjmp	00108$
+00133$:
+	mov	a,#0x03
+	cjne	a,_keycache,00134$
+	clr	a
+	cjne	a,(_keycache + 1),00134$
+	clr	a
+	cjne	a,(_keycache + 2),00134$
+	clr	a
+	cjne	a,(_keycache + 3),00134$
+	sjmp	00109$
+00134$:
+;	main.c:101: case 1: lcd_printsxy("Sine Wave",0,1);break;
+	sjmp	00110$
+00107$:
+	mov	_lcd_printsxy_PARM_2,#0x00
+	mov	_lcd_printsxy_PARM_3,#0x01
+	mov	dptr,#__str_6
+	mov	b,#0x80
+	lcall	_lcd_printsxy
+	ljmp	00114$
+;	main.c:102: case 2: lcd_printsxy("Deco Wave",0,1);break;
+00108$:
+	mov	_lcd_printsxy_PARM_2,#0x00
+	mov	_lcd_printsxy_PARM_3,#0x01
+	mov	dptr,#__str_7
+	mov	b,#0x80
+	lcall	_lcd_printsxy
+	ljmp	00114$
+;	main.c:103: case 3: lcd_printsxy("Tria Wave",0,1);break;
+00109$:
+	mov	_lcd_printsxy_PARM_2,#0x00
+	mov	_lcd_printsxy_PARM_3,#0x01
 	mov	dptr,#__str_8
 	mov	b,#0x80
-	ljmp	_update_str
-;	main.c:166: case 2:
-00102$:
-;	main.c:167: update_str("2.Freq          ",1);break;
-	mov	_update_str_PARM_2,#0x01
+	lcall	_lcd_printsxy
+	ljmp	00114$
+;	main.c:104: default: lcd_printsxy("1.Sin 2.Dec 3.Tri",0,1);break;
+00110$:
+	mov	_lcd_printsxy_PARM_2,#0x00
+	mov	_lcd_printsxy_PARM_3,#0x01
 	mov	dptr,#__str_9
 	mov	b,#0x80
-	ljmp	_update_str
-;	main.c:168: case 3:
-00103$:
-;	main.c:169: update_str("3.Tri           ",1);break;
-	mov	_update_str_PARM_2,#0x01
+	lcall	_lcd_printsxy
+;	main.c:106: break;
+;	main.c:107: case 2:
+	sjmp	00114$
+00112$:
+;	main.c:108: lcd_printsxy("Frequence Set",0,0);
+	mov	_lcd_printsxy_PARM_2,#0x00
+	mov	_lcd_printsxy_PARM_3,#0x00
 	mov	dptr,#__str_10
 	mov	b,#0x80
-;	main.c:176: for(i=0;i<11;i++)	lcd_str[1][i]=' ';
-	ljmp	_update_str
-00123$:
-	mov	r6,#0x00
-00112$:
-	clr	c
-	mov	a,r6
-	xrl	a,#0x80
-	subb	a,#0x8b
-	jnc	00125$
-	mov	a,r6
-	add	a,#(_lcd_str + 0x0010)
-	mov	r0,a
-	mov	@r0,#0x20
-	inc	r6
-;	main.c:177: while(tmp)
-	sjmp	00112$
-00125$:
-	mov	_num_refresh_i_1_1,r6
-00106$:
-	mov	a,_num_refresh_tmp_1_1
-	orl	a,(_num_refresh_tmp_1_1 + 1)
-	orl	a,(_num_refresh_tmp_1_1 + 2)
-	orl	a,(_num_refresh_tmp_1_1 + 3)
-	jz	00116$
-;	main.c:179: lcd_str[1][i]=tmp%10+48;
-	mov	a,_num_refresh_i_1_1
-	add	a,#(_lcd_str + 0x0010)
-	mov	r0,a
-	mov	__modslong_PARM_2,#0x0A
-	clr	a
-	mov	(__modslong_PARM_2 + 1),a
-	mov	(__modslong_PARM_2 + 2),a
-	mov	(__modslong_PARM_2 + 3),a
-	mov	dpl,_num_refresh_tmp_1_1
-	mov	dph,(_num_refresh_tmp_1_1 + 1)
-	mov	b,(_num_refresh_tmp_1_1 + 2)
-	mov	a,(_num_refresh_tmp_1_1 + 3)
-	push	ar0
-	lcall	__modslong
-	mov	r7,dpl
-	pop	ar0
-	mov	a,#0x30
-	add	a,r7
-	mov	@r0,a
-;	main.c:180: tmp/=10;
-	mov	__divslong_PARM_2,#0x0A
-	clr	a
-	mov	(__divslong_PARM_2 + 1),a
-	mov	(__divslong_PARM_2 + 2),a
-	mov	(__divslong_PARM_2 + 3),a
-	mov	dpl,_num_refresh_tmp_1_1
-	mov	dph,(_num_refresh_tmp_1_1 + 1)
-	mov	b,(_num_refresh_tmp_1_1 + 2)
-	mov	a,(_num_refresh_tmp_1_1 + 3)
-	lcall	__divslong
-	mov	_num_refresh_tmp_1_1,dpl
-	mov	(_num_refresh_tmp_1_1 + 1),dph
-	mov	(_num_refresh_tmp_1_1 + 2),b
-	mov	(_num_refresh_tmp_1_1 + 3),a
-;	main.c:181: i--;
-	dec	_num_refresh_i_1_1
-	sjmp	00106$
-00116$:
+	lcall	_lcd_printsxy
+;	main.c:109: lcd_printsxy("KHz",13,1);
+	mov	_lcd_printsxy_PARM_2,#0x0D
+	mov	_lcd_printsxy_PARM_3,#0x01
+	mov	dptr,#__str_11
+	mov	b,#0x80
+	lcall	_lcd_printsxy
+;	main.c:110: lcd_printnxy(keycache,12,1);
+	mov	_lcd_printnxy_PARM_2,#0x0C
+	mov	_lcd_printnxy_PARM_3,#0x01
+	mov	dpl,_keycache
+	mov	dph,(_keycache + 1)
+	mov	b,(_keycache + 2)
+	mov	a,(_keycache + 3)
+	lcall	_lcd_printnxy
+;	main.c:111: break;
+;	main.c:112: case 3:
+	sjmp	00114$
+00113$:
+;	main.c:113: lcd_printsxy("Ample Setting",0,0);
+	mov	_lcd_printsxy_PARM_2,#0x00
+	mov	_lcd_printsxy_PARM_3,#0x00
+	mov	dptr,#__str_12
+	mov	b,#0x80
+	lcall	_lcd_printsxy
+;	main.c:114: lcd_printsxy("Vol",13,1);
+	mov	_lcd_printsxy_PARM_2,#0x0D
+	mov	_lcd_printsxy_PARM_3,#0x01
+	mov	dptr,#__str_13
+	mov	b,#0x80
+	lcall	_lcd_printsxy
+;	main.c:115: lcd_printnxy(keycache,12,1);
+	mov	_lcd_printnxy_PARM_2,#0x0C
+	mov	_lcd_printnxy_PARM_3,#0x01
+	mov	dpl,_keycache
+	mov	dph,(_keycache + 1)
+	mov	b,(_keycache + 2)
+	mov	a,(_keycache + 3)
+	lcall	_lcd_printnxy
+;	main.c:117: }
+00114$:
+;	main.c:118: stand_pos=0;
+	mov	_stand_pos,#0x00
 	ret
 ;------------------------------------------------------------
 ;Allocation info for local variables in function 'interrupt_init'
 ;------------------------------------------------------------
 ;------------------------------------------------------------
-;	main.c:196: void interrupt_init(void)
+;	main.c:128: void interrupt_init(void)
 ;	-----------------------------------------
 ;	 function interrupt_init
 ;	-----------------------------------------
 _interrupt_init:
-;	main.c:199: EX0=1;    EX1=0;	//外部中断
+;	main.c:131: EX0=1;    EX1=0;	//外部中断
 	setb	_EX0
 	clr	_EX1
-;	main.c:200: ET0=0;    ET1=0;	//定时器中断
+;	main.c:132: ET0=0;    ET1=0;	//定时器中断
 	clr	_ET0
 	clr	_ET1
-;	main.c:201: ES =0;		//串行中断
+;	main.c:133: ES =0;		//串行中断
 	clr	_ES
-;	main.c:204: PX0=1;	//外部
+;	main.c:136: PX0=1;	//外部
 	setb	_PX0
-;	main.c:205: PT0=0;	//定时器
+;	main.c:137: PT0=0;	//定时器
 	clr	_PT0
-;	main.c:208: IT1=0;	//低电平触发，设为1为下降沿触发
+;	main.c:140: IT1=0;	//低电平触发，设为1为下降沿触发
 	clr	_IT1
-;	main.c:210: EA=1;	//打开中断总开关
+;	main.c:142: EA=1;	//打开中断总开关
 	setb	_EA
 	ret
 ;------------------------------------------------------------
 ;Allocation info for local variables in function 'main'
 ;------------------------------------------------------------
 ;------------------------------------------------------------
-;	main.c:214: void main(void)
+;	main.c:146: void main(void)
 ;	-----------------------------------------
 ;	 function main
 ;	-----------------------------------------
 _main:
-;	main.c:217: lcd_init();	//LCD初始化
+;	main.c:149: lcd_init();	//LCD初始化
 	lcall	_lcd_init
-;	main.c:218: interrupt_init();	//外部中断0初始化
+;	main.c:150: interrupt_init();	//外部中断0初始化
 	lcall	_interrupt_init
-;	main.c:219: P1=0xf0;	//键盘初始化
+;	main.c:151: P1=0xf0;	//键盘初始化
 	mov	_P1,#0xF0
-;	main.c:220: refresh();	//打印待机界面
-	ljmp	_refresh
+;	main.c:152: refresh();
+	lcall	_refresh
+;	main.c:153: while(1);
+00102$:
+	sjmp	00102$
 	.area CSEG    (CODE)
 	.area CONST   (CODE)
 __str_0:
-	.ascii "Welcome to use !"
+	.ascii "                "
 	.db 0x00
 __str_1:
-	.ascii ">>Made in SWUN<<"
+	.ascii "Rect    A=   Vol"
 	.db 0x00
 __str_2:
-	.ascii "=Wave Type  Set="
+	.ascii "Tria    A=   Vol"
 	.db 0x00
 __str_3:
-	.ascii "1.sin 2.fan 3.tr"
+	.ascii "sine    A=   Vol"
 	.db 0x00
 __str_4:
-	.ascii "=Frequence  Set="
+	.ascii "F=       KHz"
 	.db 0x00
 __str_5:
-	.ascii "           0 KHz"
+	.ascii "Wave Select"
 	.db 0x00
 __str_6:
-	.ascii "=Amplitude  Set="
+	.ascii "Sine Wave"
 	.db 0x00
 __str_7:
-	.ascii "           0 Vol"
+	.ascii "Deco Wave"
 	.db 0x00
 __str_8:
-	.ascii "1.Sin           "
+	.ascii "Tria Wave"
 	.db 0x00
 __str_9:
-	.ascii "2.Freq          "
+	.ascii "1.Sin 2.Dec 3.Tri"
 	.db 0x00
 __str_10:
-	.ascii "3.Tri           "
+	.ascii "Frequence Set"
+	.db 0x00
+__str_11:
+	.ascii "KHz"
+	.db 0x00
+__str_12:
+	.ascii "Ample Setting"
+	.db 0x00
+__str_13:
+	.ascii "Vol"
 	.db 0x00
 	.area XINIT   (CODE)
 	.area CABS    (ABS,CODE)

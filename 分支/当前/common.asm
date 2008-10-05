@@ -1,7 +1,7 @@
 ;--------------------------------------------------------
 ; File Created by SDCC : free open source ANSI-C Compiler
 ; Version 2.8.0 #5117 (Jul 21 2008) (UNIX)
-; This file was generated Mon Sep 29 09:23:29 2008
+; This file was generated Wed Oct  1 17:35:56 2008
 ;--------------------------------------------------------
 	.module common
 	.optsdcc -mmcs51 --model-small
@@ -10,6 +10,7 @@
 ; Public variables in this module
 ;--------------------------------------------------------
 	.globl _delay
+	.globl _delay_ms
 ;--------------------------------------------------------
 ; special function registers
 ;--------------------------------------------------------
@@ -30,6 +31,7 @@
 ;--------------------------------------------------------
 ; overlayable items in internal ram 
 ;--------------------------------------------------------
+	.area	OSEG    (OVR,DATA)
 	.area	OSEG    (OVR,DATA)
 ;--------------------------------------------------------
 ; indirectly addressable internal ram data
@@ -151,6 +153,44 @@ _delay:
 	sjmp	00101$
 00103$:
 ;	common.c:25: return;
+	ret
+;------------------------------------------------------------
+;Allocation info for local variables in function 'delay_ms'
+;------------------------------------------------------------
+;num                       Allocated to registers r2 r3 
+;j                         Allocated to registers r4 
+;------------------------------------------------------------
+;	common.c:28: void delay_ms(int num)
+;	-----------------------------------------
+;	 function delay_ms
+;	-----------------------------------------
+_delay_ms:
+	mov	r2,dpl
+	mov	r3,dph
+;	common.c:38: while(num){
+00101$:
+	mov	a,r2
+	orl	a,r3
+	jz	00103$
+;	common.c:39: for(j=40; j>0; j--);
+	mov	r4,#0x28
+00104$:
+	clr	c
+	mov	a,#(0x00 ^ 0x80)
+	mov	b,r4
+	xrl	b,#0x80
+	subb	a,b
+	jnc	00107$
+	dec	r4
+	sjmp	00104$
+00107$:
+;	common.c:40: num--;
+	dec	r2
+	cjne	r2,#0xff,00101$
+	dec	r3
+	sjmp	00101$
+00103$:
+;	common.c:42: return;
 	ret
 	.area CSEG    (CODE)
 	.area CONST   (CODE)

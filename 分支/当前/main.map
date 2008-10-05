@@ -56,20 +56,20 @@ CABS                               0000   0000 =      0. bytes (ABS,CON,CODE)
   0C:0022    l_OSEG
   0C:002A    l_GSINIT4
   0C:003A    s_GSINIT4
-  0C:0057    s_OSEG
+  0C:0059    s_OSEG
   0C:0064    s_GSINIT
   0C:0064    s_GSINIT5
   0C:0075    l_DSEG
-  0C:0079    s_RSEG
-  0C:0079    s_SSEG
-  0C:007E    l_GSINIT
-  0C:00C3    l_CONST
-  0C:00E2    s_GSFINAL
-  0C:00E5    s_CSEG
+  0C:007B    s_RSEG
+  0C:007B    s_SSEG
+  0C:0084    l_GSINIT
+  0C:00B1    l_CONST
+  0C:00E8    s_GSFINAL
+  0C:00EB    s_CSEG
   0C:0100    l_IRAM
-  0C:0826    l_CSEG
-  0C:090B    s_CONST
-  0C:09CE    s_XINIT
+  0C:0819    l_CSEG
+  0C:0904    s_CONST
+  0C:09B5    s_XINIT
 
 
 
@@ -208,37 +208,36 @@ DSEG                               0000   0075 =    117. bytes (REL,CON)
      000F    _lcd_printnxy_PARM_2
      0010    _lcd_printnxy_PARM_3
      0021    _state
-     0022    _lcd_str
-     0042    _keycache
-     0046    _sign
+     0022    _stand_str
+     0048    _stand_pos
+     0049    _keycache
+     004D    _sign
 
 Hexadecimal
 
 Area                               Addr   Size   Decimal Bytes (Attributes)
 --------------------------------   ----   ----   ------- ----- ------------
-OSEG                               0057   0022 =     34. bytes (REL,OVR)
+OSEG                               0059   0022 =     34. bytes (REL,OVR)
 
       Value  Global
    --------  --------------------------------
-     0057    __divslong_PARM_2
-     0057    __divulong_PARM_2
-     0057    __modslong_PARM_2
-     0057    __modulong_PARM_2
-     0057    __mullong_PARM_2
-     0057    _key_make_keytable_1_1
-     0057    _update_str_PARM_2
-     0058    _update_str_i_1_1
+     0059    __divslong_PARM_2
+     0059    __divulong_PARM_2
+     0059    __modslong_PARM_2
+     0059    __modulong_PARM_2
+     0059    __mullong_PARM_2
+     0059    _key_make_keytable_1_1
 
 
 Hexadecimal
 
 Area                               Addr   Size   Decimal Bytes (Attributes)
 --------------------------------   ----   ----   ------- ----- ------------
-SSEG                               0079   0020 =     32. bytes (REL,OVR)
+SSEG                               007B   0020 =     32. bytes (REL,OVR)
 
       Value  Global
    --------  --------------------------------
-     0079    __start__stack
+     007B    __start__stack
 
 
 
@@ -294,40 +293,38 @@ Hexadecimal
 
 Area                               Addr   Size   Decimal Bytes (Attributes)
 --------------------------------   ----   ----   ------- ----- ------------
-CSEG                               00E5   0826 =   2086. bytes (REL,CON,CODE)
+CSEG                               00EB   0819 =   2073. bytes (REL,CON,CODE)
 
       Value  Global
    --------  --------------------------------
-  0C:00E5    _keypad_interrupt
-  0C:0202    _flush
-  0C:022C    _refresh
-  0C:0250    _menu_refresh
-  0C:02C5    _update_str
-  0C:0301    _num_refresh
-  0C:03E3    _interrupt_init
-  0C:03F6    _main
-  0C:0402    _delay
-  0C:043D    _key_make
-  0C:04C5    _key_scan
-  0C:04F5    _lcd_wait
-  0C:0506    _lcd_write
-  0C:051E    _lcd_shift
-  0C:0559    _lcd_position
-  0C:056E    _lcd_cls
-  0C:0577    _lcd_prints
-  0C:05AF    _lcd_printsxy
-  0C:05FC    _lcd_printc
-  0C:0605    _lcd_printcxy
-  0C:061C    _lcd_printnxy
-  0C:069F    _lcd_init
-  0C:06F4    __modulong
-  0C:0777    __divulong
-  0C:07DC    __mullong
-  0C:07DC    __mullong_dummy
-  0C:084A    __modslong
-  0C:0899    __divslong
-  0C:08EB    __gptrget
-  0C:0907    __sdcc_external_startup
+  0C:00EB    _keypad_interrupt
+  0C:01FF    _flush
+  0C:0230    _refresh
+  0C:03E7    _interrupt_init
+  0C:03FA    _main
+  0C:0408    _delay
+  0C:0443    _delay_ms
+  0C:0464    _key_make
+  0C:04EC    _key_scan
+  0C:051C    _lcd_wait
+  0C:052D    _lcd_write
+  0C:0545    _lcd_shift
+  0C:0580    _lcd_position
+  0C:0595    _lcd_cls
+  0C:059E    _lcd_prints
+  0C:05D6    _lcd_printsxy
+  0C:0623    _lcd_printc
+  0C:062C    _lcd_printcxy
+  0C:0643    _lcd_printnxy
+  0C:06C6    _lcd_init
+  0C:06ED    __modulong
+  0C:0770    __divulong
+  0C:07D5    __mullong
+  0C:07D5    __mullong_dummy
+  0C:0843    __modslong
+  0C:0892    __divslong
+  0C:08E4    __gptrget
+  0C:0900    __sdcc_external_startup
 
 
 ASxxxx Linker V01.75 + NoICE + SDCC Feb 1999,  page 1.

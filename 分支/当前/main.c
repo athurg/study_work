@@ -15,7 +15,9 @@
 
 /*----------------------------  全 局 变 量  --------------------------－-*/
 char state=0;	//状态变量,0为待机,W波形,F频率,A幅度
-char lcd_str[2][16]={"Welcome to use !",">>Made in SWUN<<"};	//保存LCD显示数据
+char stand_str[38]="     Wave;F=     KHz;A=   Vol   ";
+char stand_pos=0;	//控制待机时屏幕流动显示的位置；
+
 long int keycache=0;		//键盘输入缓存
 struct signal{
 	char w;		//波形
@@ -25,17 +27,16 @@ struct signal{
 
 /*----------------------------  函 数 声 明  ----------------------------*/
 void interrupt_init(void);	//中断初始化
-
 void keypad_interrupt(void) interrupt 0;	//键盘中断处理函数
 
 void flush(void);	//数据处理函数
-void refresh(void);	//LCD显示内容刷新函数
-void update_str(char * p,char line);
-void num_refresh(void);
-void menu_refresh(void);
+void refresh(void);	//数据处理函数
 
+void insert_str(char *str_p,char x, char y);
+void insert_num(long int num,char x, char y);
 
 /*函数实现*/
+
 void keypad_interrupt(void) interrupt 0
 {
 /*************************
@@ -49,146 +50,77 @@ void keypad_interrupt(void) interrupt 0
     key=key_make(key_scan());
     
     if(key>10){	//功能区
-	if(key!=state){	//按键非当前状态才处理
-	    state=key;
-	    if(key=='c')	flush();	//提交功能键按下
-	    keycache=0;	//清空输入缓存
-	}
-	menu_refresh();
-	
-    }else{	//数字区
-    	if(state)
-	{
-	    if(state=='w')	//波形选择只收集一次按键
-		keycache=key;
-	    else	//频率幅度需要叠加
-		keycache=keycache>999999999?0:(key+keycache*10);
-	    num_refresh();
-	}
-	
+		key-=20;
+		if(key==4)		flush();	//功能处理
+		else			state=key;
+		keycache=0;	//清空输入缓存
+    }else if(state){	//非设置状态的数字按键丢弃
+		if(state==1)	keycache=key;//波形选择只收集一次按键
+		else		keycache=keycache>999999999 ? 0 : (key+keycache*10);	//频率幅度需要叠加
     }
     refresh();
-    delay(1);	//歇会儿，你娃要一直按，我就不甩你
+	delay(1);
 }
-
 
 void flush(void)
 {
     switch(state){
-	case 'w':
-	    sign.w=keycache;
-	    break;
-	case 'f':
-	    sign.f=keycache;
-	    break;
-	case 'a':
-	    sign.a=keycache;
-	    break;
+		case 1:
+			sign.w=keycache;
+			break;
+		case 2:
+			sign.f=keycache;
+			break;
+		case 3:
+			sign.a=keycache;
+			break;
     }
     //TODO:
     //此处要添加输出到总线的代码；
-}
 
+	state=0;		//处理完成恢复待机状态
+}
 
 void refresh(void)
 {
-/****************
-* LCD屏幕刷新函数
-*
-****************/
-    lcd_position(0,0);
-    lcd_prints(lcd_str[0]);
-    lcd_position(0,1);
-    lcd_prints(lcd_str[1]);
-}
-
-
-void menu_refresh(void)
-{
-/*********************
-* LCD字串刷新函数(菜单)
-*
-*********************/
-
-    switch(state)
-    {
-	default://待机
-	    update_str("Welcome to use !",0);
-	    update_str(">>Made in SWUN<<",1);
-	    break;
-	case 'w'://波形
-	    update_str("=Wave Type  Set=",0);
-	    update_str("1.sin 2.fan 3.tr",1);
-	    break;
-	case 'f'://频率
-	    update_str("=Frequence  Set=",0);
-	    update_str("           0 KHz",1);
-	    break;
-	case 'a'://振幅
-	    update_str("=Amplitude  Set=",0);
-	    update_str("           0 Vol",1);
-	    break;
-    }
-}
-
-
-/*********************
-* 用字符串刷新LCD字串函数
-*
-*********************/
-void update_str(char * p,char line)
-{
-    int i=0;
-    while(1)
-    {
-	lcd_str[line][i]=*p;
-	p++;i++;
-	if(*p=='\0')	break;
-    }
-}
-
-
-void num_refresh(void)
-{
-/*********************
-* LCD字串刷新函数(数据)
-*
-*********************/
-    char i;
-    long int tmp=keycache;
-
-    if(state=='w')
-    {
-	switch(keycache)
-	{
-	    case 1:
-		update_str("1.Sin           ",1);break;
-	    case 2:
-		update_str("2.Freq          ",1);break;
-	    case 3:
-		update_str("3.Tri           ",1);break;
-	    default:
-
+	lcd_printsxy("                ",0,0);
+	lcd_printsxy("                ",0,1);
+	switch(state){
+		case 0:
+			switch(sign.w){
+				case 2:lcd_printsxy("Rect    A=   Vol",0,0);	break;
+				case 3:lcd_printsxy("Tria    A=   Vol",0,0);	break;
+				default:lcd_printsxy("sine    A=   Vol",0,0);	break;
+			}
+			lcd_printsxy("F=       KHz",0,1);
+			lcd_printnxy(sign.a,12,0);lcd_printnxy(sign.f,8,1);
+			break;
+		case 1:
+			lcd_printsxy("Wave Select",0,0);
+			switch(keycache){
+				case 1: lcd_printsxy("Sine Wave",0,1);break;
+				case 2: lcd_printsxy("Deco Wave",0,1);break;
+				case 3: lcd_printsxy("Tria Wave",0,1);break;
+				default: lcd_printsxy("1.Sin 2.Dec 3.Tri",0,1);break;
+			}
+			break;
+		case 2:
+			lcd_printsxy("Frequence Set",0,0);
+			lcd_printsxy("KHz",13,1);
+			lcd_printnxy(keycache,12,1);
+			break;
+		case 3:
+			lcd_printsxy("Ample Setting",0,0);
+			lcd_printsxy("Vol",13,1);
+			lcd_printnxy(keycache,12,1);
+			break;
 	}
-    }
-    else
-    {
-	for(i=0;i<11;i++)	lcd_str[1][i]=' ';
-	while(tmp)
-	{
-	    lcd_str[1][i]=tmp%10+48;
-	    tmp/=10;
-	    i--;
-	}
-    }
+	stand_pos=0;
 }
+
 
 /****************************
 	    中断初始化
-
-    参数：无
-    返回：无
-    调用：无
     说明：
 	电平方式外部中断、串行中断响应后CPU无法自动撤除中断请求，必须在中断响应程序中手动撤除。
 	其他方式CPU会自动撤除
@@ -217,6 +149,28 @@ void main(void)
     lcd_init();	//LCD初始化
     interrupt_init();	//外部中断0初始化
     P1=0xf0;	//键盘初始化
-    refresh();	//打印待机界面
-    //lcd_position(0,0);
+	refresh();
+	while(1);
+	/*
+	while(1){
+		if(state){
+			lcd_printsxy(lcd_str[0],0,0);
+			lcd_printsxy(lcd_str[1],0,1);
+		}else{
+			lcd_printsxy("WELCOME TO USE",0,0);
+			
+			for(i=0; i<16; i++){
+				switch(sign.w){
+					case 1: stand=stand_sine;break;
+					case 2: stand=stand_rect;break;
+					case 3: stand=stand_tria;break;
+				}
+				lcd_printsxy(stand,0-i,1);
+				lcd_printnxy(sign.f,16-i,1);	lcd_printnxy(sign.a,25-i,1);
+				delay(1);
+			}
+		}
+	
+	}
+	*/
 }

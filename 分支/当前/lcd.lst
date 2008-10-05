@@ -1,7 +1,7 @@
                               1 ;--------------------------------------------------------
                               2 ; File Created by SDCC : free open source ANSI-C Compiler
                               3 ; Version 2.8.0 #5117 (Jul 21 2008) (UNIX)
-                              4 ; This file was generated Tue Sep 30 08:13:56 2008
+                              4 ; This file was generated Wed Oct  1 10:36:47 2008
                               5 ;--------------------------------------------------------
                               6 	.module lcd
                               7 	.optsdcc -mmcs51 --model-small
@@ -725,32 +725,8 @@
                             725 ;	lcd.c:230: lcd_write(0,LCD_CMD_HOME);	//LCD归位（清DDRAM、DDROM、AC，清除所有移动）
    01C8 75*00 02            726 	mov	_lcd_write_PARM_2,#0x02
    01CB 75 82 00            727 	mov	dpl,#0x00
-   01CE 12s00r11            728 	lcall	_lcd_write
-                            729 ;	lcd.c:231: lcd_printcxy('A',1,1);lcd_printsxy("China U",0,0);
-   01D1 75*05 01            730 	mov	_lcd_printcxy_PARM_2,#0x01
-   01D4 75*06 01            731 	mov	_lcd_printcxy_PARM_3,#0x01
-   01D7 75 82 41            732 	mov	dpl,#0x41
-   01DA 12s01r10            733 	lcall	_lcd_printcxy
-   01DD 75*03 00            734 	mov	_lcd_printsxy_PARM_2,#0x00
-   01E0 75*04 00            735 	mov	_lcd_printsxy_PARM_3,#0x00
-   01E3 90s00r00            736 	mov	dptr,#__str_0
-   01E6 75 F0 80            737 	mov	b,#0x80
-   01E9 12s00rBA            738 	lcall	_lcd_printsxy
-                            739 ;	lcd.c:232: lcd_printnxy(1234567890,13,1);
-   01EC 75*07 0D            740 	mov	_lcd_printnxy_PARM_2,#0x0D
-   01EF 75*08 01            741 	mov	_lcd_printnxy_PARM_3,#0x01
-   01F2 90 02 D2            742 	mov	dptr,#0x02D2
-   01F5 75 F0 96            743 	mov	b,#0x96
-   01F8 74 49               744 	mov	a,#0x49
-   01FA 12s01r27            745 	lcall	_lcd_printnxy
-                            746 ;	lcd.c:233: while(1);
-   01FD                     747 00102$:
-   01FD 80 FE               748 	sjmp	00102$
-                            749 	.area CSEG    (CODE)
-                            750 	.area CONST   (CODE)
-   0000                     751 __str_0:
-   0000 43 68 69 6E 61 20   752 	.ascii "China U"
-        55
-   0007 00                  753 	.db 0x00
-                            754 	.area XINIT   (CODE)
-                            755 	.area CABS    (ABS,CODE)
+   01CE 02s00r11            728 	ljmp	_lcd_write
+                            729 	.area CSEG    (CODE)
+                            730 	.area CONST   (CODE)
+                            731 	.area XINIT   (CODE)
+                            732 	.area CABS    (ABS,CODE)
