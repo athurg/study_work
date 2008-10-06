@@ -1,7 +1,7 @@
 ;--------------------------------------------------------
 ; File Created by SDCC : free open source ANSI-C Compiler
 ; Version 2.8.0 #5117 (Jul 21 2008) (UNIX)
-; This file was generated Wed Oct  1 10:36:47 2008
+; This file was generated Mon Oct  6 21:23:23 2008
 ;--------------------------------------------------------
 	.module lcd
 	.optsdcc -mmcs51 --model-small
@@ -337,19 +337,19 @@ _lcd_wait:
 ;	lcd.c:36: while(1){
 00104$:
 ;	lcd.c:37: LCD_EN=0;
-	clr	_P2_2
+	clr	_P3_7
 ;	lcd.c:38: LCD_RS=0;
-	clr	_P2_0
+	clr	_P3_5
 ;	lcd.c:39: LCD_RW=1;
-	setb	_P2_1
+	setb	_P3_6
 ;	lcd.c:40: LCD_DATA=0xFF;
 	mov	_P0,#0xFF
 ;	lcd.c:41: LCD_EN=1;
-	setb	_P2_2
+	setb	_P3_7
 ;	lcd.c:42: if(!LCD_BUSY)		break;		//忙完了，不玩了：）
 	jb	_P0_7,00104$
 ;	lcd.c:44: LCD_EN=0;
-	clr	_P2_2
+	clr	_P3_7
 ;	lcd.c:45: return;
 	ret
 ;------------------------------------------------------------
@@ -371,15 +371,15 @@ _lcd_write:
 ;	lcd.c:64: LCD_RS=type;
 	mov	a,r2
 	add	a,#0xff
-	mov	_P2_0,c
+	mov	_P3_5,c
 ;	lcd.c:65: LCD_RW=0;
-	clr	_P2_1
+	clr	_P3_6
 ;	lcd.c:67: LCD_DATA=datas;
 	mov	_P0,_lcd_write_PARM_2
 ;	lcd.c:70: LCD_EN=1;
-	setb	_P2_2
+	setb	_P3_7
 ;	lcd.c:71: LCD_EN=0;
-	clr	_P2_2
+	clr	_P3_7
 	ret
 ;------------------------------------------------------------
 ;Allocation info for local variables in function 'lcd_shift'

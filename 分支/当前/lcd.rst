@@ -1,7 +1,7 @@
                               1 ;--------------------------------------------------------
                               2 ; File Created by SDCC : free open source ANSI-C Compiler
                               3 ; Version 2.8.0 #5117 (Jul 21 2008) (UNIX)
-                              4 ; This file was generated Wed Oct  1 10:36:47 2008
+                              4 ; This file was generated Mon Oct  6 21:23:23 2008
                               5 ;--------------------------------------------------------
                               6 	.module lcd
                               7 	.optsdcc -mmcs51 --model-small
@@ -337,19 +337,19 @@
                             337 ;	lcd.c:36: while(1){
    051C                     338 00104$:
                             339 ;	lcd.c:37: LCD_EN=0;
-   051C C2 A2               340 	clr	_P2_2
+   051C C2 B7               340 	clr	_P3_7
                             341 ;	lcd.c:38: LCD_RS=0;
-   051E C2 A0               342 	clr	_P2_0
+   051E C2 B5               342 	clr	_P3_5
                             343 ;	lcd.c:39: LCD_RW=1;
-   0520 D2 A1               344 	setb	_P2_1
+   0520 D2 B6               344 	setb	_P3_6
                             345 ;	lcd.c:40: LCD_DATA=0xFF;
    0522 75 80 FF            346 	mov	_P0,#0xFF
                             347 ;	lcd.c:41: LCD_EN=1;
-   0525 D2 A2               348 	setb	_P2_2
+   0525 D2 B7               348 	setb	_P3_7
                             349 ;	lcd.c:42: if(!LCD_BUSY)		break;		//忙完了，不玩了：）
    0527 20 87 F2            350 	jb	_P0_7,00104$
                             351 ;	lcd.c:44: LCD_EN=0;
-   052A C2 A2               352 	clr	_P2_2
+   052A C2 B7               352 	clr	_P3_7
                             353 ;	lcd.c:45: return;
    052C 22                  354 	ret
                             355 ;------------------------------------------------------------
@@ -371,15 +371,15 @@
                             371 ;	lcd.c:64: LCD_RS=type;
    0536 EA                  372 	mov	a,r2
    0537 24 FF               373 	add	a,#0xff
-   0539 92 A0               374 	mov	_P2_0,c
+   0539 92 B5               374 	mov	_P3_5,c
                             375 ;	lcd.c:65: LCD_RW=0;
-   053B C2 A1               376 	clr	_P2_1
+   053B C2 B6               376 	clr	_P3_6
                             377 ;	lcd.c:67: LCD_DATA=datas;
    053D 85 08 80            378 	mov	_P0,_lcd_write_PARM_2
                             379 ;	lcd.c:70: LCD_EN=1;
-   0540 D2 A2               380 	setb	_P2_2
+   0540 D2 B7               380 	setb	_P3_7
                             381 ;	lcd.c:71: LCD_EN=0;
-   0542 C2 A2               382 	clr	_P2_2
+   0542 C2 B7               382 	clr	_P3_7
    0544 22                  383 	ret
                             384 ;------------------------------------------------------------
                             385 ;Allocation info for local variables in function 'lcd_shift'
