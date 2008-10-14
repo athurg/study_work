@@ -1,62 +1,64 @@
 /*---------------------------------
-		ä¸»æ–‡ä»¶
+		Ö÷ÎÄ¼þ
 
-	ä½œè€… : Athurg
+	×÷Õß : Athurg
 
-	ä¿®è®¢ï¼š
-		08/04ï¼šå¢žåŠ Makeè§„åˆ™ç¼–è¯‘
-		08/11ï¼šä¿®æ­£åŒ…å«è§„åˆ™
+	ÐÞ¶©£º
+		08/04£ºÔö¼ÓMake¹æÔò±àÒë
+		08/11£ºÐÞÕý°üº¬¹æÔò
 -----------------------------------*/
+
 #include "8051.h"
 #include "lcd.h"
 #include "keypad.h"
 #include "common.h"
 
 
-/*----------------------------  å…¨ å±€ å˜ é‡  --------------------------ï¼-*/
-char state=0;	//çŠ¶æ€å˜é‡,0ä¸ºå¾…æœº,Wæ³¢å½¢,Fé¢‘çŽ‡,Aå¹…åº¦
-char stand_str[38]="     Wave;F=     KHz;A=   Vol   ";
-char stand_pos=0;	//æŽ§åˆ¶å¾…æœºæ—¶å±å¹•æµåŠ¨æ˜¾ç¤ºçš„ä½ç½®ï¼›
 
-long int keycache=0;		//é”®ç›˜è¾“å…¥ç¼“å­˜
+/*----------------------------  È« ¾Ö ±ä Á¿  --------------------------£­-*/
+char state=0;	//×´Ì¬±äÁ¿,0Îª´ý»ú,W²¨ÐÎ,FÆµÂÊ,A·ù¶È
+char stand_str[38]="     Wave;F=     KHz;A=   Vol   ";
+char stand_pos=0;	//¿ØÖÆ´ý»úÊ±ÆÁÄ»Á÷¶¯ÏÔÊ¾µÄÎ»ÖÃ£»
+
+long int keycache=0;		//¼üÅÌÊäÈë»º´æ
 struct signal{
-	char w;		//æ³¢å½¢
-	long int f;	//é¢‘çŽ‡
-	char a;		//æŒ¯å¹…
+	char w;		//²¨ÐÎ
+	long int f;	//ÆµÂÊ
+	char a;		//Õñ·ù
 }sign={1,1000,5};
 
-/*----------------------------  å‡½ æ•° å£° æ˜Ž  ----------------------------*/
-void interrupt_init(void);	//ä¸­æ–­åˆå§‹åŒ–
-void keypad_interrupt(void) interrupt 0;	//é”®ç›˜ä¸­æ–­å¤„ç†å‡½æ•°
+/*----------------------------  º¯ Êý Éù Ã÷  ----------------------------*/
+void interrupt_init(void);	//ÖÐ¶Ï³õÊ¼»¯
+void keypad_interrupt(void);	//¼üÅÌÖÐ¶Ï´¦Àíº¯Êý
 
-void flush(void);	//æ•°æ®å¤„ç†å‡½æ•°
-void refresh(void);	//æ•°æ®å¤„ç†å‡½æ•°
+void flush(void);	//Êý¾Ý´¦Àíº¯Êý
+void refresh(void);	//Êý¾Ý´¦Àíº¯Êý
 
 void insert_str(char *str_p,char x, char y);
 void insert_num(long int num,char x, char y);
 
-/*å‡½æ•°å®žçŽ°*/
+/*º¯ÊýÊµÏÖ*/
 
 void keypad_interrupt(void) interrupt 0
 {
 /*************************
 *
-*         é”®ç›˜ä¸­æ–­å¤„ç†ç¨‹åº
+*         ¼üÅÌÖÐ¶Ï´¦Àí³ÌÐò
 *
-*     å‚æ•°ï¼šINT0æœ‰æ•ˆ
-*     è°ƒç”¨ï¼šdelayã€é”®ç›˜å¤„ç†å‡½æ•°
+*     ²ÎÊý£ºINT0ÓÐÐ§
+*     µ÷ÓÃ£ºdelay¡¢¼üÅÌ´¦Àíº¯Êý
 *************************/
     int key;
     key=key_make(key_scan());
     
-    if(key>10){	//åŠŸèƒ½åŒº
+    if(key>10){	//¹¦ÄÜÇø
 		key-=20;
-		if(key==4)		flush();	//åŠŸèƒ½å¤„ç†
+		if(key==4)		flush();	//¹¦ÄÜ´¦Àí
 		else			state=key;
-		keycache=0;	//æ¸…ç©ºè¾“å…¥ç¼“å­˜
-    }else if(state){	//éžè®¾ç½®çŠ¶æ€çš„æ•°å­—æŒ‰é”®ä¸¢å¼ƒ
-		if(state==1)	keycache=key;//æ³¢å½¢é€‰æ‹©åªæ”¶é›†ä¸€æ¬¡æŒ‰é”®
-		else		keycache=keycache>999999999 ? 0 : (key+keycache*10);	//é¢‘çŽ‡å¹…åº¦éœ€è¦å åŠ 
+		keycache=0;	//Çå¿ÕÊäÈë»º´æ
+    }else if(state){	//·ÇÉèÖÃ×´Ì¬µÄÊý×Ö°´¼ü¶ªÆú
+		if(state==1)	keycache=key;//²¨ÐÎÑ¡ÔñÖ»ÊÕ¼¯Ò»´Î°´¼ü
+		else		keycache=keycache>999999999 ? 0 : (key+keycache*10);	//ÆµÂÊ·ù¶ÈÐèÒªµþ¼Ó
     }
     refresh();
 	delay(1);
@@ -76,9 +78,9 @@ void flush(void)
 			break;
     }
     //TODO:
-    //æ­¤å¤„è¦æ·»åŠ è¾“å‡ºåˆ°æ€»çº¿çš„ä»£ç ï¼›
+    //´Ë´¦ÒªÌí¼ÓÊä³öµ½×ÜÏßµÄ´úÂë£»
 
-	state=0;		//å¤„ç†å®Œæˆæ¢å¤å¾…æœºçŠ¶æ€
+	state=0;		//´¦ÀíÍê³É»Ö¸´´ý»ú×´Ì¬
 }
 
 void refresh(void)
@@ -92,6 +94,7 @@ void refresh(void)
 				case 3:lcd_printsxy("Tria    A=   Vol",0,0);	break;
 				default:lcd_printsxy("sine    A=   Vol",0,0);	break;
 			}
+
 			lcd_printsxy("F=       KHz",0,1);
 			lcd_printnxy(sign.a,12,0);lcd_printnxy(sign.f,8,1);
 			break;
@@ -120,37 +123,41 @@ void refresh(void)
 
 
 /****************************
-	    ä¸­æ–­åˆå§‹åŒ–
-    è¯´æ˜Žï¼š
-	ç”µå¹³æ–¹å¼å¤–éƒ¨ä¸­æ–­ã€ä¸²è¡Œä¸­æ–­å“åº”åŽCPUæ— æ³•è‡ªåŠ¨æ’¤é™¤ä¸­æ–­è¯·æ±‚ï¼Œå¿…é¡»åœ¨ä¸­æ–­å“åº”ç¨‹åºä¸­æ‰‹åŠ¨æ’¤é™¤ã€‚
-	å…¶ä»–æ–¹å¼CPUä¼šè‡ªåŠ¨æ’¤é™¤
+	    ÖÐ¶Ï³õÊ¼»¯
+    ËµÃ÷£º
+	µçÆ½·½Ê½Íâ²¿ÖÐ¶Ï¡¢´®ÐÐÖÐ¶ÏÏìÓ¦ºóCPUÎÞ·¨×Ô¶¯³·³ýÖÐ¶ÏÇëÇó£¬±ØÐëÔÚÖÐ¶ÏÏìÓ¦³ÌÐòÖÐÊÖ¶¯³·³ý¡£
+	ÆäËû·½Ê½CPU»á×Ô¶¯³·³ý
 *****************************/
 void interrupt_init(void)
 {
-    //ä¸­æ–­å¼€å…³ï¼Œå¼€å¤–éƒ¨ä¸­æ–­0ï¼Œå…³å…¶ä»–ä¸­æ–­
-    EX0=1;    EX1=0;	//å¤–éƒ¨ä¸­æ–­
-    ET0=0;    ET1=0;	//å®šæ—¶å™¨ä¸­æ–­
-    ES =0;		//ä¸²è¡Œä¸­æ–­
+    //ÖÐ¶Ï¿ª¹Ø£¬¿ªÍâ²¿ÖÐ¶Ï0£¬¹ØÆäËûÖÐ¶Ï
+    EX0=1;    EX1=0;	//Íâ²¿ÖÐ¶Ï
+    ET0=0;    ET1=0;	//¶¨Ê±Æ÷ÖÐ¶Ï
+    ES =0;		//´®ÐÐÖÐ¶Ï
     
-    //ä¼˜å…ˆçº§è®¾ç½®,å¤–éƒ¨ä¸­æ–­ä¼˜å…ˆ
-    PX0=1;	//å¤–éƒ¨
-    PT0=0;	//å®šæ—¶å™¨
+    //ÓÅÏÈ¼¶ÉèÖÃ,Íâ²¿ÖÐ¶ÏÓÅÏÈ
+    PX0=1;	//Íâ²¿
+    PT0=0;	//¶¨Ê±Æ÷
     
-    //å¤–éƒ¨ä¸­æ–­è§¦å‘æ–¹å¼
-    IT1=0;	//ä½Žç”µå¹³è§¦å‘ï¼Œè®¾ä¸º1ä¸ºä¸‹é™æ²¿è§¦å‘
+    //Íâ²¿ÖÐ¶Ï´¥·¢·½Ê½
+    IT1=0;	//µÍµçÆ½´¥·¢£¬ÉèÎª1ÎªÏÂ½µÑØ´¥·¢
     
-    EA=1;	//æ‰“å¼€ä¸­æ–­æ€»å¼€å…³
+    EA=1;	//´ò¿ªÖÐ¶Ï×Ü¿ª¹Ø
 }
 
 
 void main(void)
 {
-	//åˆå§‹åŒ–
-    lcd_init();	//LCDåˆå§‹åŒ–
-    interrupt_init();	//å¤–éƒ¨ä¸­æ–­0åˆå§‹åŒ–
-    P1=0xf0;	//é”®ç›˜åˆå§‹åŒ–
-	refresh();
+	//³õÊ¼»¯
+    lcd_init();	//LCD³õÊ¼»¯
+    interrupt_init();	//Íâ²¿ÖÐ¶Ï0³õÊ¼»¯
+    P1=0xf0;	//¼üÅÌ³õÊ¼»¯
+	lcd_printsxy("Hello,Athurg",0,0);
+	delay(1);
+	lcd_printsxy("Hello,Athurg",0,1);
 	while(1);
+	//refresh();
+	//while(1)	refresh();
 	/*
 	while(1){
 		if(state){

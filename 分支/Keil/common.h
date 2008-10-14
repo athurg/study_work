@@ -1,12 +1,12 @@
 #ifndef COMMON_H
 #define COMMON_H
 
-/*æ•°æ®ç±»å‹*/
+/*Êı¾İÀàĞÍ*/
 #define uchar unsigned char
 #define uint unsigned int
 
-/*å‡½æ•°å£°æ˜*/
-void delay(char);	//å»¶æ—¶Nç§’
-void delay_ms(int);	//å»¶æ—¶Nç§’
+/*º¯ÊıÉùÃ÷*/
+void delay(char);	//ÑÓÊ±NÃë
+void delay_ms(int);	//ÑÓÊ±NÃë
 
 #endif

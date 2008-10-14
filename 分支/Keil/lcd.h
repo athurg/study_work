@@ -3,35 +3,35 @@
 
 #include "8051.h"
 
-/*---------ç«¯å£å®šä¹‰----------*/
-//LCDæŒ‡ä»¤ç«¯å£
+/*---------¶Ë¿Ú¶¨Òå----------*/
+//LCDÖ¸Áî¶Ë¿Ú
 //#define LCD_EN P2_2
 //#define LCD_RS P2_0
 //#define LCD_RW P2_1
-#define LCD_RS P3_5
+#define LCD_EN P3_5
 #define LCD_RW P3_6
-#define LCD_EN P3_7
+#define LCD_RS P3_7
 
-#define LCD_BUSY P0_7		//å¿™æ ‡å¿—ä½
-#define LCD_DATA P0		//æ•°æ®æ€»çº¿
+#define LCD_BUSY P0_7		//Ã¦±êÖ¾Î»
+#define LCD_DATA P0		//Êı¾İ×ÜÏß
 
-/*---------å‡½æ•°å£°æ˜--------*/
+/*---------º¯ÊıÉùÃ÷--------*/
 
-//åŠŸèƒ½å‡½æ•°
-void lcd_wait(void);		//æŸ¥è¯¢LCDå¿™çŠ¶æ€ï¼Œé—²æ—¶è¿”å›
-void lcd_write(char type, char datas);	//å†™LCDæŒ‡ä»¤(type=0)æˆ–å­—ç¬¦(type=1)
-void lcd_init(void);		//LCDåˆå§‹åŒ–
+//¹¦ÄÜº¯Êı
+void lcd_wait(void);		//²éÑ¯LCDÃ¦×´Ì¬£¬ÏĞÊ±·µ»Ø
+void lcd_write(char type, char datas);	//Ğ´LCDÖ¸Áî(type=0)»ò×Ö·û(type=1)
+void lcd_init(void);		//LCD³õÊ¼»¯
 
-//è¾…åŠ©å‡½æ•°
-void lcd_position(char x,char y);	//å…‰æ ‡å®šä½
-void lcd_cls(void);			//æ¸…å±
-void lcd_shift(char object, char num);	//ç§»åŠ¨å…‰æ ‡(object='c')æˆ–è€…å±å¹•(object='f')ï¼Œnumä¸ºä½æ•°ï¼Œ+å³-å·¦
+//¸¨Öúº¯Êı
+void lcd_position(char x,char y);	//¹â±ê¶¨Î»
+void lcd_cls(void);			//ÇåÆÁ
+void lcd_shift(char object, char num);	//ÒÆ¶¯¹â±ê(object='c')»òÕßÆÁÄ»(object='f')£¬numÎªÎ»Êı£¬+ÓÒ-×ó
 
-//æ‰“å°
+//´òÓ¡
 void lcd_prints(char *string);
-void lcd_printsxy(char *string, char x, char y);	//å®šèµ·ç‚¹æ‰“å°å­—ä¸²
-void lcd_printc(char charactor);	//æ‰“å°å­—ç¬¦
-void lcd_printcxy(char charactor, char x, char y);	//å®šç‚¹æ‰“å°å­—ç¬¦
-void lcd_printnxy(long int number, char x, char y);	//å®šç»ˆç‚¹æ‰“å°æ•°å€¼
+void lcd_printsxy(char *string, char x, char y);	//¶¨Æğµã´òÓ¡×Ö´®
+void lcd_printc(char charactor);	//´òÓ¡×Ö·û
+void lcd_printcxy(char charactor, char x, char y);	//¶¨µã´òÓ¡×Ö·û
+void lcd_printnxy(long int number, char x, char y);	//¶¨ÖÕµã´òÓ¡ÊıÖµ
 
 #endif

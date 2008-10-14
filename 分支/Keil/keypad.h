@@ -3,8 +3,8 @@
 
 #include "8051.h"
 
-/*å‡½æ•°å£°æ˜*/
-char key_make(char);		//é”®å€¼ç”Ÿæˆå‡½æ•°
-char key_scan(void);		//é”®æ‰«æå‡½æ•°
+/*º¯ÊıÉùÃ÷*/
+char key_make(char);		//¼üÖµÉú³Éº¯Êı
+char key_scan(void);		//¼üÉ¨Ãèº¯Êı
 
 #endif
