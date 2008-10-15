@@ -225,7 +225,7 @@ void lcd_init(void)
     //显示开关(LCD、光标和闪烁)
 	//取值为：0x08+闪烁＋光标＋显示
 	//闪烁：1开、0关；光标：2开、0关；显示：4开、0关；
-    lcd_write(0,0x0f);	//屏幕、光标和闪烁全开
+    lcd_write(0,0x0e);	//屏幕、光标和闪烁全开
 
     lcd_cls();
     lcd_write(0,LCD_CMD_HOME);	//LCD归位（清DDRAM、DDROM、AC，清除所有移动）

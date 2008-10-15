@@ -1,4 +1,4 @@
-C51 COMPILER V7.06   MAIN                                                                  10/14/2008 14:15:57 PAGE 1   
+C51 COMPILER V7.06   MAIN                                                                  10/15/2008 18:31:39 PAGE 1   
 
 
 C51 COMPILER V7.06, COMPILATION OF MODULE MAIN
@@ -46,164 +46,160 @@ stmt level    source
   37          void insert_str(char *str_p,char x, char y);
   38          void insert_num(long int num,char x, char y);
   39          
-  40          /*函数实现*/
+  40          void serial_write(unsigned int datas);
   41          
-  42          void keypad_interrupt(void) interrupt 0
-  43          {
-  44   1      /*************************
-  45   1      *
-  46   1      *         键盘中断处理程序
+  42          /*函数实现*/
+  43          
+  44          void keypad_interrupt(void) interrupt 0
+  45          {
+  46   1      /*************************
   47   1      *
-  48   1      *     参数：INT0有效
-  49   1      *     调用：delay、键盘处理函数
-  50   1      *************************/
-  51   1          int key;
-  52   1          key=key_make(key_scan());
-  53   1          
-  54   1          if(key>10){ //功能区
-  55   2                      key-=20;
-C51 COMPILER V7.06   MAIN                                                                  10/14/2008 14:15:57 PAGE 2   
+  48   1      *         键盘中断处理程序
+  49   1      *
+  50   1      *     参数：INT0有效
+  51   1      *     调用：delay、键盘处理函数
+  52   1      *************************/
+  53   1          unsigned char  key;
+  54   1          key=key_make(key_scan());
+  55   1          
+C51 COMPILER V7.06   MAIN                                                                  10/15/2008 18:31:39 PAGE 2   
 
-  56   2                      if(key==4)              flush();        //功能处理
-  57   2                      else                    state=key;
-  58   2                      keycache=0;     //清空输入缓存
-  59   2          }else if(state){    //非设置状态的数字按键丢弃
-  60   2                      if(state==1)    keycache=key;//波形选择只收集一次按键
-  61   2                      else            keycache=keycache>999999999 ? 0 : (key+keycache*10);    //频率幅度需要叠加
-  62   2          }
-  63   1          refresh();
-  64   1              delay(1);
-  65   1      }
-  66          
-  67          void flush(void)
-  68          {
-  69   1          switch(state){
-  70   2                      case 1:
-  71   2                              sign.w=keycache;
-  72   2                              break;
-  73   2                      case 2:
-  74   2                              sign.f=keycache;
-  75   2                              break;
-  76   2                      case 3:
-  77   2                              sign.a=keycache;
-  78   2                              break;
-  79   2          }
-  80   1          //TODO:
-  81   1          //此处要添加输出到总线的代码；
-  82   1      
-  83   1              state=0;                //处理完成恢复待机状态
-  84   1      }
-  85          
-  86          void refresh(void)
-  87          {
-  88   1              lcd_printsxy("                ",0,0);
-  89   1              lcd_printsxy("                ",0,1);
-  90   1              switch(state){
-  91   2                      case 0:
-  92   2                              switch(sign.w){
-  93   3                                      case 2:lcd_printsxy("Rect    A=   Vol",0,0);    break;
-  94   3                                      case 3:lcd_printsxy("Tria    A=   Vol",0,0);    break;
-  95   3                                      default:lcd_printsxy("sine    A=   Vol",0,0);   break;
-  96   3                              }
-  97   2      
-  98   2                              lcd_printsxy("F=       KHz",0,1);
-  99   2                              lcd_printnxy(sign.a,12,0);lcd_printnxy(sign.f,8,1);
- 100   2                              break;
- 101   2                      case 1:
- 102   2                              lcd_printsxy("Wave Select",0,0);
- 103   2                              switch(keycache){
- 104   3                                      case 1: lcd_printsxy("Sine Wave",0,1);break;
- 105   3                                      case 2: lcd_printsxy("Deco Wave",0,1);break;
- 106   3                                      case 3: lcd_printsxy("Tria Wave",0,1);break;
- 107   3                                      default: lcd_printsxy("1.Sin 2.Dec 3.Tri",0,1);break;
- 108   3                              }
- 109   2                              break;
- 110   2                      case 2:
- 111   2                              lcd_printsxy("Frequence Set",0,0);
- 112   2                              lcd_printsxy("KHz",13,1);
- 113   2                              lcd_printnxy(keycache,12,1);
- 114   2                              break;
- 115   2                      case 3:
- 116   2                              lcd_printsxy("Ample Setting",0,0);
- 117   2                              lcd_printsxy("Vol",13,1);
-C51 COMPILER V7.06   MAIN                                                                  10/14/2008 14:15:57 PAGE 3   
+  56   1          if(key>10){ //功能区
+  57   2                      key-=20;
+  58   2                      if(key==4)              flush();        //功能处理
+  59   2                      else                    state=key;
+  60   2                      keycache=0;     //清空输入缓存
+  61   2          }else if(state){    //非设置状态的数字按键丢弃
+  62   2                      if(state==1)    keycache=key;//波形选择只收集一次按键
+  63   2                      else            keycache=keycache>999999999 ? 0 : (key+keycache*10);    //频率幅度需要叠加
+  64   2          }
+  65   1          refresh();
+  66   1              delay(1);
+  67   1      }
+  68          
+  69          void flush(void)
+  70          {
+  71   1          switch(state){
+  72   2                      case 1:
+  73   2                              sign.w=keycache;
+  74   2                              break;
+  75   2                      case 2:
+  76   2                              sign.f=keycache;
+  77   2                              break;
+  78   2                      case 3:
+  79   2                              sign.a=keycache;
+  80   2                              break;
+  81   2          }
+  82   1          //TODO:
+  83   1          //此处要添加输出到总线的代码；
+  84   1      
+  85   1              state=0;                //处理完成恢复待机状态
+  86   1      }
+  87          
+  88          void refresh(void)
+  89          {
+  90   1              lcd_printsxy("                ",0,0);
+  91   1              lcd_printsxy("                ",0,1);
+  92   1              switch(state){
+  93   2                      case 0:
+  94   2                              switch(sign.w){
+  95   3                                      case 2:lcd_printsxy("Rect    A=   Vol",0,0);    break;
+  96   3                                      case 3:lcd_printsxy("Tria    A=   Vol",0,0);    break;
+  97   3                                      default:lcd_printsxy("sine    A=   Vol",0,0);   break;
+  98   3                              }
+  99   2      
+ 100   2                              lcd_printsxy("F=       KHz",0,1);
+ 101   2                              lcd_printnxy(sign.a,12,0);lcd_printnxy(sign.f,8,1);
+ 102   2                              break;
+ 103   2                      case 1:
+ 104   2                              lcd_printsxy("Wave Select",0,0);
+ 105   2                              switch(keycache){
+ 106   3                                      case 1: lcd_printsxy("Sine Wave",0,1);break;
+ 107   3                                      case 2: lcd_printsxy("Deco Wave",0,1);break;
+ 108   3                                      case 3: lcd_printsxy("Tria Wave",0,1);break;
+ 109   3                                      default: lcd_printsxy("1.Sin 2.Dec 3.Tri",0,1);break;
+ 110   3                              }
+ 111   2                              break;
+ 112   2                      case 2:
+ 113   2                              lcd_printsxy("Frequence Set",0,0);
+ 114   2                              lcd_printsxy("KHz",13,1);
+ 115   2                              lcd_printnxy(keycache,12,1);
+ 116   2                              break;
+ 117   2                      case 3:
+C51 COMPILER V7.06   MAIN                                                                  10/15/2008 18:31:39 PAGE 3   
 
- 118   2                              lcd_printnxy(keycache,12,1);
- 119   2                              break;
- 120   2              }
- 121   1              stand_pos=0;
- 122   1      }
- 123          
- 124          
- 125          /****************************
- 126                      中断初始化
- 127              说明：
- 128                  电平方式外部中断、串行中断响应后CPU无法自动撤除中断请求，必须在中断响应程序中手动撤除。
- 129                  其他方式CPU会自动撤除
- 130          *****************************/
- 131          void interrupt_init(void)
- 132          {
- 133   1          //中断开关，开外部中断0，关其他中断
- 134   1          EX0=1;    EX1=0;    //外部中断
- 135   1          ET0=0;    ET1=0;    //定时器中断
- 136   1          ES =0;              //串行中断
+ 118   2                              lcd_printsxy("Ample Setting",0,0);
+ 119   2                              lcd_printsxy("Vol",13,1);
+ 120   2                              lcd_printnxy(keycache,12,1);
+ 121   2                              break;
+ 122   2              }
+ 123   1              stand_pos=0;
+ 124   1      }
+ 125          
+ 126          
+ 127          /****************************
+ 128                      中断初始化
+ 129              说明：
+ 130                  电平方式外部中断、串行中断响应后CPU无法自动撤除中断请求，必须在中断响应程序中手动撤除。
+ 131                  其他方式CPU会自动撤除
+ 132          *****************************/
+ 133          void interrupt_init(void)
+ 134          {
+ 135   1              //外部中断0
+ 136   1          EX0=1;      //外部中断0
  137   1          
- 138   1          //优先级设置,外部中断优先
- 139   1          PX0=1;      //外部
- 140   1          PT0=0;      //定时器
- 141   1          
- 142   1          //外部中断触发方式
- 143   1          IT1=0;      //低电平触发，设为1为下降沿触发
- 144   1          
- 145   1          EA=1;       //打开中断总开关
- 146   1      }
- 147          
+ 138   1          PX0=1;      //外部中断优先
+ 139   1          
+ 140   1          IT1=1;      //下降沿出发
+ 141   1      
+ 142   1              //串口
+ 143   1              SCON=0x00;      //方式0
+ 144   1          ES =1;              //串行中断
+ 145   1          //总开关
+ 146   1          EA=1;
+ 147   1      }
  148          
- 149          void main(void)
+ 149          void serial_write(unsigned int datas)
  150          {
- 151   1              //初始化
- 152   1          lcd_init(); //LCD初始化
- 153   1          interrupt_init();   //外部中断0初始化
- 154   1          P1=0xf0;    //键盘初始化
- 155   1              lcd_printsxy("Hello,Athurg",0,0);
- 156   1              delay(1);
- 157   1              lcd_printsxy("Hello,Athurg",0,1);
- 158   1              while(1);
- 159   1              //refresh();
- 160   1              //while(1)      refresh();
- 161   1              /*
- 162   1              while(1){
- 163   1                      if(state){
- 164   1                              lcd_printsxy(lcd_str[0],0,0);
- 165   1                              lcd_printsxy(lcd_str[1],0,1);
- 166   1                      }else{
- 167   1                              lcd_printsxy("WELCOME TO USE",0,0);
- 168   1                              
- 169   1                              for(i=0; i<16; i++){
- 170   1                                      switch(sign.w){
- 171   1                                              case 1: stand=stand_sine;break;
- 172   1                                              case 2: stand=stand_rect;break;
- 173   1                                              case 3: stand=stand_tria;break;
- 174   1                                      }
- 175   1                                      lcd_printsxy(stand,0-i,1);
- 176   1                                      lcd_printnxy(sign.f,16-i,1);    lcd_printnxy(sign.a,25-i,1);
- 177   1                                      delay(1);
- 178   1                              }
- 179   1                      }
-C51 COMPILER V7.06   MAIN                                                                  10/14/2008 14:15:57 PAGE 4   
+ 151   1      /*
+ 152   1      串口输出
+ 153   1      
+ 154   1      参数：16位
+ 155   1      返回：空
+ 156   1      
+ 157   1      说明：先写入高八位，再写入低八位；MAX531自动丢弃高八位的高四位；
+ 158   1      */
+ 159   1              P3_3=0;
+ 160   1      
+ 161   1              SBUF=datas>>8;
+ 162   1              while(!TI);
+ 163   1              TI=0;
+ 164   1              SBUF=(datas<<8)>>8;
+ 165   1              while(!TI);
+ 166   1              TI=0;
+ 167   1      
+ 168   1              P3_3=1; //给MAX531片选端一个上升沿
+ 169   1      }
+ 170          void main(void)
+ 171          {
+ 172   1              //初始化
+ 173   1          lcd_init(); //LCD初始化
+ 174   1          interrupt_init();   //外部中断0初始化
+ 175   1          P1=0xf0;    //键盘初始化
+ 176   1      
+ 177   1              refresh();
+ 178   1              while(1);
+ 179   1      }
+C51 COMPILER V7.06   MAIN                                                                  10/15/2008 18:31:39 PAGE 4   
 
- 180   1              
- 181   1              }
- 182   1              */
- 183   1      }
 
 
 MODULE INFORMATION:   STATIC OVERLAYABLE
-   CODE SIZE        =    649    ----
-   CONSTANT SIZE    =    190    ----
+   CODE SIZE        =    607    ----
+   CONSTANT SIZE    =    177    ----
    XDATA SIZE       =   ----    ----
    PDATA SIZE       =   ----    ----
-   DATA SIZE        =     50       2
+   DATA SIZE        =     50       1
    IDATA SIZE       =   ----    ----
    BIT SIZE         =   ----    ----
 END OF MODULE INFORMATION.

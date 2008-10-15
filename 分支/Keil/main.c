@@ -37,6 +37,8 @@ void refresh(void);	//数据处理函数
 void insert_str(char *str_p,char x, char y);
 void insert_num(long int num,char x, char y);
 
+void serial_write(unsigned int datas);
+
 /*函数实现*/
 
 void keypad_interrupt(void) interrupt 0
@@ -48,7 +50,7 @@ void keypad_interrupt(void) interrupt 0
 *     参数：INT0有效
 *     调用：delay、键盘处理函数
 *************************/
-    int key;
+    unsigned char  key;
     key=key_make(key_scan());
     
     if(key>10){	//功能区
@@ -130,54 +132,48 @@ void refresh(void)
 *****************************/
 void interrupt_init(void)
 {
-    //中断开关，开外部中断0，关其他中断
-    EX0=1;    EX1=0;	//外部中断
-    ET0=0;    ET1=0;	//定时器中断
-    ES =0;		//串行中断
+	//外部中断0
+    EX0=1;	//外部中断0
     
-    //优先级设置,外部中断优先
-    PX0=1;	//外部
-    PT0=0;	//定时器
+    PX0=1;	//外部中断优先
     
-    //外部中断触发方式
-    IT1=0;	//低电平触发，设为1为下降沿触发
-    
-    EA=1;	//打开中断总开关
+    IT1=1;	//下降沿出发
+
+	//串口
+	SCON=0x00;	//方式0
+    ES =1;		//串行中断
+    //总开关
+    EA=1;
 }
 
+void serial_write(unsigned int datas)
+{
+/*
+串口输出
 
+参数：16位
+返回：空
+
+说明：先写入高八位，再写入低八位；MAX531自动丢弃高八位的高四位；
+*/
+	P3_3=0;
+
+	SBUF=datas>>8;
+	while(!TI);
+	TI=0;
+	SBUF=(datas<<8)>>8;
+	while(!TI);
+	TI=0;
+
+	P3_3=1;	//给MAX531片选端一个上升沿
+}
 void main(void)
 {
 	//初始化
     lcd_init();	//LCD初始化
     interrupt_init();	//外部中断0初始化
     P1=0xf0;	//键盘初始化
-	lcd_printsxy("Hello,Athurg",0,0);
-	delay(1);
-	lcd_printsxy("Hello,Athurg",0,1);
+
+	refresh();
 	while(1);
-	//refresh();
-	//while(1)	refresh();
-	/*
-	while(1){
-		if(state){
-			lcd_printsxy(lcd_str[0],0,0);
-			lcd_printsxy(lcd_str[1],0,1);
-		}else{
-			lcd_printsxy("WELCOME TO USE",0,0);
-			
-			for(i=0; i<16; i++){
-				switch(sign.w){
-					case 1: stand=stand_sine;break;
-					case 2: stand=stand_rect;break;
-					case 3: stand=stand_tria;break;
-				}
-				lcd_printsxy(stand,0-i,1);
-				lcd_printnxy(sign.f,16-i,1);	lcd_printnxy(sign.a,25-i,1);
-				delay(1);
-			}
-		}
-	
-	}
-	*/
 }
