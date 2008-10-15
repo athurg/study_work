@@ -5,9 +5,6 @@
 
 /*---------端口定义----------*/
 //LCD指令端口
-//#define LCD_EN P2_2
-//#define LCD_RS P2_0
-//#define LCD_RW P2_1
 #define LCD_EN P3_5
 #define LCD_RW P3_6
 #define LCD_RS P3_7

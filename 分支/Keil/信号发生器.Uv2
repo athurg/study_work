@@ -5,14 +5,9 @@ Target (Target 1), 0x0000 // Tools: 'MCS-51'
 
 Group (Source Group 1)
 
-File 1,5,<.\keypad.h><keypad.h> 0x0 
 File 1,1,<.\lcd.c><lcd.c> 0x0 
-File 1,5,<.\lcd.h><lcd.h> 0x0 
 File 1,1,<.\main.c><main.c> 0x0 
-File 1,5,<.\main.h><main.h> 0x0 
-File 1,5,<.\8051.h><8051.h> 0x0 
 File 1,1,<.\common.c><common.c> 0x0 
-File 1,5,<.\common.h><common.h> 0x0 
 File 1,1,<.\keypad.c><keypad.c> 0x0 
 
 
@@ -37,7 +32,7 @@ Options 1,0,0  // Target 'Target 1'
  OrgReg (ÿAtmel\)
  TgStat=0
  OutDir (.\)
- OutName (main)
+ OutName (main.bin)
  GenApp=1
  GenLib=0
  GenHex=1

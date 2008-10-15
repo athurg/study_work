@@ -51,8 +51,9 @@ void keypad_interrupt(void) interrupt 0
 *     调用：delay、键盘处理函数
 *************************/
     unsigned char  key;
+	lcd_printsxy("hello,athurg",0,0);
     key=key_make(key_scan());
-    
+    while(1);
     if(key>10){	//功能区
 		key-=20;
 		if(key==4)		flush();	//功能处理
@@ -137,7 +138,7 @@ void interrupt_init(void)
     
     PX0=1;	//外部中断优先
     
-    IT1=1;	//下降沿出发
+    IT0=1;	//下降沿出发
 
 	//串口
 	SCON=0x00;	//方式0
@@ -171,8 +172,9 @@ void main(void)
 {
 	//初始化
     lcd_init();	//LCD初始化
-    interrupt_init();	//外部中断0初始化
+    interrupt_init();	//中断初始化
     P1=0xf0;	//键盘初始化
+	P3=0xff;
 
 	refresh();
 	while(1);
