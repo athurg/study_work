@@ -23,13 +23,12 @@ char stand_pos=0;	//控制待机时屏幕流动显示的位置；
 long int keycache=0;		//键盘输入缓存
 struct signal{
 	char w;		//波形
-	long int f;	//频率
+	unsigned int f;	//频率
 	char a;		//振幅
 }sign={1,1000,5};
 
 /*----------------------------  函 数 声 明  ----------------------------*/
 void interrupt_init(void);	//中断初始化
-void keypad_interrupt(void);	//键盘中断处理函数
 
 void flush(void);	//数据处理函数
 void refresh(void);	//数据处理函数
@@ -40,32 +39,6 @@ void insert_num(long int num,char x, char y);
 void serial_write(unsigned int datas);
 
 /*函数实现*/
-
-void keypad_interrupt(void) interrupt 0
-{
-/*************************
-*
-*         键盘中断处理程序
-*
-*     参数：INT0有效
-*     调用：delay、键盘处理函数
-*************************/
-    unsigned char  key;
-	lcd_printsxy("hello,athurg",0,0);
-    key=key_make(key_scan());
-    while(1);
-    if(key>10){	//功能区
-		key-=20;
-		if(key==4)		flush();	//功能处理
-		else			state=key;
-		keycache=0;	//清空输入缓存
-    }else if(state){	//非设置状态的数字按键丢弃
-		if(state==1)	keycache=key;//波形选择只收集一次按键
-		else		keycache=keycache>999999999 ? 0 : (key+keycache*10);	//频率幅度需要叠加
-    }
-    refresh();
-	delay(1);
-}
 
 void flush(void)
 {
@@ -82,7 +55,7 @@ void flush(void)
     }
     //TODO:
     //此处要添加输出到总线的代码；
-
+	serial_write(sign.f);
 	state=0;		//处理完成恢复待机状态
 }
 
@@ -147,35 +120,61 @@ void interrupt_init(void)
     EA=1;
 }
 
+unsigned char fuck(unsigned char indata)
+{
+	unsigned char i,outdata=0;
+
+	for(i=0; i<8; i++){
+		outdata<<=1;
+		outdata+=indata%2;
+		indata>>=1;
+	}
+	return outdata;
+}
+
 void serial_write(unsigned int datas)
 {
-/*
-串口输出
-
-参数：16位
-返回：空
-
-说明：先写入高八位，再写入低八位；MAX531自动丢弃高八位的高四位；
-*/
 	P3_3=0;
 
-	SBUF=datas>>8;
+	SBUF=fuck(datas>>8);
 	while(!TI);
-	TI=0;
-	SBUF=(datas<<8)>>8;
+	TI=0;delay(2);
+	SBUF=fuck(datas);
 	while(!TI);
-	TI=0;
-
+	TI=0;delay(2);
 	P3_3=1;	//给MAX531片选端一个上升沿
 }
 void main(void)
 {
+
+	unsigned char  key;
+	unsigned int tmp;
 	//初始化
-    lcd_init();	//LCD初始化
+    //lcd_init();	//LCD初始化
     interrupt_init();	//中断初始化
     P1=0xf0;	//键盘初始化
-	P3=0xff;
 
 	refresh();
-	while(1);
+	for(tmp=0; tmp<0xffff; tmp++)
+	serial_write(tmp);
+
+	while(1){
+	    key=key_make(key_scan());
+
+		if(key!='F'){
+	
+		    if(key>10){	//功能区
+				key-=20;
+				if(key==4)		flush();	//功能处理
+				else			state=key;
+				keycache=0;	//清空输入缓存
+		    }else if(state){	//非设置状态的数字按键丢弃
+				if(state==1)	keycache=key;//波形选择只收集一次按键
+				else		keycache=keycache>999999999 ? 0 : (key+keycache*10);	//频率幅度需要叠加
+			}
+		    refresh();
+			delay(1);
+		}
+	}
+	
 }

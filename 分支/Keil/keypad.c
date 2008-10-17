@@ -16,7 +16,7 @@ char key_make(char key)
 	{0xee,1},{0xde,2},{0xbe,3},{0x7e,21},
 	{0xed,6},{0xdd,5},{0xbd,4},{0x7d,22},
 	{0xeb,7},{0xdb,8},{0xbb,9},{0x7b,23},
-	{0xe7,10},{0xd7,0},{0xb7,20},{0x77,24},{0x00,'B'}
+	{0xe7,10},{0xd7,0},{0xb7,20},{0x77,24},{0x00,'F'}
     };
 	/*
 	1	2	3	w
@@ -24,11 +24,10 @@ char key_make(char key)
 	7	8	9	a
 	10	0	c	s
 	*/
-    for(i=16;i>=0;i--)
-    {
-	if(keytable[i].index==key)	return keytable[i].value;
+    for(i=16;i>=0;i--){
+		if(keytable[i].index==key)	return keytable[i].value;
     }
-    return 0x00;
+    return 'F';
 }
 
 char key_scan(void)
@@ -46,14 +45,14 @@ char key_scan(void)
 *    码生成之后除2恰好为0，可以作为while()退出的条件利用。
 */
     unsigned char line=0x08;			//行扫描起始码(00001000B)
-    while(line)
-    {
-	P1=~line;
-	if((P1>>4)!=0x0f) break;
-	line/=2;
+
+    while(line){
+		P1=~line;
+		if((P1>>4)!=0x0f) break;
+		line/=2;
     }
     line=P1;
     P1=0xf0; //重新初始化P1口，自己的事情自己搞完
-    
+
     return line;
 }
