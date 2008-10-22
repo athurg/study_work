@@ -13,7 +13,10 @@
 #include "keypad.h"
 #include "common.h"
 
-
+#define MAX038_A0 P2_0
+#define MAX038_A1 P2_1
+#define CAP_CS P2_2
+#define DA_CS P3_3
 
 /*----------------------------  全 局 变 量  --------------------------－-*/
 char state=0;	//状态变量,0为待机,W波形,F频率,A幅度
@@ -45,17 +48,19 @@ void flush(void)
     switch(state){
 		case 1:
 			sign.w=keycache;
+			P2=sign.w-1;	//键盘输入的1、2、3依次对应相应的波形，直接从P2输出即可
 			break;
 		case 2:
 			sign.f=keycache;
+			//TODO:此处添加电容选择的代码
+			//P0=电容选择的译码
+			//CAP_CS=1;	CAP_CS=0;
+			serial_write(sign.f);
 			break;
 		case 3:
 			sign.a=keycache;
 			break;
     }
-    //TODO:
-    //此处要添加输出到总线的代码；
-	serial_write(sign.f);
 	state=0;		//处理完成恢复待机状态
 }
 
@@ -134,7 +139,7 @@ unsigned char fuck(unsigned char indata)
 
 void serial_write(unsigned int datas)
 {
-	P3_3=0;
+	DA_CS=0;
 
 	SBUF=fuck(datas>>8);
 	while(!TI);
@@ -142,7 +147,7 @@ void serial_write(unsigned int datas)
 	SBUF=fuck(datas);
 	while(!TI);
 	TI=0;delay(2);
-	P3_3=1;	//给MAX531片选端一个上升沿
+	DA_CS=1;	//给MAX531片选端一个上升沿
 }
 void main(void)
 {
