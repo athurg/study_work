@@ -26,7 +26,7 @@ char stand_pos=0;	//控制待机时屏幕流动显示的位置；
 long int keycache=0;		//键盘输入缓存
 struct signal{
 	char w;		//波形
-	unsigned int f;	//频率
+	long int f;	//频率
 	char a;		//振幅
 }sign={1,1000,5};
 
@@ -48,7 +48,8 @@ void flush(void)
     switch(state){
 		case 1:
 			sign.w=keycache;
-			P2=sign.w-1;	//键盘输入的1、2、3依次对应相应的波形，直接从P2输出即可
+			P2&=0xfc;
+			P2|=sign.w-1;	//键盘输入的1、2、3依次对应相应的波形，直接从P2输出即可
 			break;
 		case 2:
 			sign.f=keycache;
@@ -71,9 +72,9 @@ void refresh(void)
 	switch(state){
 		case 0:
 			switch(sign.w){
-				case 2:lcd_printsxy("Rect    A=   Vol",0,0);	break;
-				case 3:lcd_printsxy("Tria    A=   Vol",0,0);	break;
-				default:lcd_printsxy("sine    A=   Vol",0,0);	break;
+				case 1:lcd_printsxy("Rect    A=   Vol",0,0);	break;
+				case 2:lcd_printsxy("Tria    A=   Vol",0,0);	break;
+				case 3:lcd_printsxy("sine    A=   Vol",0,0);	break;
 			}
 
 			lcd_printsxy("F=       KHz",0,1);
@@ -82,10 +83,10 @@ void refresh(void)
 		case 1:
 			lcd_printsxy("Wave Select",0,0);
 			switch(keycache){
-				case 1: lcd_printsxy("Sine Wave",0,1);break;
-				case 2: lcd_printsxy("Deco Wave",0,1);break;
-				case 3: lcd_printsxy("Tria Wave",0,1);break;
-				default: lcd_printsxy("1.Sin 2.Dec 3.Tri",0,1);break;
+				case 1: lcd_printsxy("Rect Wave",0,1);break;
+				case 2: lcd_printsxy("Tria Wave",0,1);break;
+				case 3: lcd_printsxy("Sine Wave",0,1);break;
+				default: lcd_printsxy("1.Rec 2.Tri 3.Sin",0,1);break;
 			}
 			break;
 		case 2:
@@ -111,13 +112,14 @@ void refresh(void)
 *****************************/
 void interrupt_init(void)
 {
+/*
 	//外部中断0
     EX0=1;	//外部中断0
     
     PX0=1;	//外部中断优先
     
     IT0=1;	//下降沿出发
-
+*/
 	//串口
 	SCON=0x00;	//方式0
     ES =1;		//串行中断
@@ -143,25 +145,24 @@ void serial_write(unsigned int datas)
 
 	SBUF=fuck(datas>>8);
 	while(!TI);
-	TI=0;delay(2);
+	TI=0;
 	SBUF=fuck(datas);
 	while(!TI);
-	TI=0;delay(2);
+	TI=0;
 	DA_CS=1;	//给MAX531片选端一个上升沿
 }
+
 void main(void)
 {
 
-	unsigned char  key;
+	unsigned char key;
 	unsigned int tmp;
 	//初始化
-    //lcd_init();	//LCD初始化
-    interrupt_init();	//中断初始化
-    P1=0xf0;	//键盘初始化
+    lcd_init();
+    interrupt_init();
+    P1=0xf0;
 
 	refresh();
-	for(tmp=0; tmp<0xffff; tmp++)
-	serial_write(tmp);
 
 	while(1){
 	    key=key_make(key_scan());
@@ -175,7 +176,7 @@ void main(void)
 				keycache=0;	//清空输入缓存
 		    }else if(state){	//非设置状态的数字按键丢弃
 				if(state==1)	keycache=key;//波形选择只收集一次按键
-				else		keycache=keycache>999999999 ? 0 : (key+keycache*10);	//频率幅度需要叠加
+				else		keycache=keycache>99999999 ? 0 : (key+keycache*10);	//频率幅度需要叠加
 			}
 		    refresh();
 			delay(1);
