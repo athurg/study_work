@@ -22,13 +22,14 @@
 char state=0;	//状态变量,0为待机,W波形,F频率,A幅度
 char stand_str[38]="     Wave;F=     KHz;A=   Vol   ";
 char stand_pos=0;	//控制待机时屏幕流动显示的位置；
+char freq_type=0;	//高低频显示切换
 
 long int keycache=0;		//键盘输入缓存
 struct signal{
 	char w;		//波形
 	long int f;	//频率
 	char a;		//振幅
-}sign={1,1000,5};
+}sign={3,1000,5};
 
 /*----------------------------  函 数 声 明  ----------------------------*/
 void interrupt_init(void);	//中断初始化
@@ -52,7 +53,8 @@ void flush(void)
 			P2|=sign.w-1;	//键盘输入的1、2、3依次对应相应的波形，直接从P2输出即可
 			break;
 		case 2:
-			sign.f=keycache;
+			if(freq_type)	sign.f=keycache*1000;
+			else			sign.f=keycache;
 			//TODO:此处添加电容选择的代码
 			//P0=电容选择的译码
 			//CAP_CS=1;	CAP_CS=0;
@@ -76,9 +78,15 @@ void refresh(void)
 				case 2:lcd_printsxy("Tria    A=   Vol",0,0);	break;
 				case 3:lcd_printsxy("sine    A=   Vol",0,0);	break;
 			}
+			lcd_printnxy(sign.a,12,0);
 
-			lcd_printsxy("F=       KHz",0,1);
-			lcd_printnxy(sign.a,12,0);lcd_printnxy(sign.f,8,1);
+			if(sign.f>1000000){
+				lcd_printsxy("F=       KHz",0,1);
+				lcd_printnxy(sign.f/1000,8,1);
+			}else{
+				lcd_printsxy("F=        Hz",0,1);
+				lcd_printnxy(sign.f,8,1);
+			}
 			break;
 		case 1:
 			lcd_printsxy("Wave Select",0,0);
@@ -91,7 +99,8 @@ void refresh(void)
 			break;
 		case 2:
 			lcd_printsxy("Frequence Set",0,0);
-			lcd_printsxy("KHz",13,1);
+			if(freq_type)	lcd_printsxy("KHz",13,1);
+			else			lcd_printsxy(" Hz",13,1);
 			lcd_printnxy(keycache,12,1);
 			break;
 		case 3:
@@ -171,7 +180,8 @@ void main(void)
 	
 		    if(key>10){	//功能区
 				key-=20;
-				if(key==4)		flush();	//功能处理
+				if(key==5)		freq_type=!freq_type;
+				else if(key==4)		flush();	//功能处理
 				else			state=key;
 				keycache=0;	//清空输入缓存
 		    }else if(state){	//非设置状态的数字按键丢弃
