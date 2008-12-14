@@ -3,9 +3,9 @@
 
 /*---------端口定义----------*/
 //LCD指令端口
-#define LCD_EN P3_0
+#define LCD_EN P3_2
 #define LCD_RW P3_1
-#define LCD_RS P3_2
+#define LCD_RS P3_0
 
 #define LCD_BUSY P2_7		//忙标志位
 #define LCD_DATA P2		//数据总线

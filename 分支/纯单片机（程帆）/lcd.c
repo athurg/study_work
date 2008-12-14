@@ -8,10 +8,6 @@
 #define LCD_CMD_CLS 0x01 //清屏指令（清DDRAM(DDRAM)和AC）
 #define LCD_CMD_HOME 0x02 //归位（AC=0，光标、画面回HOME位），也可用0x03
 
-//LCD忙标志位
-#ifndef LCD_BUSY
-    #define LCD_BUSY P0_7
-#endif
 
 /****************************************函数是实现****************************************/
 void lcd_wait(void)
