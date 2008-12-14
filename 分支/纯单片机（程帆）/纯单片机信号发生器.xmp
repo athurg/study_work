@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="Windows-1252" ?>
+<TKStudioProject Name="´¿µ¥Æ¬»úÐÅºÅ·¢ÉúÆ÷" BuildTool="12" Version="3.00" Author="YinHandong[Òüº®¶¬]">
+    <Configurations>
+        <Configuration Name="±àÒëµ÷ÊÔ" AsmParam='$(PARAM) &quot;$(SOURCE)&quot;' CParam='$(PARAM) -c &quot;$(SOURCE)&quot; -o &quot;$(REL)&quot;' LinkParam="$(LNKPARAM) $(OBJS)" GlLnkParam=" --debug --out-fmt-ihx" GlAsmParam=" -x -l -o -s" GlCParam="" SDCC_OPTDBG="1,-1,1,1,1,0,(),()" AppFile="D:\ÐÅºÅ·¢ÉúÆ÷\·ÖÖ§\´¿µ¥Æ¬»ú\±àÒëµ÷ÊÔ\´¿µ¥Æ¬»úÐÅºÅ·¢ÉúÆ÷.hex" CdbFile=".\±àÒëµ÷ÊÔ\´¿µ¥Æ¬»úÐÅºÅ·¢ÉúÆ÷.cdb" SIMCLK="" OPTDBG="1,-1,1,1,1,0,()" DEVICE="AT89C51" VENDOR="Atmel" FAMINY="0" CPU="IRAM(0-0x7F) IROM(0-0xFFF) CLOCK(24000000)" RGF='REGX51.H(&quot;Atmel&quot;)' MONDL='S8051.DLL TP51.DLL(&quot;-p51&quot;)' SIMDL='S8051.DLL DP51.DLL(&quot;-p51&quot;)' />
+    </Configurations>
+    <Files>
+        <Filter Name="Source Files">
+            <File RelativePath="common.c" FileType="1" Output="common.rel">
+                <AsmParam DebugRel="" ±àÒëµ÷ÊÔ="" />
+                <CParam DebugRel=" --nooverlay --noinduction --debug" ±àÒëµ÷ÊÔ="" />
+            </File>
+            <File RelativePath="keypad.c" FileType="1" Output="keypad.rel">
+                <AsmParam DebugRel="" ±àÒëµ÷ÊÔ="" />
+                <CParam DebugRel=" --nooverlay --noinduction --debug" ±àÒëµ÷ÊÔ="" />
+            </File>
+            <File RelativePath="lcd.c" FileType="1" Output="lcd.rel">
+                <AsmParam DebugRel="" ±àÒëµ÷ÊÔ="" />
+                <CParam DebugRel=" --nooverlay --noinduction --debug" ±àÒëµ÷ÊÔ="" />
+            </File>
+            <File RelativePath="main.c" FileType="1" Output="main.rel">
+                <AsmParam DebugRel="" ±àÒëµ÷ÊÔ="" />
+                <CParam DebugRel=" --nooverlay --noinduction --debug" ±àÒëµ÷ÊÔ="" />
+            </File>
+            <File RelativePath="common.h" FileType="4" />
+            <File RelativePath="keypad.h" FileType="4" />
+            <File RelativePath="lcd.h" FileType="4" />
+            <File RelativePath="main.h" FileType="4" />
+        </Filter>
+    </Files>
+</TKStudioProject>
