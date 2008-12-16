@@ -3,7 +3,7 @@
 
 ACTCFG <±àÒëµ÷ÊÔ>
 TARGOPT 1,()
-  OPTFFF <.\main.c> {2,3,-1,-1,22,29,751,325,57,21}
+  OPTFFF <.\main.c> {2,3,-1,-1,22,29,751,325,0,0}
   OPTDF 1
   OPTDLG 0,(Tmap51.dll)()
   OPTDLG 1,(peri\dlpc.dll)()
