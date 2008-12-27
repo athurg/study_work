@@ -3,8 +3,10 @@
 
 ACTCFG <±àÒëµ÷ÊÔ>
 TARGOPT 1,()
-  OPTFFF <.\main.h> {0,1,-1,-1,0,0,729,296,0,0}
-  OPTFFF <.\main.c> {2,3,-1,-1,22,29,769,329,20,23}
+  OPTFFF <.\lcd.h> {0,1,-1,-1,44,58,728,367,0,0}
+  OPTFFF <.\main.c> {0,1,-1,-1,0,0,684,330,0,0}
+  OPTFFF <.\main.h> {0,1,-1,-1,44,58,728,367,0,0}
+  OPTFFF <.\keypad.h> {2,3,-1,-1,44,58,728,367,0,0}
   OPTDF 1
   OPTDLG 0,(Tmap51.dll)()
   OPTDLG 1,(peri\dlpc.dll)()

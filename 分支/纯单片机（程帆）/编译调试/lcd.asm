@@ -1,7 +1,7 @@
 ;--------------------------------------------------------
 ; File Created by SDCC : free open source ANSI-C Compiler
 ; Version 2.7.0 #4818 (May 31 2007)
-; This file generated Mon Dec 15 21:08:58 2008
+; This file generated Mon Dec 22 20:33:56 2008
 ;--------------------------------------------------------
 	.module lcd
 	.optsdcc -mmcs51 --model-small

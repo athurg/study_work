@@ -2,7 +2,7 @@
 #define MAIN_H 
 
 #define DB_BUS P0		//总线
-#define A_CS P3_4		//幅度调节时能
+#define A_CS P3_3		//幅度调节时能
 
 //函数声明
 void flush(void);	//数据处理函数
