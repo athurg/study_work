@@ -1,0 +1,302 @@
+Simulator report for blocking
+Wed Apr 15 22:39:16 2009
+Quartus II Version 9.0 Build 132 02/25/2009 SJ Web Edition
+
+
+---------------------
+; Table of Contents ;
+---------------------
+  1. Legal Notice
+  2. Simulator Summary
+  3. Simulator Settings
+  4. Simulation Waveforms
+  5. Coverage Summary
+  6. Complete 1/0-Value Coverage
+  7. Missing 1-Value Coverage
+  8. Missing 0-Value Coverage
+  9. Simulator INI Usage
+ 10. Simulator Messages
+
+
+
+----------------
+; Legal Notice ;
+----------------
+Copyright (C) 1991-2009 Altera Corporation
+Your use of Altera Corporation's design tools, logic functions 
+and other software and tools, and its AMPP partner logic 
+functions, and any output files from any of the foregoing 
+(including device programming or simulation files), and any 
+associated documentation or information are expressly subject 
+to the terms and conditions of the Altera Program License 
+Subscription Agreement, Altera MegaCore Function License 
+Agreement, or other applicable license agreement, including, 
+without limitation, that your use is for the sole purpose of 
+programming logic devices manufactured by Altera and sold by 
+Altera or its authorized distributors.  Please refer to the 
+applicable agreement for further details.
+
+
+
++--------------------------------------------+
+; Simulator Summary                          ;
++-----------------------------+--------------+
+; Type                        ; Value        ;
++-----------------------------+--------------+
+; Simulation Start Time       ; 0 ps         ;
+; Simulation End Time         ; 1.0 us       ;
+; Simulation Netlist Size     ; 123 nodes    ;
+; Simulation Coverage         ;      74.80 % ;
+; Total Number of Transitions ; 3472         ;
+; Simulation Breakpoints      ; 0            ;
+; Family                      ; Stratix II   ;
+; Device                      ; EP2S15F484C3 ;
++-----------------------------+--------------+
+
+
++---------------------------------------------------------------------------------------------------------------------------+
+; Simulator Settings                                                                                                        ;
++--------------------------------------------------------------------------------------------+--------------+---------------+
+; Option                                                                                     ; Setting      ; Default Value ;
++--------------------------------------------------------------------------------------------+--------------+---------------+
+; Simulation mode                                                                            ; Timing       ; Timing        ;
+; Start time                                                                                 ; 0 ns         ; 0 ns          ;
+; Simulation results format                                                                  ; CVWF         ;               ;
+; Vector input source                                                                        ; ×èÈû¸³Öµ.vwf ;               ;
+; Add pins automatically to simulation output waveforms                                      ; On           ; On            ;
+; Check outputs                                                                              ; Off          ; Off           ;
+; Report simulation coverage                                                                 ; On           ; On            ;
+; Display complete 1/0 value coverage report                                                 ; On           ; On            ;
+; Display missing 1-value coverage report                                                    ; On           ; On            ;
+; Display missing 0-value coverage report                                                    ; On           ; On            ;
+; Detect setup and hold time violations                                                      ; Off          ; Off           ;
+; Detect glitches                                                                            ; Off          ; Off           ;
+; Disable timing delays in Timing Simulation                                                 ; Off          ; Off           ;
+; Generate Signal Activity File                                                              ; Off          ; Off           ;
+; Generate VCD File for PowerPlay Power Analyzer                                             ; Off          ; Off           ;
+; Group bus channels in simulation results                                                   ; Off          ; Off           ;
+; Preserve fewer signal transitions to reduce memory requirements                            ; On           ; On            ;
+; Trigger vector comparison with the specified mode                                          ; INPUT_EDGE   ; INPUT_EDGE    ;
+; Disable setup and hold time violations detection in input registers of bi-directional pins ; Off          ; Off           ;
+; Overwrite Waveform Inputs With Simulation Outputs                                          ; Off          ;               ;
+; Perform Glitch Filtering in Timing Simulation                                              ; Auto         ; Auto          ;
++--------------------------------------------------------------------------------------------+--------------+---------------+
+
+
++----------------------+
+; Simulation Waveforms ;
++----------------------+
+Waveform report data cannot be output to ASCII.
+Please use Quartus II to view the waveform report data.
+
+
++--------------------------------------------------------------------+
+; Coverage Summary                                                   ;
++-----------------------------------------------------+--------------+
+; Type                                                ; Value        ;
++-----------------------------------------------------+--------------+
+; Total coverage as a percentage                      ;      74.80 % ;
+; Total nodes checked                                 ; 123          ;
+; Total output ports checked                          ; 123          ;
+; Total output ports with complete 1/0-value coverage ; 92           ;
+; Total output ports with no 1/0-value coverage       ; 17           ;
+; Total output ports with no 1-value coverage         ; 17           ;
+; Total output ports with no 0-value coverage         ; 31           ;
++-----------------------------------------------------+--------------+
+
+
+The following table displays output ports that toggle between 1 and 0 during simulation.
++--------------------------------------------------------------------------------------------------------------+
+; Complete 1/0-Value Coverage                                                                                  ;
++---------------------------------------------+---------------------------------------------+------------------+
+; Node Name                                   ; Output Port Name                            ; Output Port Type ;
++---------------------------------------------+---------------------------------------------+------------------+
+; |main|blocking:blocking|b[1]                ; |main|blocking:blocking|b[1]                ; regout           ;
+; |main|blocking:blocking|b[2]                ; |main|blocking:blocking|b[2]                ; regout           ;
+; |main|blocking:blocking|b[3]                ; |main|blocking:blocking|b[3]                ; regout           ;
+; |main|blocking:blocking|b[4]                ; |main|blocking:blocking|b[4]                ; regout           ;
+; |main|blocking:blocking|b[5]                ; |main|blocking:blocking|b[5]                ; regout           ;
+; |main|blocking:blocking|b[6]                ; |main|blocking:blocking|b[6]                ; regout           ;
+; |main|blocking:blocking|c[1]                ; |main|blocking:blocking|c[1]                ; regout           ;
+; |main|blocking:blocking|c[2]                ; |main|blocking:blocking|c[2]                ; regout           ;
+; |main|blocking:blocking|c[3]                ; |main|blocking:blocking|c[3]                ; regout           ;
+; |main|blocking:blocking|c[4]                ; |main|blocking:blocking|c[4]                ; regout           ;
+; |main|blocking:blocking|c[5]                ; |main|blocking:blocking|c[5]                ; regout           ;
+; |main|blocking:blocking|c[6]                ; |main|blocking:blocking|c[6]                ; regout           ;
+; |main|parallel:parallel|b[1]                ; |main|parallel:parallel|b[1]                ; regout           ;
+; |main|parallel:parallel|b[2]                ; |main|parallel:parallel|b[2]                ; regout           ;
+; |main|parallel:parallel|b[3]                ; |main|parallel:parallel|b[3]                ; regout           ;
+; |main|parallel:parallel|b[4]                ; |main|parallel:parallel|b[4]                ; regout           ;
+; |main|parallel:parallel|b[5]                ; |main|parallel:parallel|b[5]                ; regout           ;
+; |main|parallel:parallel|b[6]                ; |main|parallel:parallel|b[6]                ; regout           ;
+; |main|non_blocking:non_blocking|c[1]        ; |main|non_blocking:non_blocking|c[1]        ; regout           ;
+; |main|non_blocking:non_blocking|c[2]        ; |main|non_blocking:non_blocking|c[2]        ; regout           ;
+; |main|non_blocking:non_blocking|c[3]        ; |main|non_blocking:non_blocking|c[3]        ; regout           ;
+; |main|non_blocking:non_blocking|c[4]        ; |main|non_blocking:non_blocking|c[4]        ; regout           ;
+; |main|non_blocking:non_blocking|c[5]        ; |main|non_blocking:non_blocking|c[5]        ; regout           ;
+; |main|non_blocking:non_blocking|c[6]        ; |main|non_blocking:non_blocking|c[6]        ; regout           ;
+; |main|parallel:parallel|c[1]                ; |main|parallel:parallel|c[1]                ; regout           ;
+; |main|parallel:parallel|c[2]                ; |main|parallel:parallel|c[2]                ; regout           ;
+; |main|parallel:parallel|c[3]                ; |main|parallel:parallel|c[3]                ; regout           ;
+; |main|parallel:parallel|c[4]                ; |main|parallel:parallel|c[4]                ; regout           ;
+; |main|parallel:parallel|c[5]                ; |main|parallel:parallel|c[5]                ; regout           ;
+; |main|parallel:parallel|c[6]                ; |main|parallel:parallel|c[6]                ; regout           ;
+; |main|out1_a[1]                             ; |main|out1_a[1]                             ; padio            ;
+; |main|out1_a[2]                             ; |main|out1_a[2]                             ; padio            ;
+; |main|out1_a[3]                             ; |main|out1_a[3]                             ; padio            ;
+; |main|out1_a[4]                             ; |main|out1_a[4]                             ; padio            ;
+; |main|out1_a[5]                             ; |main|out1_a[5]                             ; padio            ;
+; |main|out1_a[6]                             ; |main|out1_a[6]                             ; padio            ;
+; |main|out1_b[1]                             ; |main|out1_b[1]                             ; padio            ;
+; |main|out1_b[2]                             ; |main|out1_b[2]                             ; padio            ;
+; |main|out1_b[3]                             ; |main|out1_b[3]                             ; padio            ;
+; |main|out1_b[4]                             ; |main|out1_b[4]                             ; padio            ;
+; |main|out1_b[5]                             ; |main|out1_b[5]                             ; padio            ;
+; |main|out1_b[6]                             ; |main|out1_b[6]                             ; padio            ;
+; |main|out2_a[1]                             ; |main|out2_a[1]                             ; padio            ;
+; |main|out2_a[2]                             ; |main|out2_a[2]                             ; padio            ;
+; |main|out2_a[3]                             ; |main|out2_a[3]                             ; padio            ;
+; |main|out2_a[4]                             ; |main|out2_a[4]                             ; padio            ;
+; |main|out2_a[5]                             ; |main|out2_a[5]                             ; padio            ;
+; |main|out2_a[6]                             ; |main|out2_a[6]                             ; padio            ;
+; |main|out2_b[1]                             ; |main|out2_b[1]                             ; padio            ;
+; |main|out2_b[2]                             ; |main|out2_b[2]                             ; padio            ;
+; |main|out2_b[3]                             ; |main|out2_b[3]                             ; padio            ;
+; |main|out2_b[4]                             ; |main|out2_b[4]                             ; padio            ;
+; |main|out2_b[5]                             ; |main|out2_b[5]                             ; padio            ;
+; |main|out2_b[6]                             ; |main|out2_b[6]                             ; padio            ;
+; |main|out3_a[1]                             ; |main|out3_a[1]                             ; padio            ;
+; |main|out3_a[2]                             ; |main|out3_a[2]                             ; padio            ;
+; |main|out3_a[3]                             ; |main|out3_a[3]                             ; padio            ;
+; |main|out3_a[4]                             ; |main|out3_a[4]                             ; padio            ;
+; |main|out3_a[5]                             ; |main|out3_a[5]                             ; padio            ;
+; |main|out3_a[6]                             ; |main|out3_a[6]                             ; padio            ;
+; |main|out3_b[1]                             ; |main|out3_b[1]                             ; padio            ;
+; |main|out3_b[2]                             ; |main|out3_b[2]                             ; padio            ;
+; |main|out3_b[3]                             ; |main|out3_b[3]                             ; padio            ;
+; |main|out3_b[4]                             ; |main|out3_b[4]                             ; padio            ;
+; |main|out3_b[5]                             ; |main|out3_b[5]                             ; padio            ;
+; |main|out3_b[6]                             ; |main|out3_b[6]                             ; padio            ;
+; |main|clk                                   ; |main|clk~corein                            ; combout          ;
+; |main|in[1]                                 ; |main|in[1]~corein                          ; combout          ;
+; |main|in[2]                                 ; |main|in[2]~corein                          ; combout          ;
+; |main|in[3]                                 ; |main|in[3]~corein                          ; combout          ;
+; |main|in[4]                                 ; |main|in[4]~corein                          ; combout          ;
+; |main|in[5]                                 ; |main|in[5]~corein                          ; combout          ;
+; |main|in[6]                                 ; |main|in[6]~corein                          ; combout          ;
+; |main|clk~clkctrl                           ; |main|clk~clkctrl                           ; outclk           ;
+; |main|non_blocking:non_blocking|c[1]~feeder ; |main|non_blocking:non_blocking|c[1]~feeder ; combout          ;
+; |main|parallel:parallel|c[1]~feeder         ; |main|parallel:parallel|c[1]~feeder         ; combout          ;
+; |main|parallel:parallel|c[2]~feeder         ; |main|parallel:parallel|c[2]~feeder         ; combout          ;
+; |main|non_blocking:non_blocking|c[2]~feeder ; |main|non_blocking:non_blocking|c[2]~feeder ; combout          ;
+; |main|parallel:parallel|c[3]~feeder         ; |main|parallel:parallel|c[3]~feeder         ; combout          ;
+; |main|non_blocking:non_blocking|c[3]~feeder ; |main|non_blocking:non_blocking|c[3]~feeder ; combout          ;
+; |main|non_blocking:non_blocking|c[4]~feeder ; |main|non_blocking:non_blocking|c[4]~feeder ; combout          ;
+; |main|parallel:parallel|c[4]~feeder         ; |main|parallel:parallel|c[4]~feeder         ; combout          ;
+; |main|parallel:parallel|c[5]~feeder         ; |main|parallel:parallel|c[5]~feeder         ; combout          ;
+; |main|non_blocking:non_blocking|c[5]~feeder ; |main|non_blocking:non_blocking|c[5]~feeder ; combout          ;
+; |main|parallel:parallel|c[6]~feeder         ; |main|parallel:parallel|c[6]~feeder         ; combout          ;
+; |main|non_blocking:non_blocking|c[6]~feeder ; |main|non_blocking:non_blocking|c[6]~feeder ; combout          ;
+; |main|blocking:blocking|b[1]~feeder         ; |main|blocking:blocking|b[1]~feeder         ; combout          ;
+; |main|blocking:blocking|c[1]~feeder         ; |main|blocking:blocking|c[1]~feeder         ; combout          ;
+; |main|parallel:parallel|b[1]~feeder         ; |main|parallel:parallel|b[1]~feeder         ; combout          ;
+; |main|blocking:blocking|b[3]~feeder         ; |main|blocking:blocking|b[3]~feeder         ; combout          ;
+; |main|parallel:parallel|b[3]~feeder         ; |main|parallel:parallel|b[3]~feeder         ; combout          ;
+; |main|blocking:blocking|c[3]~feeder         ; |main|blocking:blocking|c[3]~feeder         ; combout          ;
++---------------------------------------------+---------------------------------------------+------------------+
+
+
+The following table displays output ports that do not toggle to 1 during simulation.
++--------------------------------------------------------------------------------------------------------------+
+; Missing 1-Value Coverage                                                                                     ;
++---------------------------------------------+---------------------------------------------+------------------+
+; Node Name                                   ; Output Port Name                            ; Output Port Type ;
++---------------------------------------------+---------------------------------------------+------------------+
+; |main|blocking:blocking|b[0]                ; |main|blocking:blocking|b[0]                ; regout           ;
+; |main|blocking:blocking|c[0]                ; |main|blocking:blocking|c[0]                ; regout           ;
+; |main|parallel:parallel|b[0]                ; |main|parallel:parallel|b[0]                ; regout           ;
+; |main|non_blocking:non_blocking|c[0]        ; |main|non_blocking:non_blocking|c[0]        ; regout           ;
+; |main|parallel:parallel|c[0]                ; |main|parallel:parallel|c[0]                ; regout           ;
+; |main|out1_a[0]                             ; |main|out1_a[0]                             ; padio            ;
+; |main|out1_b[0]                             ; |main|out1_b[0]                             ; padio            ;
+; |main|out2_a[0]                             ; |main|out2_a[0]                             ; padio            ;
+; |main|out2_b[0]                             ; |main|out2_b[0]                             ; padio            ;
+; |main|out3_a[0]                             ; |main|out3_a[0]                             ; padio            ;
+; |main|out3_b[0]                             ; |main|out3_b[0]                             ; padio            ;
+; |main|in[0]                                 ; |main|in[0]~corein                          ; combout          ;
+; |main|non_blocking:non_blocking|c[0]~feeder ; |main|non_blocking:non_blocking|c[0]~feeder ; combout          ;
+; |main|parallel:parallel|c[0]~feeder         ; |main|parallel:parallel|c[0]~feeder         ; combout          ;
+; |main|blocking:blocking|b[0]~feeder         ; |main|blocking:blocking|b[0]~feeder         ; combout          ;
+; |main|blocking:blocking|c[0]~feeder         ; |main|blocking:blocking|c[0]~feeder         ; combout          ;
+; |main|parallel:parallel|b[0]~feeder         ; |main|parallel:parallel|b[0]~feeder         ; combout          ;
++---------------------------------------------+---------------------------------------------+------------------+
+
+
+The following table displays output ports that do not toggle to 0 during simulation.
++--------------------------------------------------------------------------------------------------------------+
+; Missing 0-Value Coverage                                                                                     ;
++---------------------------------------------+---------------------------------------------+------------------+
+; Node Name                                   ; Output Port Name                            ; Output Port Type ;
++---------------------------------------------+---------------------------------------------+------------------+
+; |main|blocking:blocking|b[0]                ; |main|blocking:blocking|b[0]                ; regout           ;
+; |main|blocking:blocking|b[7]                ; |main|blocking:blocking|b[7]                ; regout           ;
+; |main|blocking:blocking|c[0]                ; |main|blocking:blocking|c[0]                ; regout           ;
+; |main|blocking:blocking|c[7]                ; |main|blocking:blocking|c[7]                ; regout           ;
+; |main|parallel:parallel|b[0]                ; |main|parallel:parallel|b[0]                ; regout           ;
+; |main|parallel:parallel|b[7]                ; |main|parallel:parallel|b[7]                ; regout           ;
+; |main|non_blocking:non_blocking|c[0]        ; |main|non_blocking:non_blocking|c[0]        ; regout           ;
+; |main|non_blocking:non_blocking|c[7]        ; |main|non_blocking:non_blocking|c[7]        ; regout           ;
+; |main|parallel:parallel|c[0]                ; |main|parallel:parallel|c[0]                ; regout           ;
+; |main|parallel:parallel|c[7]                ; |main|parallel:parallel|c[7]                ; regout           ;
+; |main|out1_a[0]                             ; |main|out1_a[0]                             ; padio            ;
+; |main|out1_a[7]                             ; |main|out1_a[7]                             ; padio            ;
+; |main|out1_b[0]                             ; |main|out1_b[0]                             ; padio            ;
+; |main|out1_b[7]                             ; |main|out1_b[7]                             ; padio            ;
+; |main|out2_a[0]                             ; |main|out2_a[0]                             ; padio            ;
+; |main|out2_a[7]                             ; |main|out2_a[7]                             ; padio            ;
+; |main|out2_b[0]                             ; |main|out2_b[0]                             ; padio            ;
+; |main|out2_b[7]                             ; |main|out2_b[7]                             ; padio            ;
+; |main|out3_a[0]                             ; |main|out3_a[0]                             ; padio            ;
+; |main|out3_a[7]                             ; |main|out3_a[7]                             ; padio            ;
+; |main|out3_b[0]                             ; |main|out3_b[0]                             ; padio            ;
+; |main|out3_b[7]                             ; |main|out3_b[7]                             ; padio            ;
+; |main|in[0]                                 ; |main|in[0]~corein                          ; combout          ;
+; |main|in[7]                                 ; |main|in[7]~corein                          ; combout          ;
+; |main|non_blocking:non_blocking|c[0]~feeder ; |main|non_blocking:non_blocking|c[0]~feeder ; combout          ;
+; |main|parallel:parallel|c[0]~feeder         ; |main|parallel:parallel|c[0]~feeder         ; combout          ;
+; |main|non_blocking:non_blocking|c[7]~feeder ; |main|non_blocking:non_blocking|c[7]~feeder ; combout          ;
+; |main|parallel:parallel|c[7]~feeder         ; |main|parallel:parallel|c[7]~feeder         ; combout          ;
+; |main|blocking:blocking|b[0]~feeder         ; |main|blocking:blocking|b[0]~feeder         ; combout          ;
+; |main|blocking:blocking|c[0]~feeder         ; |main|blocking:blocking|c[0]~feeder         ; combout          ;
+; |main|parallel:parallel|b[0]~feeder         ; |main|parallel:parallel|b[0]~feeder         ; combout          ;
++---------------------------------------------+---------------------------------------------+------------------+
+
+
++---------------------+
+; Simulator INI Usage ;
++--------+------------+
+; Option ; Usage      ;
++--------+------------+
+
+
++--------------------+
+; Simulator Messages ;
++--------------------+
+Info: *******************************************************************
+Info: Running Quartus II Simulator
+    Info: Version 9.0 Build 132 02/25/2009 SJ Web Edition
+    Info: Processing started: Wed Apr 15 22:39:15 2009
+Info: Command: quartus_sim --read_settings_files=on --write_settings_files=off ×èÈû¸³Öµ -c blocking
+Info: Using vector source file "D:/¿É±à³Ì¿ØÖÆÆ÷/×èÈû¸³Öµ/×èÈû¸³Öµ.vwf"
+Info: Option to preserve fewer signal transitions to reduce memory requirements is enabled
+    Info: Simulation has been partitioned into sub-simulations according to the maximum transition count determined by the engine. Transitions from memory will be flushed out to disk at the end of each sub-simulation to reduce memory requirements.
+Info: Simulation partitioned into 1 sub-simulations
+Info: Simulation coverage is      74.80 %
+Info: Number of transitions in simulation is 3472
+Info: Quartus II Simulator was successful. 0 errors, 0 warnings
+    Info: Peak virtual memory: 118 megabytes
+    Info: Processing ended: Wed Apr 15 22:39:16 2009
+    Info: Elapsed time: 00:00:01
+    Info: Total CPU time (on all processors): 00:00:01
+
+
