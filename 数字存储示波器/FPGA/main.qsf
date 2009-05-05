@@ -56,25 +56,6 @@ set_global_assignment -name FITTER_EFFORT "STANDARD FIT"
 set_global_assignment -name SIMULATION_MODE TIMING
 set_global_assignment -name CHECK_OUTPUTS OFF
 set_global_assignment -name INCREMENTAL_VECTOR_INPUT_SOURCE main.vwf
-set_instance_assignment -name SIMULATION_COMPARE_SIGNAL ON -to clk
-set_instance_assignment -name SIMULATION_COMPARE_SIGNAL ON -to ctr
-set_instance_assignment -name SIMULATION_COMPARE_SIGNAL ON -to ctr[7]
-set_instance_assignment -name SIMULATION_COMPARE_SIGNAL ON -to ctr[6]
-set_instance_assignment -name SIMULATION_COMPARE_SIGNAL ON -to ctr[5]
-set_instance_assignment -name SIMULATION_COMPARE_SIGNAL ON -to ctr[4]
-set_instance_assignment -name SIMULATION_COMPARE_SIGNAL ON -to ctr[3]
-set_instance_assignment -name SIMULATION_COMPARE_SIGNAL ON -to ctr[2]
-set_instance_assignment -name SIMULATION_COMPARE_SIGNAL ON -to ctr[1]
-set_instance_assignment -name SIMULATION_COMPARE_SIGNAL ON -to ctr[0]
-set_instance_assignment -name SIMULATION_COMPARE_SIGNAL ON -to scanning
-set_instance_assignment -name SIMULATION_COMPARE_SIGNAL ON -to scanning[7]
-set_instance_assignment -name SIMULATION_COMPARE_SIGNAL ON -to scanning[6]
-set_instance_assignment -name SIMULATION_COMPARE_SIGNAL ON -to scanning[5]
-set_instance_assignment -name SIMULATION_COMPARE_SIGNAL ON -to scanning[4]
-set_instance_assignment -name SIMULATION_COMPARE_SIGNAL ON -to scanning[3]
-set_instance_assignment -name SIMULATION_COMPARE_SIGNAL ON -to scanning[2]
-set_instance_assignment -name SIMULATION_COMPARE_SIGNAL ON -to scanning[1]
-set_instance_assignment -name SIMULATION_COMPARE_SIGNAL ON -to scanning[0]
 set_global_assignment -name STRATIX_DEVICE_IO_STANDARD "3.3-V LVTTL"
 set_location_assignment PIN_9 -to adc_db[7]
 set_location_assignment PIN_8 -to adc_db[6]
@@ -104,7 +85,7 @@ set_location_assignment PIN_114 -to y_out[3]
 set_location_assignment PIN_115 -to y_out[2]
 set_location_assignment PIN_112 -to y_out[1]
 set_location_assignment PIN_113 -to y_out[0]
-set_global_assignment -name MISC_FILE "D:/¼òÒ×´æ´¢Ê¾²¨Æ÷/FPGA/main.dpf"
+set_global_assignment -name MISC_FILE "D:/Êý×Ö´æ´¢Ê¾²¨Æ÷/FPGA/main.dpf"
 set_global_assignment -name PROJECT_OUTPUT_DIRECTORY ±¨¸æ
 set_global_assignment -name MIF_FILE rom.mif
 set_global_assignment -name VERILOG_FILE rom.v
@@ -114,3 +95,4 @@ set_global_assignment -name VERILOG_FILE address.v
 set_global_assignment -name VERILOG_FILE main.v
 set_global_assignment -name VECTOR_WAVEFORM_FILE main.vwf
 set_global_assignment -name VERILOG_FILE clock.v
+set_global_assignment -name SMART_RECOMPILE ON
