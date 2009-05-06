@@ -5,7 +5,7 @@ Timing Analyzer Summary
 Type           : Worst-case tsu
 Slack          : N/A
 Required Time  : None
-Actual Time    : 3.180 ns
+Actual Time    : 3.368 ns
 From           : sample_type
 To             : address:ram_addr_gen|ram_addr[8]
 From Clock     : --
@@ -15,19 +15,29 @@ Failed Paths   : 0
 Type           : Worst-case tco
 Slack          : N/A
 Required Time  : None
-Actual Time    : 15.731 ns
-From           : ram:frame_ram_a|altsyncram:altsyncram_component|altsyncram_g9k1:auto_generated|altsyncram_r4s1:altsyncram1|q_a[0]
-To             : y_out_a[0]
+Actual Time    : 13.859 ns
+From           : ram:frame_ram_a|altsyncram:altsyncram_component|altsyncram_g9k1:auto_generated|altsyncram_r4s1:altsyncram1|q_a[1]
+To             : y_out_a[1]
 From Clock     : sys_clk
+To Clock       : --
+Failed Paths   : 0
+
+Type           : Worst-case tpd
+Slack          : N/A
+Required Time  : None
+Actual Time    : 6.345 ns
+From           : freq_switch[0]
+To             : test_clock
+From Clock     : --
 To Clock       : --
 Failed Paths   : 0
 
 Type           : Worst-case th
 Slack          : N/A
 Required Time  : None
-Actual Time    : 4.744 ns
-From           : adc_db_b[4]
-To             : ram:frame_ram_b|altsyncram:altsyncram_component|altsyncram_g9k1:auto_generated|altsyncram_r4s1:altsyncram1|ram_block2a1~portb_datain_reg3
+Actual Time    : 3.381 ns
+From           : adc_db_b[3]
+To             : ram:frame_ram_b|altsyncram:altsyncram_component|altsyncram_g9k1:auto_generated|altsyncram_r4s1:altsyncram1|ram_block2a0~portb_datain_reg3
 From Clock     : --
 To Clock       : sys_clk
 Failed Paths   : 0
@@ -35,9 +45,9 @@ Failed Paths   : 0
 Type           : Clock Setup: 'sys_clk'
 Slack          : N/A
 Required Time  : None
-Actual Time    : 96.39 MHz ( period = 10.374 ns )
-From           : address:ram_addr_gen|ram_addr[3]
-To             : ram:frame_ram_b|altsyncram:altsyncram_component|altsyncram_g9k1:auto_generated|altsyncram_r4s1:altsyncram1|ram_block2a1~portb_address_reg3
+Actual Time    : 126.68 MHz ( period = 7.894 ns )
+From           : address:ram_addr_gen|ram_addr[6]
+To             : ram:frame_ram_a|altsyncram:altsyncram_component|altsyncram_g9k1:auto_generated|altsyncram_r4s1:altsyncram1|ram_block2a0~portb_address_reg6
 From Clock     : sys_clk
 To Clock       : sys_clk
 Failed Paths   : 0
@@ -46,8 +56,8 @@ Type           : Clock Setup: 'freq_switch[1]'
 Slack          : N/A
 Required Time  : None
 Actual Time    : Restricted to 210.08 MHz ( period = 4.760 ns )
-From           : address:ram_addr_gen|ram_addr[3]
-To             : ram:frame_ram_b|altsyncram:altsyncram_component|altsyncram_g9k1:auto_generated|altsyncram_r4s1:altsyncram1|ram_block2a1~portb_address_reg3
+From           : address:ram_addr_gen|ram_addr[6]
+To             : ram:frame_ram_a|altsyncram:altsyncram_component|altsyncram_g9k1:auto_generated|altsyncram_r4s1:altsyncram1|ram_block2a0~portb_address_reg6
 From Clock     : freq_switch[1]
 To Clock       : freq_switch[1]
 Failed Paths   : 0
@@ -56,8 +66,8 @@ Type           : Clock Setup: 'freq_switch[0]'
 Slack          : N/A
 Required Time  : None
 Actual Time    : Restricted to 210.08 MHz ( period = 4.760 ns )
-From           : address:ram_addr_gen|ram_addr[3]
-To             : ram:frame_ram_b|altsyncram:altsyncram_component|altsyncram_g9k1:auto_generated|altsyncram_r4s1:altsyncram1|ram_block2a1~portb_address_reg3
+From           : address:ram_addr_gen|ram_addr[6]
+To             : ram:frame_ram_a|altsyncram:altsyncram_component|altsyncram_g9k1:auto_generated|altsyncram_r4s1:altsyncram1|ram_block2a0~portb_address_reg6
 From Clock     : freq_switch[0]
 To Clock       : freq_switch[0]
 Failed Paths   : 0
@@ -66,11 +76,11 @@ Type           : Clock Hold: 'sys_clk'
 Slack          : Not operational: Clock Skew > Data Delay
 Required Time  : None
 Actual Time    : N/A
-From           : address:ram_addr_gen|ram_addr[5]
-To             : ram:frame_ram_b|altsyncram:altsyncram_component|altsyncram_g9k1:auto_generated|altsyncram_r4s1:altsyncram1|ram_block2a1~portb_address_reg5
+From           : address:ram_addr_gen|ram_addr[4]
+To             : ram:frame_ram_a|altsyncram:altsyncram_component|altsyncram_g9k1:auto_generated|altsyncram_r4s1:altsyncram1|ram_block2a0~portb_address_reg4
 From Clock     : sys_clk
 To Clock       : sys_clk
-Failed Paths   : 413
+Failed Paths   : 27
 
 Type           : Total number of failed paths
 Slack          : 
@@ -80,7 +90,7 @@ From           :
 To             : 
 From Clock     : 
 To Clock       : 
-Failed Paths   : 413
+Failed Paths   : 27
 
 --------------------------------------------------------------------------------------
 

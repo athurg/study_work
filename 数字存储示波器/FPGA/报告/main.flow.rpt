@@ -1,5 +1,5 @@
 Flow report for main
-Wed May 06 10:59:12 2009
+Wed May 06 12:16:21 2009
 Quartus II Version 9.0 Build 132 02/25/2009 SJ Web Edition
 
 
@@ -38,22 +38,22 @@ applicable agreement for further details.
 +------------------------------------------------------------------------------+
 ; Flow Summary                                                                 ;
 +------------------------------------+-----------------------------------------+
-; Flow Status                        ; Successful - Wed May 06 10:59:12 2009   ;
+; Flow Status                        ; Successful - Wed May 06 12:16:21 2009   ;
 ; Quartus II Version                 ; 9.0 Build 132 02/25/2009 SJ Web Edition ;
 ; Revision Name                      ; main                                    ;
 ; Top-level Entity Name              ; main                                    ;
 ; Family                             ; Cyclone II                              ;
-; Device                             ; EP2C8T144C6                             ;
+; Device                             ; EP2C5T144C6                             ;
 ; Timing Models                      ; Final                                   ;
 ; Met timing requirements            ; No                                      ;
-; Total logic elements               ; 50 / 8,256 ( < 1 % )                    ;
-;     Total combinational functions  ; 50 / 8,256 ( < 1 % )                    ;
-;     Dedicated logic registers      ; 36 / 8,256 ( < 1 % )                    ;
+; Total logic elements               ; 50 / 4,608 ( 1 % )                      ;
+;     Total combinational functions  ; 50 / 4,608 ( 1 % )                      ;
+;     Dedicated logic registers      ; 36 / 4,608 ( < 1 % )                    ;
 ; Total registers                    ; 36                                      ;
-; Total pins                         ; 44 / 85 ( 52 % )                        ;
+; Total pins                         ; 45 / 89 ( 51 % )                        ;
 ; Total virtual pins                 ; 0                                       ;
-; Total memory bits                  ; 10,240 / 165,888 ( 6 % )                ;
-; Embedded Multiplier 9-bit elements ; 0 / 36 ( 0 % )                          ;
+; Total memory bits                  ; 10,240 / 119,808 ( 9 % )                ;
+; Embedded Multiplier 9-bit elements ; 0 / 26 ( 0 % )                          ;
 ; Total PLLs                         ; 0 / 2 ( 0 % )                           ;
 +------------------------------------+-----------------------------------------+
 
@@ -63,29 +63,32 @@ applicable agreement for further details.
 +-------------------+---------------------+
 ; Option            ; Setting             ;
 +-------------------+---------------------+
-; Start date & time ; 05/06/2009 10:58:48 ;
+; Start date & time ; 05/06/2009 12:15:59 ;
 ; Main task         ; Compilation         ;
 ; Revision Name     ; main                ;
 +-------------------+---------------------+
 
 
-+--------------------------------------------------------------------------------------------------------------------------------------+
-; Flow Non-Default Global Settings                                                                                                     ;
-+------------------------------------+---------------------------------+--------------------------------+-------------+----------------+
-; Assignment Name                    ; Value                           ; Default Value                  ; Entity Name ; Section Id     ;
-+------------------------------------+---------------------------------+--------------------------------+-------------+----------------+
-; COMPILER_SIGNATURE_ID              ; 206572595103.124157872801500    ; --                             ; --          ; --             ;
-; FITTER_EFFORT                      ; Standard Fit                    ; Auto Fit                       ; --          ; --             ;
-; MAX_CORE_JUNCTION_TEMP             ; 85                              ; --                             ; --          ; --             ;
-; MIN_CORE_JUNCTION_TEMP             ; 0                               ; --                             ; --          ; --             ;
-; MISC_FILE                          ; D:/数字存储示波器/FPGA/main.dpf ; --                             ; --          ; --             ;
-; OPTIMIZE_HOLD_TIMING               ; All Paths                       ; IO Paths and Minimum TPD Paths ; --          ; --             ;
-; PARTITION_COLOR                    ; 16764057                        ; --                             ; --          ; Top            ;
-; PARTITION_NETLIST_TYPE             ; SOURCE                          ; --                             ; --          ; Top            ;
-; PROJECT_OUTPUT_DIRECTORY           ; 报告                            ; --                             ; --          ; --             ;
-; SMART_RECOMPILE                    ; On                              ; Off                            ; --          ; --             ;
-; USE_GENERATED_PHYSICAL_CONSTRAINTS ; Off                             ; --                             ; --          ; eda_blast_fpga ;
-+------------------------------------+---------------------------------+--------------------------------+-------------+----------------+
++---------------------------------------------------------------------------------------------------------------------------------------+
+; Flow Non-Default Global Settings                                                                                                      ;
++-------------------------------------+---------------------------------+--------------------------------+-------------+----------------+
+; Assignment Name                     ; Value                           ; Default Value                  ; Entity Name ; Section Id     ;
++-------------------------------------+---------------------------------+--------------------------------+-------------+----------------+
+; COMPILER_SIGNATURE_ID               ; 206572595103.124158335903820    ; --                             ; --          ; --             ;
+; ENABLE_SIGNALTAP                    ; Off                             ; --                             ; --          ; --             ;
+; FITTER_EFFORT                       ; Standard Fit                    ; Auto Fit                       ; --          ; --             ;
+; MAX_CORE_JUNCTION_TEMP              ; 85                              ; --                             ; --          ; --             ;
+; MIN_CORE_JUNCTION_TEMP              ; 0                               ; --                             ; --          ; --             ;
+; MISC_FILE                           ; D:/数字存储示波器/FPGA/main.dpf ; --                             ; --          ; --             ;
+; OPTIMIZE_HOLD_TIMING                ; All Paths                       ; IO Paths and Minimum TPD Paths ; --          ; --             ;
+; PARTITION_COLOR                     ; 16764057                        ; --                             ; --          ; Top            ;
+; PARTITION_FITTER_PRESERVATION_LEVEL ; PLACEMENT                       ; --                             ; --          ; Top            ;
+; PARTITION_NETLIST_TYPE              ; SOURCE                          ; --                             ; --          ; Top            ;
+; PROJECT_OUTPUT_DIRECTORY            ; 报告                            ; --                             ; --          ; --             ;
+; SMART_RECOMPILE                     ; On                              ; Off                            ; --          ; --             ;
+; USE_GENERATED_PHYSICAL_CONSTRAINTS  ; Off                             ; --                             ; --          ; eda_blast_fpga ;
+; USE_SIGNALTAP_FILE                  ; stp1.stp                        ; --                             ; --          ; --             ;
++-------------------------------------+---------------------------------+--------------------------------+-------------+----------------+
 
 
 +-----------------------------------------------------------------------------------------------------------------------------+
@@ -93,11 +96,11 @@ applicable agreement for further details.
 +-------------------------+--------------+-------------------------+---------------------+------------------------------------+
 ; Module Name             ; Elapsed Time ; Average Processors Used ; Peak Virtual Memory ; Total CPU Time (on all processors) ;
 +-------------------------+--------------+-------------------------+---------------------+------------------------------------+
-; Analysis & Synthesis    ; 00:00:03     ; 1.0                     ; 180 MB              ; 00:00:03                           ;
-; Fitter                  ; 00:00:09     ; 1.0                     ; 182 MB              ; 00:00:07                           ;
-; Assembler               ; 00:00:04     ; 1.0                     ; 163 MB              ; 00:00:04                           ;
+; Analysis & Synthesis    ; 00:00:04     ; 1.0                     ; 179 MB              ; 00:00:04                           ;
+; Fitter                  ; 00:00:08     ; 1.0                     ; 183 MB              ; 00:00:07                           ;
+; Assembler               ; 00:00:04     ; 1.0                     ; 155 MB              ; 00:00:04                           ;
 ; Classic Timing Analyzer ; 00:00:01     ; 1.0                     ; 121 MB              ; 00:00:01                           ;
-; Total                   ; 00:00:17     ; --                      ; --                  ; 00:00:15                           ;
+; Total                   ; 00:00:17     ; --                      ; --                  ; 00:00:16                           ;
 +-------------------------+--------------+-------------------------+---------------------+------------------------------------+
 
 
