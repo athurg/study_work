@@ -24,13 +24,13 @@ module clock(
 
 	always @(posedge in_clk) begin	//生成1MHz时钟
 		if(counter1>=4'd9) begin
-			clk_group[2]=~clk_group[2];
+			clk_group[0]=~clk_group[0];
 			counter1=4'd0;
 		end else
 			counter1=counter1+4'd1;
 	end
 	
-	always @(posedge clk_group[2]) begin	//生成100KHz时钟
+	always @(posedge clk_group[0]) begin	//生成100KHz时钟
 		if(counter2>=3'd4) begin
 			clk_group[1]=~clk_group[1];
 			counter2=3'd0;
@@ -40,7 +40,7 @@ module clock(
 	
 	always @(posedge clk_group[1]) begin	//生成100Hz时钟
 		if(counter3>9'd499) begin
-			clk_group[0]=~clk_group[0];
+			clk_group[2]=~clk_group[2];
 			counter3=8'd0;
 		end else
 			counter3=counter3+8'd1;
