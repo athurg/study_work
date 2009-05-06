@@ -1,0 +1,20 @@
+# SciTE session file
+
+buffer.1.path=D:\Êý×Ö´æ´¢Ê¾²¨Æ÷\FPGA\main.v
+buffer.1.position=1
+
+buffer.2.path=D:\Êý×Ö´æ´¢Ê¾²¨Æ÷\FPGA\ram.v
+buffer.2.position=1
+
+buffer.3.path=D:\Êý×Ö´æ´¢Ê¾²¨Æ÷\FPGA\rom.v
+buffer.3.position=1
+
+buffer.4.path=D:\Êý×Ö´æ´¢Ê¾²¨Æ÷\FPGA\dds.v
+buffer.4.position=1
+
+buffer.5.path=D:\Êý×Ö´æ´¢Ê¾²¨Æ÷\FPGA\address.v
+buffer.5.position=1
+
+buffer.6.path=D:\Êý×Ö´æ´¢Ê¾²¨Æ÷\FPGA\clock.v
+buffer.6.position=330
+buffer.6.current=1
