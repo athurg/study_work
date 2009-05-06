@@ -48,9 +48,11 @@ module main(
 		input sys_clk, sample_type,
 		input [1:0] freq_switch,
 		input [7:0] adc_db_a,adc_db_b,
+		output test_clock,
 		output [7:0] x_out,y_out_a,y_out_b
 	);
 
+	assign test_clock=std_clk;
 	wire std_clk;	//本示波器系统标准时钟
 	wire [8:0] ram_addr;	//帧数据暂存RAM
 	
