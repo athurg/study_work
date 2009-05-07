@@ -18,7 +18,7 @@ module clock(
 	reg[8:0] counter3;
 
 	//时钟组
-	reg[2:0] clk_group;
+	reg [2:0] clk_group;
 	
 	always @(switch or clk_group)	out_clk=clk_group[switch];	//更新输出时钟
 
