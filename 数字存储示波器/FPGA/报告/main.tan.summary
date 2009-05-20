@@ -5,19 +5,19 @@ Timing Analyzer Summary
 Type           : Worst-case tsu
 Slack          : N/A
 Required Time  : None
-Actual Time    : 6.566 ns
-From           : key_right
-To             : address:ram_addr_gen|rd_addr[5]
+Actual Time    : 8.622 ns
+From           : offset[1]
+To             : ram:ram_a|altsyncram:altsyncram_component|altsyncram_40l1:auto_generated|altsyncram_m4l1:altsyncram1|ram_block2a0~porta_address_reg8
 From Clock     : --
-To Clock       : freq_switch[0]
+To Clock       : sys_clk
 Failed Paths   : 0
 
 Type           : Worst-case tco
 Slack          : N/A
 Required Time  : None
-Actual Time    : 17.412 ns
-From           : ram:frame_ram_b|altsyncram:altsyncram|altsyncram_l0p1:auto_generated|ram_block1a1~portb_address_reg8
-To             : y_out_b[7]
+Actual Time    : 19.947 ns
+From           : address:wr_addr_counter|full
+To             : sample_ok
 From Clock     : sys_clk
 To Clock       : --
 Failed Paths   : 0
@@ -25,9 +25,9 @@ Failed Paths   : 0
 Type           : Worst-case tpd
 Slack          : N/A
 Required Time  : None
-Actual Time    : 9.572 ns
-From           : freq_switch[0]
-To             : y_out_b[2]
+Actual Time    : 13.297 ns
+From           : d_channel
+To             : dac_b[3]
 From Clock     : --
 To Clock       : --
 Failed Paths   : 0
@@ -35,9 +35,9 @@ Failed Paths   : 0
 Type           : Worst-case th
 Slack          : N/A
 Required Time  : None
-Actual Time    : 3.240 ns
-From           : adc_db_a[4]
-To             : ram:frame_ram_a|altsyncram:altsyncram|altsyncram_l0p1:auto_generated|ram_block1a0~porta_datain_reg4
+Actual Time    : 4.528 ns
+From           : reset
+To             : address:wr_addr_counter|full
 From Clock     : --
 To Clock       : sys_clk
 Failed Paths   : 0
@@ -45,52 +45,42 @@ Failed Paths   : 0
 Type           : Clock Setup: 'sys_clk'
 Slack          : N/A
 Required Time  : None
-Actual Time    : 107.25 MHz ( period = 9.324 ns )
-From           : address:ram_addr_gen|start_addr[2]
-To             : address:ram_addr_gen|rd_addr[5]
+Actual Time    : 78.81 MHz ( period = 12.688 ns )
+From           : address:wr_addr_counter|q[5]
+To             : ram:ram_b|altsyncram:altsyncram_component|altsyncram_40l1:auto_generated|altsyncram_m4l1:altsyncram1|ram_block2a1~portb_address_reg5
 From Clock     : sys_clk
 To Clock       : sys_clk
 Failed Paths   : 0
 
-Type           : Clock Setup: 'freq_switch[0]'
+Type           : Clock Setup: 'divisor[1]'
 Slack          : N/A
 Required Time  : None
-Actual Time    : 132.71 MHz ( period = 7.535 ns )
-From           : address:ram_addr_gen|start_addr[2]
-To             : address:ram_addr_gen|rd_addr[5]
-From Clock     : freq_switch[0]
-To Clock       : freq_switch[0]
+Actual Time    : 223.66 MHz ( period = 4.471 ns )
+From           : address:wr_addr_counter|q[2]
+To             : address:wr_addr_counter|q[8]
+From Clock     : divisor[1]
+To Clock       : divisor[1]
 Failed Paths   : 0
 
-Type           : Clock Setup: 'altera_internal_jtag~TCKUTAP'
+Type           : Clock Setup: 'divisor[0]'
 Slack          : N/A
 Required Time  : None
-Actual Time    : 134.99 MHz ( period = 7.408 ns )
-From           : sld_hub:sld_hub_inst|irf_reg[1][1]
-To             : sld_hub:sld_hub_inst|tdo
-From Clock     : altera_internal_jtag~TCKUTAP
-To Clock       : altera_internal_jtag~TCKUTAP
-Failed Paths   : 0
-
-Type           : Clock Setup: 'freq_switch[1]'
-Slack          : N/A
-Required Time  : None
-Actual Time    : 135.01 MHz ( period = 7.407 ns )
-From           : address:ram_addr_gen|start_addr[2]
-To             : address:ram_addr_gen|rd_addr[5]
-From Clock     : freq_switch[1]
-To Clock       : freq_switch[1]
+Actual Time    : 271.81 MHz ( period = 3.679 ns )
+From           : address:wr_addr_counter|q[2]
+To             : address:wr_addr_counter|q[8]
+From Clock     : divisor[0]
+To Clock       : divisor[0]
 Failed Paths   : 0
 
 Type           : Clock Hold: 'sys_clk'
 Slack          : Not operational: Clock Skew > Data Delay
 Required Time  : None
 Actual Time    : N/A
-From           : address:ram_addr_gen|start_addr[0]
-To             : address:ram_addr_gen|start_addr[0]
+From           : address:wr_addr_counter|q[0]
+To             : address:wr_addr_counter|q[0]
 From Clock     : sys_clk
 To Clock       : sys_clk
-Failed Paths   : 9
+Failed Paths   : 90
 
 Type           : Total number of failed paths
 Slack          : 
@@ -100,7 +90,7 @@ From           :
 To             : 
 From Clock     : 
 To Clock       : 
-Failed Paths   : 9
+Failed Paths   : 90
 
 --------------------------------------------------------------------------------------
 
