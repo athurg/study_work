@@ -1,0 +1,13 @@
+dac_a	JQ5
+dac_x	JQ8
+adc_a	JQ3
+*sys_clk	17
+sample_init	LCD
+offset	LCD
+
+d_channel	JQ11[1]
+reset		JQ11[2]
+successive	JQ11[3]
+expand	JQ11[4]
+sample_ok	JQ11[5]
+divisior	JQ11[9:10]
